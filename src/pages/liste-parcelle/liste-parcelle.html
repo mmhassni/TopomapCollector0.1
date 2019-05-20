@@ -1,0 +1,87 @@
+<!--
+  Generated template for the AjouterProjetPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+    <ion-title>Suivi Gasoil</ion-title>
+
+    <ion-buttons end *ngIf="!modeEditionAffichage">
+      <button ion-button color="secondary" (click)="modeEdition()">
+        Modifier
+      </button>
+    </ion-buttons>
+
+  </ion-navbar>
+
+</ion-header>
+
+
+
+<ion-content padding>
+
+  <ion-item padding="0" style="border-bottom: 0px;">
+    <h1 >Informations :</h1>
+  </ion-item>
+
+  <ion-item>
+    <ion-label style="opacity:1; color: #000;font-weight: bold">Consistance:</ion-label>
+    <ion-select (ionChange) = "onConsistanceSelectChange($event)"   multiple="false" name = "Type vehicule" [(ngModel)]="objetActuel.consistanceionselect"  >
+      <ion-option *ngFor="let item of listeChoixConsistance" [value]="item[0]">{{item[0]}}</ion-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-item *ngIf="objetActuel.consistanceionselect || objetActuel.consistance">
+    <ion-input  (ngModelChange)="onConsistanceInuptChange($event)"  text-center type="text" name="adressefournisseur" [(ngModel)]="objetActuel.consistance"  ></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label style="opacity:1; color: #000;font-weight: bold">Plus Values:</ion-label>
+    <ion-select (ionChange) = "onPlusvaluesSelectChange($event)"   multiple="true" name = "Type vehicule" [(ngModel)]="objetActuel.plusvaluesionselect"  >
+      <ion-option *ngFor="let item of listeChoixPlusvalues" [value]="item[0]">{{item[0]}}</ion-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-item *ngIf="objetActuel.plusvaluesionselect || objetActuel.plusvalues">
+    <ion-input (ngModelChange)="onPlusvaluesInuptChange($event)"  text-center type="text" name="adressefournisseur" [(ngModel)]="objetActuel.plusvalues"  ></ion-input>
+  </ion-item>
+
+
+  <ion-item>
+    <ion-label style="opacity:1; color: #000;font-weight: bold">Constructions: </ion-label>
+    <ion-select (ionChange) = "onConstructionsSelectChange($event)"   multiple="true" name = "Type vehicule" [(ngModel)]="objetActuel.constructionsionselect"  >
+      <ion-option *ngFor="let item of listeChoixConstructions" [value]="item[0]">{{item[0]}}</ion-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-item *ngIf="objetActuel.constructionsionselect || objetActuel.constructions">
+    <ion-input (ngModelChange)="onConstructionsInuptChange($event)"  text-center type="text" name="adressefournisseur" [(ngModel)]="objetActuel.constructions"  ></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label style="color: #000;font-weight: bold">
+      Adresse :
+    </ion-label>
+    <ion-input text-center type="text" [(ngModel)]="objetActuel.adresse"  ></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label style="color: #000;font-weight: bold">
+      Coll selon Naïb :
+    </ion-label>
+    <ion-input text-center type="text" [(ngModel)]="objetActuel.coldenaib"  ></ion-input>
+  </ion-item>
+
+
+
+
+
+  <button type="submit" color="tertiary" ion-button  block >
+    Enregistrer modifications
+  </button>
+
+
+
+</ion-content>

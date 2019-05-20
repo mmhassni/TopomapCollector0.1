@@ -3,37 +3,56 @@ import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 
-import { AboutPage } from '../pages/about/about';
-import { ContactPage } from '../pages/contact/contact';
-import { HomePage } from '../pages/home/home';
+
 import { TabsPage } from '../pages/tabs/tabs';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { StockageProvider } from '../providers/stockage/stockage';
+import { CameraProvider } from '../providers/camera/camera';
+import {FilePath} from "@ionic-native/file-path";
+import {Device} from "@ionic-native/device";
+import {HTTP} from "@ionic-native/http";
+import { Camera } from '@ionic-native/camera';
+import { Geolocation } from '@ionic-native/geolocation';
+import { HttpClientModule } from '@angular/common/http';
+import {MapLocationPage} from "../pages/map-location/map-location";
+import {AjouterParcellePage} from "../pages/ajouter-parcelle/ajouter-parcelle";
+import {ListeParcellePage} from "../pages/liste-parcelle/liste-parcelle";
 
+
+
+
+// @ts-ignore
 @NgModule({
   declarations: [
     MyApp,
-    AboutPage,
-    ContactPage,
-    HomePage,
-    TabsPage
+    TabsPage,
+    ListeParcellePage,
+    AjouterParcellePage,
+    MapLocationPage
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    AboutPage,
-    ContactPage,
-    HomePage,
-    TabsPage
+    TabsPage,
+    ListeParcellePage,
+    AjouterParcellePage,
+    MapLocationPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
+    Camera,
+    Device,
+    Geolocation,
+    StockageProvider,
+    CameraProvider,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })
