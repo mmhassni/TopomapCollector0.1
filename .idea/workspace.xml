@@ -3,51 +3,24 @@
   <component name="ChangeListManager">
     <list default="true" id="7b171b8e-49e4-4b5e-8a93-1ca4019260a8" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.sourcemaps/main.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/.sourcemaps/main.js.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ionic.config.json" beforeDir="false" afterPath="$PROJECT_DIR$/ionic.config.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/cordova-ios/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/cordova-ios/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/cordova-plugin-advanced-http/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/cordova-plugin-advanced-http/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/cordova-plugin-camera/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/cordova-plugin-camera/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/cordova-plugin-code-push/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/cordova-plugin-code-push/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/cordova-plugin-device/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/cordova-plugin-device/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/cordova-plugin-dialogs/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/cordova-plugin-dialogs/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/cordova-plugin-file-transfer/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/cordova-plugin-file-transfer/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/cordova-plugin-file/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/cordova-plugin-file/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/cordova-plugin-filepath/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/cordova-plugin-filepath/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/cordova-plugin-geolocation/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/cordova-plugin-geolocation/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/cordova-plugin-ionic-keyboard/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/cordova-plugin-ionic-keyboard/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/cordova-plugin-ionic-webview/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/cordova-plugin-ionic-webview/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/cordova-plugin-ionic/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/cordova-plugin-ionic/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/cordova-plugin-splashscreen/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/cordova-plugin-splashscreen/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/cordova-plugin-statusbar/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/cordova-plugin-statusbar/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/cordova-plugin-uid/LICENSE" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/cordova-plugin-uid/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/cordova-plugin-uid/package.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/cordova-plugin-uid/plugin.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/cordova-plugin-uid/src/android/UID.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/cordova-plugin-uid/src/ios/CDVUID.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/cordova-plugin-uid/src/ios/CDVUID.m" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/cordova-plugin-uid/src/ios/OpenUDID.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/cordova-plugin-uid/src/ios/OpenUDID.m" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/cordova-plugin-uid/www/uid.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/cordova-plugin-whitelist/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/cordova-plugin-whitelist/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/cordova-plugin-zip/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/cordova-plugin-zip/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/cordova-sqlite-storage/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/cordova-sqlite-storage/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/platforms/ios/CordovaLib/CordovaLib.xcodeproj/xcuserdata/admin.xcuserdatad/xcschemes/xcschememanagement.plist" beforeDir="false" afterPath="$PROJECT_DIR$/platforms/ios/CordovaLib/CordovaLib.xcodeproj/xcuserdata/admin.xcuserdatad/xcschemes/xcschememanagement.plist" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/platforms/ios/TopomapCollector.xcworkspace/xcuserdata/admin.xcuserdatad/UserInterfaceState.xcuserstate" beforeDir="false" afterPath="$PROJECT_DIR$/platforms/ios/TopomapCollector.xcworkspace/xcuserdata/admin.xcuserdatad/UserInterfaceState.xcuserstate" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/app.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/app.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/ajouter-parcelle/ajouter-parcelle.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/ajouter-parcelle/ajouter-parcelle.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/ajouter-parcelle/ajouter-parcelle.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/ajouter-parcelle/ajouter-parcelle.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/liste-parcelle/liste-parcelle.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/liste-parcelle/liste-parcelle.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/providers/camera/camera.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/providers/camera/camera.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/www/build/0.js" beforeDir="false" afterPath="$PROJECT_DIR$/www/build/0.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/www/build/1.js" beforeDir="false" afterPath="$PROJECT_DIR$/www/build/1.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/www/build/2.js" beforeDir="false" afterPath="$PROJECT_DIR$/www/build/2.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/www/build/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/www/build/main.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/www/build/main.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/www/build/main.js.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/www/build/vendor.js" beforeDir="false" afterPath="$PROJECT_DIR$/www/build/vendor.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/www/build/vendor.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/www/build/vendor.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/assets/fonts/ionicons.svg" beforeDir="false" afterPath="$PROJECT_DIR$/www/assets/fonts/ionicons.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/assets/fonts/noto-sans-bold.ttf" beforeDir="false" afterPath="$PROJECT_DIR$/www/assets/fonts/noto-sans-bold.ttf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/assets/fonts/noto-sans-regular.ttf" beforeDir="false" afterPath="$PROJECT_DIR$/www/assets/fonts/noto-sans-regular.ttf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/build/0.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/build/0.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/build/1.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/build/1.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/build/2.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/build/2.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/build/main.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/build/main.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/build/main.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/build/main.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/build/vendor.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/build/vendor.js.map" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/www/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/www/index.html" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -64,8 +37,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/app/app.component.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="337">
-              <caret line="41" lean-forward="true" selection-start-line="41" selection-end-line="41" />
+            <state relative-caret-position="210">
+              <caret line="14" column="12" selection-start-line="14" selection-start-column="12" selection-end-line="14" selection-end-column="12" />
               <folding>
                 <element signature="e#0#42#0" expanded="true" />
               </folding>
@@ -107,7 +80,7 @@
         <entry file="file://$PROJECT_DIR$/src/pages/ajouter-parcelle/ajouter-parcelle.html">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="566">
-              <caret line="144" lean-forward="true" selection-start-line="144" selection-end-line="144" />
+              <caret line="144" selection-start-line="144" selection-end-line="144" />
               <folding>
                 <element signature="n#style#0;n#img#2;n#ion-content#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#img#3;n#ion-content#0;n#!!top" expanded="true" />
@@ -344,18 +317,18 @@
       <option name="presentableId" value="Default" />
       <updated>1558225378087</updated>
       <workItem from="1558225380837" duration="7433000" />
-      <workItem from="1558290521104" duration="32942000" />
+      <workItem from="1558290521104" duration="33257000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="40375000" />
+    <option name="totallyTimeSpent" value="40690000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.3883016" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.3883016" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="npm" order="2" side_tool="true" />
       <window_info id="Favorites" order="3" side_tool="true" />
@@ -370,7 +343,7 @@
       <window_info anchor="bottom" id="Version Control" order="8" />
       <window_info anchor="bottom" id="TypeScript" order="9" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
-      <window_info anchor="bottom" id="Terminal" order="11" visible="true" weight="0.32891566" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="11" visible="true" weight="0.32891566" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -514,7 +487,7 @@
     <entry file="file://$PROJECT_DIR$/src/pages/ajouter-parcelle/ajouter-parcelle.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="566">
-          <caret line="144" lean-forward="true" selection-start-line="144" selection-end-line="144" />
+          <caret line="144" selection-start-line="144" selection-end-line="144" />
           <folding>
             <element signature="n#style#0;n#img#2;n#ion-content#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#img#3;n#ion-content#0;n#!!top" expanded="true" />
@@ -537,8 +510,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/app/app.component.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="337">
-          <caret line="41" lean-forward="true" selection-start-line="41" selection-end-line="41" />
+        <state relative-caret-position="210">
+          <caret line="14" column="12" selection-start-line="14" selection-start-column="12" selection-end-line="14" selection-end-column="12" />
           <folding>
             <element signature="e#0#42#0" expanded="true" />
           </folding>

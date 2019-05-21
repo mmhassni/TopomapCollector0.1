@@ -12,6 +12,8 @@ import {Pro} from "@ionic/pro";
 export class MyApp {
   rootPage:any = TabsPage;
 
+  public progressBar = 0;
+
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen) {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
