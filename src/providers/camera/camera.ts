@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import {ActionSheetController, Platform} from "ionic-angular";
+import {ActionSheetController, Platform, ToastController} from "ionic-angular";
 import {Camera} from "@ionic-native/camera";
 import {FilePath} from "@ionic-native/file-path/ngx";
+import {HttpClient} from "@angular/common/http";
 
 /*
   Generated class for the CameraProvider provider.
@@ -12,11 +13,11 @@ import {FilePath} from "@ionic-native/file-path/ngx";
 @Injectable()
 export class CameraProvider {
 
-  constructor(public actionSheetCtrl: ActionSheetController, private camera: Camera, public platform: Platform, private filePath: FilePath) {
+  constructor(public actionSheetCtrl: ActionSheetController, public httpClient : HttpClient,public toastCtrl : ToastController, private camera: Camera, public platform: Platform, private filePath: FilePath) {
     console.log('Hello CameraProvider Provider');
   }
 
-  photoChooser(objetActuel,photoAttributName,width,height,quality) :void{
+  photoChooser(objetActuel,photoAttributName,width,height,quality,objet) :void{
 
 
     let actionSheet = this.actionSheetCtrl.create({
@@ -25,14 +26,14 @@ export class CameraProvider {
         {
           text: 'Charger à partir de la galerie',
           handler: () => {
-            this.takePicture(this.camera.PictureSourceType.PHOTOLIBRARY,objetActuel,photoAttributName,width,height,quality);
+            this.takePicture(this.camera.PictureSourceType.PHOTOLIBRARY,objetActuel,photoAttributName,width,height,quality,objet);
 
           }
         },
         {
           text: 'Charger à partir de Caméra',
           handler: () => {
-            this.takePicture(this.camera.PictureSourceType.CAMERA,objetActuel,photoAttributName,width,height,quality);
+            this.takePicture(this.camera.PictureSourceType.CAMERA,objetActuel,photoAttributName,width,height,quality,objet);
           }
         },
         {
@@ -48,7 +49,7 @@ export class CameraProvider {
 
   }
 
-  takePicture(sourceType,objetActuel,photoAttributName,width,height,quality) {
+  takePicture(sourceType,objetActuel,photoAttributName,width,height,quality,objet) {
 
     /*
     const CameraOptions  = {
@@ -86,6 +87,57 @@ export class CameraProvider {
         objetActuel[photoAttributName] = 'data:image/jpeg;base64,' + imageData;
 
       }
+
+      this.httpClient.post("http://ec2-52-47-166-154.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
+        "insert into photoparcelles (photo,idparcelle,typephoto) " +
+        "values ("+
+        "" + "'postBody'"   + "," +
+        "" + this.adaptValueQuery( (objet as any).id          , "number"  )   + "," +
+        "" + this.adaptValueQuery( photoAttributName        , "text"  )   + "" +
+        ")", 'data:image/jpeg;base64,' + imageData
+      )
+        .subscribe( data =>{
+
+        },err => {
+
+          let messageGetToast = "Informations attributaires enregistrées";
+
+          console.log(JSON.stringify(err));
+
+
+          if(err.error && (err.error.message == "org.postgresql.util.PSQLException: Aucun résultat retourné par la requête." || err.error.message == "org.postgresql.util.PSQLException: No results were returned by the query.")  ){
+
+            let toast = this.toastCtrl.create({
+              message: messageGetToast,
+              duration: 1000,
+              position: 'top',
+              cssClass: "toast-success"
+            });
+
+            toast.present();
+
+
+
+          }
+          else{
+            messageGetToast = "Informations attributaires non enregistrées";
+
+            let toast = this.toastCtrl.create({
+              message: messageGetToast,
+              duration: 1000,
+              position: 'top',
+              cssClass: "toast-echec"
+            });
+
+            toast.present();
+
+          }
+
+        });
+
+
+
+
     }, (err) => {
 
       console.log(err.toString());
@@ -93,6 +145,26 @@ export class CameraProvider {
 
 
 
+  }
+
+  adaptValueQuery(value,type) {
+    let retour = null;
+    if (!value) {
+      if (type == "text") {
+        retour = "''";
+      } else {
+        retour = "";
+      }
+    }
+    else {
+      if (type == "text") {
+        retour = "'" + value + "'";
+      } else {
+        retour = value;
+      }
+
+    }
+    return retour;
   }
 
 

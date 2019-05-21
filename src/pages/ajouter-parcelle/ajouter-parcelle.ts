@@ -26,6 +26,80 @@ export class AjouterParcellePage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public httpClient : HttpClient,public toastCtrl : ToastController,  public cameraProvider : CameraProvider) {
 
+
+    this.objetActuel =  this.navParams.data.informationsActuelles;
+
+    this.httpClient.get("http://ec2-52-47-166-154.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
+      "select photo from photoparcelles " +
+      "where idparcelle = " + this.navParams.data.informationsActuelles.id + " " +
+      "and typephoto = 'photocinrecto' " +
+      "order by id desc " +
+      "limit 1"
+    )
+      .subscribe( data =>{
+
+        try{
+          (this.objetActuel as any).photocinrecto = (data as any).features[0].photo;
+        }catch(e){
+          console.log(e);
+        }
+
+      });
+
+    this.httpClient.get("http://ec2-52-47-166-154.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
+      "select photo from photoparcelles " +
+      "where idparcelle = " + this.navParams.data.informationsActuelles.id + " " +
+      "and typephoto = 'photocinverso' " +
+      "order by id desc " +
+      "limit 1"
+    )
+      .subscribe( data =>{
+
+        try{
+          (this.objetActuel as any).photocinverso = (data as any).features[0].photo;
+        }catch(e){
+          console.log(e);
+        }
+
+      });
+
+    this.httpClient.get("http://ec2-52-47-166-154.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
+      "select photo from photoparcelles " +
+      "where idparcelle = " + this.navParams.data.informationsActuelles.id + " " +
+      "and typephoto = 'photoparcelle' " +
+      "order by id desc " +
+      "limit 1"
+    )
+      .subscribe( data =>{
+
+        try{
+          (this.objetActuel as any).photoparcelle = (data as any).features[0].photo;
+        }catch(e){
+          console.log(e);
+        }
+
+
+      });
+
+    this.httpClient.get("http://ec2-52-47-166-154.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
+      "select photo from photoparcelles " +
+      "where idparcelle = " + this.navParams.data.informationsActuelles.id + " " +
+      "and typephoto = 'photocroquis' " +
+      "order by id desc " +
+      "limit 1"
+    )
+      .subscribe( data =>{
+
+        try{
+          (this.objetActuel as any).photocroquis = (data as any).features[0].photo;
+        }catch(e){
+          console.log(e);
+        }
+
+      });
+
+
+
     this.httpClient.get("http://ec2-52-47-166-154.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
       "select consistance from parcelles")
       .subscribe( data =>{
@@ -260,14 +334,13 @@ export class AjouterParcellePage {
     }
 
     this.httpClient.get("http://ec2-52-47-166-154.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
-      "insert into parcelles(consistance,plusvalues,constructions,adresse,coldenaib) " +
-      "values ("+
-      "" + this.adaptValueQuery( (this.objetActuel as any).consistance      , "text"  )   + "," +
-      "" + this.adaptValueQuery( (this.objetActuel as any).plusvalues       , "text"  )  + "," +
-      "" + this.adaptValueQuery( (this.objetActuel as any).constructions    , "text"  )    + "," +
-      "" + this.adaptValueQuery( (this.objetActuel as any).adresse          , "text"  )   + "," +
-      "" + this.adaptValueQuery( (this.objetActuel as any).coldenaib        , "text"  )   + "" +
-      ")"
+      "update parcelles set " +
+      " consistance = " + this.adaptValueQuery( (this.objetActuel as any).consistance       , "text"  )  +
+      ", plusvalues = " + this.adaptValueQuery( (this.objetActuel as any).plusvalues       , "text"  )  +
+      ", constructions = " + this.adaptValueQuery( (this.objetActuel as any).constructions          , "text"  )   +
+      ", adresse = " + this.adaptValueQuery( (this.objetActuel as any).adresse          , "text"  )   +
+      ", coldenaib =  " + this.adaptValueQuery( (this.objetActuel as any).coldenaib        , "text"  )   +
+      " where id = " + (this.objetActuel as any).id
     )
       .subscribe( data =>{
 
@@ -310,7 +383,7 @@ export class AjouterParcellePage {
 
   adaptValueQuery(value,type) {
     let retour = null;
-    if (!value || value == undefined) {
+    if (!value) {
       if (type == "text") {
         retour = "''";
       } else {
@@ -328,8 +401,18 @@ export class AjouterParcellePage {
     return retour;
   }
 
-  photoChooser(objetActuel , photobgbongasoil ) {
-    this.cameraProvider.photoChooser(objetActuel,photobgbongasoil,600,1000,40);
+  async photoChooser(objetActuel , photoActuelle, width,heigth,quality ) {
+
+
+
+    try{
+      await this.cameraProvider.photoChooser(objetActuel,photoActuelle,width,heigth,quality,this.objetActuel);
+
+    }
+    catch(e){
+      console.log(e);
+    }
+
   }
 
 }

@@ -26,8 +26,15 @@ export class ListeParcellePage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public httpClient : HttpClient,public toastCtrl : ToastController,  public cameraProvider : CameraProvider) {
 
+    this.refresh();
+
+
+  }
+
+  refresh(){
+
     this.httpClient.get("http://ec2-52-47-166-154.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
-      "select * from parcelles")
+      "select * from parcelles order by id desc")
       .subscribe( data =>{
 
 
@@ -36,7 +43,10 @@ export class ListeParcellePage {
 
       });
 
+  }
 
+  ionViewDidEnter() {
+    this.refresh();
   }
 
   ionViewDidLoad() {
@@ -97,10 +107,6 @@ export class ListeParcellePage {
 
 
 
-  photoChooser(objetActuel , photobgbongasoil ) {
-    this.cameraProvider.photoChooser(objetActuel,photobgbongasoil,600,1000,40);
-  }
-
   itemTapped($event: MouseEvent, item: any) {
 
     this.navCtrl.push(AjouterParcellePage, {
@@ -115,11 +121,11 @@ export class ListeParcellePage {
     this.httpClient.get("http://ec2-52-47-166-154.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
       "insert into parcelles(consistance,plusvalues,constructions,adresse,coldenaib) " +
       "values ("+
-      "" + this.adaptValueQuery( (this.objetActuel as any).consistance      , "text"  )   + "," +
-      "" + this.adaptValueQuery( (this.objetActuel as any).plusvalues       , "text"  )  + "," +
-      "" + this.adaptValueQuery( (this.objetActuel as any).constructions    , "text"  )    + "," +
-      "" + this.adaptValueQuery( (this.objetActuel as any).adresse          , "text"  )   + "," +
-      "" + this.adaptValueQuery( (this.objetActuel as any).coldenaib        , "text"  )   + "" +
+      "" + this.adaptValueQuery( null    , "text"  )   + "," +
+      "" + this.adaptValueQuery( null    , "text"  )  + "," +
+      "" + this.adaptValueQuery( null    , "text"  )    + "," +
+      "" + this.adaptValueQuery( null    , "text"  )   + "," +
+      "" + this.adaptValueQuery( null    , "text"  )   + "" +
       ")"
     )
       .subscribe( data =>{
@@ -130,6 +136,7 @@ export class ListeParcellePage {
 
         if(err.error && (err.error.message == "org.postgresql.util.PSQLException: Aucun résultat retourné par la requête." || err.error.message == "org.postgresql.util.PSQLException: No results were returned by the query.")  ){
 
+          this.refresh();
           let toast = this.toastCtrl.create({
             message: messageGetToast,
             duration: 1000,
@@ -158,5 +165,26 @@ export class ListeParcellePage {
 
       });
 
+  }
+
+
+  adaptValueQuery(value,type) {
+    let retour = null;
+    if (!value) {
+      if (type == "text") {
+        retour = "''";
+      } else {
+        retour = "";
+      }
+    }
+    else {
+      if (type == "text") {
+        retour = "'" + value + "'";
+      } else {
+        retour = value;
+      }
+
+    }
+    return retour;
   }
 }

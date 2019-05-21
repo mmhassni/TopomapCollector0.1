@@ -97,12 +97,57 @@
   <br>
 
   <div text-center>
-    <button ion-button round  (click)="photoChooser(objetActuel,'photocinrecto')">
+    <button ion-button round  (click)="photoChooser(objetActuel,'photocinrecto',600,1000,40)">
       Charger Photo  <ion-icon padding name="camera"></ion-icon>
     </button>
   </div>
 
 
+
+
+  <ion-item padding="0" style="border-bottom: 0px;">
+    <h1 >Photo CIN Verso :</h1>
+  </ion-item>
+
+  <img style="width: auto;margin: auto;display: block"  [(src)]="objetActuel.photocinverso" *ngIf="objetActuel.photocinverso"/>
+
+  <br>
+
+  <div text-center>
+    <button ion-button round  (click)="photoChooser(objetActuel,'photocinverso',600,1000,40)">
+      Charger Photo  <ion-icon padding name="camera"></ion-icon>
+    </button>
+  </div>
+
+
+  <ion-item padding="0" style="border-bottom: 0px;">
+    <h1 >Photo Parcelle :</h1>
+  </ion-item>
+
+  <img style="width: auto;margin: auto;display: block"  [(src)]="objetActuel.photoparcelle" *ngIf="objetActuel.photoparcelle"/>
+
+  <br>
+
+  <div text-center>
+    <button ion-button round  (click)="photoChooser(objetActuel,'photoparcelle',600,1000,40)">
+      Charger Photo  <ion-icon padding name="camera"></ion-icon>
+    </button>
+  </div>
+
+
+  <ion-item padding="0" style="border-bottom: 0px;">
+    <h1 >Photo Croquis :</h1>
+  </ion-item>
+
+  <img style="width: auto;margin: auto;display: block"  [(src)]="objetActuel.photocroquis" *ngIf="objetActuel.photocroquis"/>
+
+  <br>
+
+  <div text-center>
+    <button ion-button round  (click)="photoChooser(objetActuel,'photocroquis',600,1000,40)">
+      Charger Photo  <ion-icon padding name="camera"></ion-icon>
+    </button>
+  </div>
 
 
 </ion-content>
