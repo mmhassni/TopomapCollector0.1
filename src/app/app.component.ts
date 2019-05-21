@@ -44,11 +44,14 @@ export class MyApp {
 
   async getVersionInfo(){
     const versionInfo = await Pro.deploy.getCurrentVersion();
+    console.log(versionInfo);
   }
 
   async checkChannel() {
     try {
       const res = await Pro.deploy.getConfiguration();
+      console.log(res);
+
     } catch (err) {
       // We encountered an error.
       // Here's how we would log it to Ionic Pro Monitoring while also catching:
