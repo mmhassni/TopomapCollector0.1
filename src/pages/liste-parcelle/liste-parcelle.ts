@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import {IonicPage, NavController, NavParams, ToastController} from 'ionic-angular';
 import {HttpClient} from "@angular/common/http";
+import {CameraProvider} from "../../providers/camera/camera";
+import {AjouterParcellePage} from "../ajouter-parcelle/ajouter-parcelle";
 
 /**
  * Generated class for the ListeParcellePage page.
@@ -18,136 +20,22 @@ export class ListeParcellePage {
 
   public objetActuel = {};
 
-  public listeChoixPlusvalues = [];
-  public listeChoixConstructions = [];
-  public listeChoixConsistance = [];
+  public listeObjetActuelle = [];
 
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public httpClient : HttpClient) {
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, public httpClient : HttpClient,public toastCtrl : ToastController,  public cameraProvider : CameraProvider) {
 
     this.httpClient.get("http://ec2-52-47-166-154.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
-      "select consistance from parcelles")
+      "select * from parcelles")
       .subscribe( data =>{
 
 
+        this.listeObjetActuelle = (data as any).features;
 
-        let tableStatistiques = {};
-        data = (data as any).features;
-        for(let i=0; i < (data as any).length ; i++){
-
-          try{
-            let itemTemp = (data as any)[i]["consistance"].split("+");
-
-            for(let j=0; j < itemTemp.length ; j++){
-              if(tableStatistiques[itemTemp[j]] == undefined){
-                tableStatistiques[itemTemp[j]] = 1;
-              }else{
-                tableStatistiques[itemTemp[j]] = tableStatistiques[itemTemp[j]]+1;
-
-              }
-            }
-          }
-          catch(e){
-          }
-
-        }
-
-        let tableIndexStatSorted = [];
-        for(let pp in tableStatistiques) {
-          tableIndexStatSorted.push([pp,tableStatistiques[pp]]);
-        }
-
-        tableIndexStatSorted.sort(function(obj){
-          return obj[1];
-        });
-
-        this.listeChoixConsistance = tableIndexStatSorted;
-
-        console.log(tableIndexStatSorted);
 
       });
 
-    this.httpClient.get("http://ec2-52-47-166-154.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
-      "select plusvalues from parcelles")
-      .subscribe( data =>{
-
-        let tableStatistiques = {};
-        data = (data as any).features;
-        for(let i=0; i < (data as any).length ; i++){
-          try {
-            let itemTemp = (data as any)[i]["plusvalues"].split("+");
-
-            for (let j = 0; j < itemTemp.length; j++) {
-              if (tableStatistiques[itemTemp[j]] == undefined) {
-                tableStatistiques[itemTemp[j]] = 1;
-              } else {
-                tableStatistiques[itemTemp[j]] = tableStatistiques[itemTemp[j]] + 1;
-
-              }
-            }
-          }
-          catch(e){
-
-          }
-
-        }
-
-        let tableIndexStatSorted = [];
-        for(let pp in tableStatistiques) {
-          tableIndexStatSorted.push([pp,tableStatistiques[pp]]);
-        }
-
-        tableIndexStatSorted.sort(function(obj){
-          return obj[1];
-        });
-
-        this.listeChoixPlusvalues = tableIndexStatSorted;
-
-        console.log(tableIndexStatSorted);
-
-      });
-
-    this.httpClient.get("http://ec2-52-47-166-154.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
-      "select constructions from parcelles")
-      .subscribe( data =>{
-
-        let tableStatistiques = {};
-        data = (data as any).features;
-        for(let i=0; i < (data as any).length ; i++){
-
-          try{
-            let itemTemp = (data as any)[i]["constructions"].split("+");
-
-            for(let j=0; j < itemTemp.length ; j++){
-              if(tableStatistiques[itemTemp[j]] == undefined){
-                tableStatistiques[itemTemp[j]] = 1;
-              }else{
-                tableStatistiques[itemTemp[j]] = tableStatistiques[itemTemp[j]]+1;
-
-              }
-            }
-
-          }catch(e){
-
-          }
-
-
-        }
-
-        let tableIndexStatSorted = [];
-        for(let pp in tableStatistiques) {
-          tableIndexStatSorted.push([pp,tableStatistiques[pp]]);
-        }
-
-        tableIndexStatSorted.sort(function(obj){
-          return obj[1];
-        });
-
-        this.listeChoixConstructions = tableIndexStatSorted;
-
-        console.log(tableIndexStatSorted);
-
-      });
 
   }
 
@@ -207,40 +95,68 @@ export class ListeParcellePage {
 
   }
 
-  onPlusvaluesInuptChange($event) {
 
-    this.objetActuel["plusvaluesionselect"] = "";
+
+  photoChooser(objetActuel , photobgbongasoil ) {
+    this.cameraProvider.photoChooser(objetActuel,photobgbongasoil,600,1000,40);
+  }
+
+  itemTapped($event: MouseEvent, item: any) {
+
+    this.navCtrl.push(AjouterParcellePage, {
+      informationsActuelles: item,
+      action:"modifier"
+    });
 
   }
 
-  onConsistanceSelectChange($event) {
+  ajouterItem() {
 
-    if($event){
-      let value = "";
-      if(typeof $event == "object"){
-        for(let i = 0; i < $event.length ; i++){
-          if(i == 0){
-            value = value + $event[i];
-          }
-          else{
-            value = value + "+" + $event[i];
-          }
+    this.httpClient.get("http://ec2-52-47-166-154.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
+      "insert into parcelles(consistance,plusvalues,constructions,adresse,coldenaib) " +
+      "values ("+
+      "" + this.adaptValueQuery( (this.objetActuel as any).consistance      , "text"  )   + "," +
+      "" + this.adaptValueQuery( (this.objetActuel as any).plusvalues       , "text"  )  + "," +
+      "" + this.adaptValueQuery( (this.objetActuel as any).constructions    , "text"  )    + "," +
+      "" + this.adaptValueQuery( (this.objetActuel as any).adresse          , "text"  )   + "," +
+      "" + this.adaptValueQuery( (this.objetActuel as any).coldenaib        , "text"  )   + "" +
+      ")"
+    )
+      .subscribe( data =>{
+
+      },err => {
+
+        let messageGetToast = "Informations attributaires enregistrées";
+
+        if(err.error && (err.error.message == "org.postgresql.util.PSQLException: Aucun résultat retourné par la requête." || err.error.message == "org.postgresql.util.PSQLException: No results were returned by the query.")  ){
+
+          let toast = this.toastCtrl.create({
+            message: messageGetToast,
+            duration: 1000,
+            position: 'top',
+            cssClass: "toast-success"
+          });
+
+          toast.present();
+
+
+
         }
-      }else{
-        value = $event;
-      }
+        else{
+          messageGetToast = "Informations attributaires non enregistrées";
 
-      this.objetActuel["consistance"] = value;
+          let toast = this.toastCtrl.create({
+            message: messageGetToast,
+            duration: 1000,
+            position: 'top',
+            cssClass: "toast-echec"
+          });
 
+          toast.present();
 
-    }
-    
-  }
+        }
 
-  onConsistanceInuptChange($event: {}) {
-
-    this.objetActuel["consistanceionselect"] = "";
-
+      });
 
   }
 }

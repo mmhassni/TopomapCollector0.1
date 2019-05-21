@@ -16,7 +16,7 @@ export class CameraProvider {
     console.log('Hello CameraProvider Provider');
   }
 
-  photoChooser(objetActuel,photoAttributName) :void{
+  photoChooser(objetActuel,photoAttributName,width,height,quality) :void{
 
 
     let actionSheet = this.actionSheetCtrl.create({
@@ -25,14 +25,14 @@ export class CameraProvider {
         {
           text: 'Charger à partir de la galerie',
           handler: () => {
-            this.takePicture(this.camera.PictureSourceType.PHOTOLIBRARY,objetActuel,photoAttributName);
+            this.takePicture(this.camera.PictureSourceType.PHOTOLIBRARY,objetActuel,photoAttributName,width,height,quality);
 
           }
         },
         {
           text: 'Charger à partir de Caméra',
           handler: () => {
-            this.takePicture(this.camera.PictureSourceType.CAMERA,objetActuel,photoAttributName);
+            this.takePicture(this.camera.PictureSourceType.CAMERA,objetActuel,photoAttributName,width,height,quality);
           }
         },
         {
@@ -48,7 +48,7 @@ export class CameraProvider {
 
   }
 
-  takePicture(sourceType,objetActuel,photoAttributName) {
+  takePicture(sourceType,objetActuel,photoAttributName,width,height,quality) {
 
     /*
     const CameraOptions  = {
@@ -59,12 +59,12 @@ export class CameraProvider {
     };
     */
     const CameraOptions  = {
-      quality: 40,
+      quality: quality,
       destinationType: this.camera.DestinationType.DATA_URL,
       encodingType: this.camera.EncodingType.JPEG,
       mediaType: this.camera.MediaType.PICTURE,
-      targetWidth: 600,
-      targetHeight: 1000
+      targetWidth: width,
+      targetHeight: height
     };
 
 
