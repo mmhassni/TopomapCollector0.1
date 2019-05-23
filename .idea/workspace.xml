@@ -1,26 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="7b171b8e-49e4-4b5e-8a93-1ca4019260a8" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/src/pages/ajouter-parcelle/ajouter-parcelle.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/ajouter-parcelle/ajouter-parcelle.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/liste-parcelle/liste-parcelle.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/liste-parcelle/liste-parcelle.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/www/assets/fonts/ionicons.svg" beforeDir="false" afterPath="$PROJECT_DIR$/www/assets/fonts/ionicons.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/www/assets/fonts/noto-sans-bold.ttf" beforeDir="false" afterPath="$PROJECT_DIR$/www/assets/fonts/noto-sans-bold.ttf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/www/assets/fonts/noto-sans-regular.ttf" beforeDir="false" afterPath="$PROJECT_DIR$/www/assets/fonts/noto-sans-regular.ttf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/www/build/0.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/www/build/0.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/www/build/1.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/www/build/1.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/www/build/2.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/www/build/2.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/www/build/main.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/www/build/main.css.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/www/build/main.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/www/build/main.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/www/build/vendor.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/www/build/vendor.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/www/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/www/index.html" afterDir="false" />
-    </list>
+    <list default="true" id="7b171b8e-49e4-4b5e-8a93-1ca4019260a8" name="Default Changelist" comment="" />
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
     <ignored path="$PROJECT_DIR$/tmp/" />
@@ -328,18 +309,17 @@
       <workItem from="1558225380837" duration="7433000" />
       <workItem from="1558290521104" duration="37481000" />
       <workItem from="1558494841221" duration="2003000" />
-      <workItem from="1558558406849" duration="14076000" />
+      <workItem from="1558558406849" duration="14367000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="60993000" />
+    <option name="totallyTimeSpent" value="61284000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
-    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49509802" visible="true" weight="0.3883016" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49509802" visible="true" weight="0.3883016" />
       <window_info id="Structure" order="1" sideWeight="0.50490195" side_tool="true" visible="true" weight="0.3883016" />
       <window_info id="npm" order="2" side_tool="true" />
       <window_info id="Favorites" order="3" side_tool="true" />
@@ -354,7 +334,7 @@
       <window_info anchor="bottom" id="Version Control" order="8" />
       <window_info anchor="bottom" id="TypeScript" order="9" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
-      <window_info anchor="bottom" id="Terminal" order="11" visible="true" weight="0.2626506" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="11" visible="true" weight="0.2626506" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
