@@ -2,15 +2,24 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7b171b8e-49e4-4b5e-8a93-1ca4019260a8" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.sourcemaps/main.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/.sourcemaps/main.js.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/ajouter-parcelle/ajouter-parcelle.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/ajouter-parcelle/ajouter-parcelle.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/ajouter-parcelle/ajouter-parcelle.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/ajouter-parcelle/ajouter-parcelle.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/liste-parcelle/liste-parcelle.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/liste-parcelle/liste-parcelle.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/liste-parcelle/liste-parcelle.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/liste-parcelle/liste-parcelle.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/map-location/map-location.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/map-location/map-location.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/www/build/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/www/build/main.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/www/build/main.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/www/build/main.js.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/www/build/vendor.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/www/build/vendor.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/assets/fonts/ionicons.svg" beforeDir="false" afterPath="$PROJECT_DIR$/www/assets/fonts/ionicons.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/assets/fonts/noto-sans-bold.ttf" beforeDir="false" afterPath="$PROJECT_DIR$/www/assets/fonts/noto-sans-bold.ttf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/assets/fonts/noto-sans-regular.ttf" beforeDir="false" afterPath="$PROJECT_DIR$/www/assets/fonts/noto-sans-regular.ttf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/build/0.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/build/0.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/build/1.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/build/1.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/build/2.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/build/2.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/build/main.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/build/main.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/build/main.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/build/main.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/build/vendor.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/build/vendor.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/www/index.html" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -38,8 +47,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/pages/liste-parcelle/liste-parcelle.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="390">
-              <caret line="26" column="90" selection-start-line="26" selection-start-column="90" selection-end-line="26" selection-end-column="90" />
+            <state relative-caret-position="86">
+              <caret line="201" selection-start-line="201" selection-end-line="201" />
               <folding>
                 <element signature="e#0#42#0" expanded="true" />
               </folding>
@@ -96,8 +105,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/pages/ajouter-parcelle/ajouter-parcelle.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="360">
-              <caret line="34" column="119" selection-start-line="34" selection-start-column="72" selection-end-line="34" selection-end-column="119" />
+            <state relative-caret-position="415">
+              <caret line="540" lean-forward="true" selection-start-line="540" selection-end-line="540" />
               <folding>
                 <element signature="e#0#42#0" expanded="true" />
                 <element signature="e#1296#1792#0" />
@@ -181,8 +190,8 @@
         <option value="$PROJECT_DIR$/src/pages/map-location/map-location.html" />
         <option value="$PROJECT_DIR$/src/pages/map-location/map-location.ts" />
         <option value="$PROJECT_DIR$/src/pages/ajouter-parcelle/ajouter-parcelle.html" />
-        <option value="$PROJECT_DIR$/src/pages/ajouter-parcelle/ajouter-parcelle.ts" />
         <option value="$PROJECT_DIR$/src/pages/liste-parcelle/liste-parcelle.html" />
+        <option value="$PROJECT_DIR$/src/pages/ajouter-parcelle/ajouter-parcelle.ts" />
         <option value="$PROJECT_DIR$/src/pages/liste-parcelle/liste-parcelle.ts" />
       </list>
     </option>
@@ -319,12 +328,12 @@
       <workItem from="1558225380837" duration="7433000" />
       <workItem from="1558290521104" duration="37481000" />
       <workItem from="1558494841221" duration="2003000" />
-      <workItem from="1558558406849" duration="13905000" />
+      <workItem from="1558558406849" duration="14076000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="60822000" />
+    <option name="totallyTimeSpent" value="60993000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
@@ -521,8 +530,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/pages/ajouter-parcelle/ajouter-parcelle.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="34" column="119" selection-start-line="34" selection-start-column="72" selection-end-line="34" selection-end-column="119" />
+        <state relative-caret-position="415">
+          <caret line="540" lean-forward="true" selection-start-line="540" selection-end-line="540" />
           <folding>
             <element signature="e#0#42#0" expanded="true" />
             <element signature="e#1296#1792#0" />
@@ -532,8 +541,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/pages/liste-parcelle/liste-parcelle.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="390">
-          <caret line="26" column="90" selection-start-line="26" selection-start-column="90" selection-end-line="26" selection-end-column="90" />
+        <state relative-caret-position="86">
+          <caret line="201" selection-start-line="201" selection-end-line="201" />
           <folding>
             <element signature="e#0#42#0" expanded="true" />
           </folding>

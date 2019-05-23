@@ -518,8 +518,6 @@ export class AjouterParcellePage {
         text: "Supprimer",
         role: 'destructive',
         icon: 'trash',
-        mode:"ios",
-        translucent:true,
         handler: () => {
 
 
