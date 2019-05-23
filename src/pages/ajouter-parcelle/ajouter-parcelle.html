@@ -6,13 +6,8 @@
 -->
 <ion-header>
   <ion-navbar>
-    <ion-title>Suivi Gasoil</ion-title>
 
-    <ion-buttons end *ngIf="!modeEditionAffichage">
-      <button ion-button color="secondary" (click)="modeEdition()">
-        Modifier
-      </button>
-    </ion-buttons>
+    <ion-title>Gestion Parcelles</ion-title>
 
   </ion-navbar>
 
@@ -97,7 +92,7 @@
   <br>
 
   <div text-center>
-    <button ion-button round  (click)="photoChooser(objetActuel,'photocinrecto',600,1000,40)">
+    <button ion-button round  (click)="photoChooser(objetActuel,'photocinrecto',1200,2000,100)">
       Charger Photo  <ion-icon padding name="camera"></ion-icon>
     </button>
   </div>
@@ -114,7 +109,7 @@
   <br>
 
   <div text-center>
-    <button ion-button round  (click)="photoChooser(objetActuel,'photocinverso',600,1000,40)">
+    <button ion-button round  (click)="photoChooser(objetActuel,'photocinverso',1200,2000,100)">
       Charger Photo  <ion-icon padding name="camera"></ion-icon>
     </button>
   </div>
@@ -129,7 +124,7 @@
   <br>
 
   <div text-center>
-    <button ion-button round  (click)="photoChooser(objetActuel,'photoparcelle',600,1000,40)">
+    <button ion-button round  (click)="photoChooser(objetActuel,'photoparcelle',1200,2000,100)">
       Charger Photo  <ion-icon padding name="camera"></ion-icon>
     </button>
   </div>
@@ -144,10 +139,50 @@
   <br>
 
   <div text-center>
-    <button ion-button round  (click)="photoChooser(objetActuel,'photocroquis',600,1000,40)">
+    <button ion-button round  (click)="photoChooser(objetActuel,'photocroquis',1200,2000,100)">
       Charger Photo  <ion-icon padding name="camera"></ion-icon>
     </button>
   </div>
+
+
+
+  <ion-item padding="0" style="border-bottom: 0px;">
+  </ion-item>
+
+  <ion-item  [id]="id"  style="padding:4" >
+
+    <ion-label style="color: #000;">
+      <h1 >Bornes Centroïdes :</h1>
+
+
+
+
+    </ion-label>
+
+    <button padding ion-button clear  item-end (click)="recupererGraphic()">
+      Mesurer
+    </button>
+
+  </ion-item>
+
+
+
+  <ion-list>
+
+    <div *ngFor="let item of listeCentroides;let index = index;">
+      <button   mode="md" ion-item    (click)="itemTapped($event, item)">
+        Borne {{index+1}}
+        <p>X = {{item.xnordmaroc.toFixed(2)}} </p>
+        <p>Y = {{item.ynordmaroc.toFixed(2)}} </p>
+
+        <ion-icon  style="zoom:1; /*background-color: #32db64;*/padding-right: 10px;padding-left: 30px;padding-top: 10px;padding-bottom: 10px;" name="md-more" (click)="detailItemTapped($event, item)" item-end></ion-icon>
+
+      </button>
+    </div>
+
+
+  </ion-list>
+
 
 
 </ion-content>

@@ -1,7 +1,11 @@
 import { Component } from '@angular/core';
-import {IonicPage, NavController, NavParams, ToastController} from 'ionic-angular';
+import {Events, IonicPage, NavController, NavParams, ToastController} from 'ionic-angular';
 import {HttpClient} from "@angular/common/http";
 import {CameraProvider} from "../../providers/camera/camera";
+import {MapLocationPage} from "../map-location/map-location";
+import * as wellknow from 'wellknown';
+import * as proj4 from 'proj4';
+
 
 /**
  * Generated class for the AjouterParcellePage page.
@@ -23,126 +27,32 @@ export class AjouterParcellePage {
   public listeChoixConstructions = [];
   public listeChoixConsistance = [];
 
+  public listeCentroides = [];
+  public x ;
+  public y ;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public httpClient : HttpClient,public toastCtrl : ToastController,  public cameraProvider : CameraProvider) {
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, public httpClient : HttpClient,public toastCtrl : ToastController,  public cameraProvider : CameraProvider,public events: Events) {
 
 
     this.objetActuel =  this.navParams.data.informationsActuelles;
 
-    this.httpClient.get("http://ec2-52-47-166-154.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
-      "select photo from photoparcelles " +
-      "where idparcelle = " + this.navParams.data.informationsActuelles.id + " " +
-      "and typephoto = 'photocinrecto' " +
-      "order by id desc " +
-      "limit 1"
-    )
-      .subscribe( data =>{
+    this.events.subscribe('graphicActuel', graphicActuel => {
+      console.log(graphicActuel);
 
-        try{
-          (this.objetActuel as any).photocinrecto = (data as any).features[0].photo;
-        }catch(e){
-          console.log(e);
-        }
+      if (graphicActuel) {
+        this.x = (graphicActuel as any).geometry.latitude;
+        this.y = (graphicActuel as any).geometry.longitude;
+        this.httpClient.get("http://ec2-52-47-166-154.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
+          "INSERT INTO public.centroides( " +
+          "id,shape) " +
+          "VALUES ((select max(id) from centroides)+1," +
+          "ST_Multi( ST_GeomFromText('POINT(" + this.x + " " + this.y + ")', 4326));")
+          .subscribe(data => {
 
-      });
-
-    this.httpClient.get("http://ec2-52-47-166-154.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
-      "select photo from photoparcelles " +
-      "where idparcelle = " + this.navParams.data.informationsActuelles.id + " " +
-      "and typephoto = 'photocinverso' " +
-      "order by id desc " +
-      "limit 1"
-    )
-      .subscribe( data =>{
-
-        try{
-          (this.objetActuel as any).photocinverso = (data as any).features[0].photo;
-        }catch(e){
-          console.log(e);
-        }
-
-      });
-
-    this.httpClient.get("http://ec2-52-47-166-154.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
-      "select photo from photoparcelles " +
-      "where idparcelle = " + this.navParams.data.informationsActuelles.id + " " +
-      "and typephoto = 'photoparcelle' " +
-      "order by id desc " +
-      "limit 1"
-    )
-      .subscribe( data =>{
-
-        try{
-          (this.objetActuel as any).photoparcelle = (data as any).features[0].photo;
-        }catch(e){
-          console.log(e);
-        }
-
-
-      });
-
-    this.httpClient.get("http://ec2-52-47-166-154.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
-      "select photo from photoparcelles " +
-      "where idparcelle = " + this.navParams.data.informationsActuelles.id + " " +
-      "and typephoto = 'photocroquis' " +
-      "order by id desc " +
-      "limit 1"
-    )
-      .subscribe( data =>{
-
-        try{
-          (this.objetActuel as any).photocroquis = (data as any).features[0].photo;
-        }catch(e){
-          console.log(e);
-        }
-
-      });
-
-
-
-    this.httpClient.get("http://ec2-52-47-166-154.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
-      "select consistance from parcelles")
-      .subscribe( data =>{
-
-
-
-        let tableStatistiques = {};
-        data = (data as any).features;
-        for(let i=0; i < (data as any).length ; i++){
-
-          try{
-            let itemTemp = (data as any)[i]["consistance"].split("+");
-
-            for(let j=0; j < itemTemp.length ; j++){
-              if(tableStatistiques[itemTemp[j]] == undefined){
-                tableStatistiques[itemTemp[j]] = 1;
-              }else{
-                tableStatistiques[itemTemp[j]] = tableStatistiques[itemTemp[j]]+1;
-
-              }
-            }
-          }
-          catch(e){
-          }
-
-        }
-
-        delete tableStatistiques[""];
-
-        let tableIndexStatSorted = [];
-        for(let pp in tableStatistiques) {
-          tableIndexStatSorted.push([pp,tableStatistiques[pp]]);
-        }
-
-        tableIndexStatSorted.sort(function(a,b){
-          return -a[1] + b[1];
-        });
-
-        this.listeChoixConsistance = tableIndexStatSorted;
-
-        console.log(tableIndexStatSorted);
-
-      });
+          });
+      }
+    });
 
     this.httpClient.get("http://ec2-52-47-166-154.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
       "select plusvalues from parcelles")
@@ -231,6 +141,158 @@ export class AjouterParcellePage {
         console.log(tableIndexStatSorted);
 
       });
+
+    this.httpClient.get("http://ec2-52-47-166-154.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
+      "select consistance from parcelles")
+      .subscribe( data =>{
+
+
+
+        let tableStatistiques = {};
+        data = (data as any).features;
+        for(let i=0; i < (data as any).length ; i++){
+
+          try{
+            let itemTemp = (data as any)[i]["consistance"].split("+");
+
+            for(let j=0; j < itemTemp.length ; j++){
+              if(tableStatistiques[itemTemp[j]] == undefined){
+                tableStatistiques[itemTemp[j]] = 1;
+              }else{
+                tableStatistiques[itemTemp[j]] = tableStatistiques[itemTemp[j]]+1;
+
+              }
+            }
+          }
+          catch(e){
+          }
+
+        }
+
+        delete tableStatistiques[""];
+
+        let tableIndexStatSorted = [];
+        for(let pp in tableStatistiques) {
+          tableIndexStatSorted.push([pp,tableStatistiques[pp]]);
+        }
+
+        tableIndexStatSorted.sort(function(a,b){
+          return -a[1] + b[1];
+        });
+
+        this.listeChoixConsistance = tableIndexStatSorted;
+
+        console.log(tableIndexStatSorted);
+
+      });
+
+    this.httpClient.get("http://ec2-52-47-166-154.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
+      "select photo from photoparcelles " +
+      "where idparcelle = " + this.navParams.data.informationsActuelles.id + " " +
+      "and typephoto = 'photocinrecto' " +
+      "order by id desc " +
+      "limit 1"
+    )
+      .subscribe( data =>{
+
+        try{
+          (this.objetActuel as any).photocinrecto = (data as any).features[0].photo;
+        }catch(e){
+          console.log(e);
+        }
+
+      });
+
+    this.httpClient.get("http://ec2-52-47-166-154.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
+      "select photo from photoparcelles " +
+      "where idparcelle = " + this.navParams.data.informationsActuelles.id + " " +
+      "and typephoto = 'photocinverso' " +
+      "order by id desc " +
+      "limit 1"
+    )
+      .subscribe( data =>{
+
+        try{
+          (this.objetActuel as any).photocinverso = (data as any).features[0].photo;
+        }catch(e){
+          console.log(e);
+        }
+
+      });
+
+    this.httpClient.get("http://ec2-52-47-166-154.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
+      "select photo from photoparcelles " +
+      "where idparcelle = " + this.navParams.data.informationsActuelles.id + " " +
+      "and typephoto = 'photoparcelle' " +
+      "order by id desc " +
+      "limit 1"
+    )
+      .subscribe( data =>{
+
+        try{
+          (this.objetActuel as any).photoparcelle = (data as any).features[0].photo;
+        }catch(e){
+          console.log(e);
+        }
+
+
+      });
+
+    this.httpClient.get("http://ec2-52-47-166-154.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
+      "select photo from photoparcelles " +
+      "where idparcelle = " + this.navParams.data.informationsActuelles.id + " " +
+      "and typephoto = 'photocroquis' " +
+      "order by id desc " +
+      "limit 1"
+    )
+      .subscribe( data =>{
+
+        try{
+          (this.objetActuel as any).photocroquis = (data as any).features[0].photo;
+        }catch(e){
+          console.log(e);
+        }
+
+      });
+
+    //ajout de la couche des titres DA
+    this.httpClient.get("http://ec2-52-47-166-154.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
+      "select id, St_astext(shape) as shape " +
+      "from centroides " +
+      "where idparcelle = " + this.navParams.data.informationsActuelles.id + " "
+      )
+      .subscribe( data => {
+
+      let coucheActuel = (data as any).features;
+      this.listeCentroides = [];
+
+      for(let i = 0; i< coucheActuel.length;i++) {
+
+
+        let jsontext = wellknow.parse(coucheActuel[i].shape).coordinates[0];
+
+        console.log(proj4);
+        let pointNordMaroc = proj4.default("+proj=lcc +lat_1=33.3 +lat_0=33.3 +lon_0=-5.4 +k_0=0.999625769 +x_0=500000 +y_0=300000 +a=6378249.2 +b=6356515 +towgs84=31,146,47,0,0,0,0 +units=m +no_defs ",
+          jsontext);
+
+
+        this.listeCentroides.push({
+          x:jsontext[0],
+          y:jsontext[1],
+          xnordmaroc:pointNordMaroc[0],
+          ynordmaroc:pointNordMaroc[1]
+        })
+
+
+      }
+
+    });
+
+
+
+
+
+
 
   }
 
@@ -413,6 +475,14 @@ export class AjouterParcellePage {
       console.log(e);
     }
 
+  }
+
+  recupererGraphic() {
+
+    this.navCtrl.push(MapLocationPage,{
+      action: "getLocation",
+      x: (this.objetActuel as any).x,
+      y: (this.objetActuel as any).y});
   }
 
 }

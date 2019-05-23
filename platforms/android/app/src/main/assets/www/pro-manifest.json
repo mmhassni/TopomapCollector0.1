@@ -56,13 +56,13 @@
   },
   {
     "href": "build/main.js",
-    "size": 79759,
-    "integrity": "sha256-oHFXU01GAeyFIXjVaQZyQQ/iXipJ6kWe+vesn7TldAY= sha384-VLQxhJpJUWHMC2rVXgx2ULZBXL+8P5+fYrPRX/LUV7odTKvPkvUBAHjSbHihuQPy sha512-dtvHKUYLC00mwOA+nWKjcGDSd/3eZKcFFo2jOqGCiJ5WOe0+aDlDwZCbf3lHtu5izHG57sFhkZo7g0g/x6lTdQ=="
+    "size": 79851,
+    "integrity": "sha256-u5u3Rcg9QwLwPrY5hEj78oL4PqC9pGy9tsnsm0LKTs0= sha384-eWNL+gjq0+B7yXqEbS1lx4Cgc1O0s6oglC6ZIswVTq854SNfcy1zNXKtfCWDH/6C sha512-N2fiJ1RQrO76cN/uIOksYvSoS7Hg2wd/iQKraLvROjulwsT7P/hleKWLuB01Mro8pSJtaIKrt3loDNzNBASPdA=="
   },
   {
     "href": "build/main.js.map",
-    "size": 69479,
-    "integrity": "sha256-KNnC5Lb8HvsO7FfUFBb1kAaLHngq0HXxjzl2qjFG1u8= sha384-qoHH+0yOguClYFnj/DPP0CtT7vHc8BIYf2UJnZHf7We3Wu408fMsxuzriePla4cE sha512-hP5dLmabUSitEuC7e/kcMaVL3uw3b9lTq3CwXiDoqD1oWzwnN9fczRoII+QZIGKj2AiT7ubgY2ubIs8bWernJA=="
+    "size": 69621,
+    "integrity": "sha256-3iY/mB0tJ/1WteNPLFtXBn4G1kS2EsvpFOaEBkLFn2k= sha384-4WRcHs7NEXeyyxJNyrZ7Im4Nh5CcYvPrvJtpz35pw3+EHXJSvxuiT6w7m2GEw3Dj sha512-VE/1lZWVT+PJWAXHlsvyfxInA6tQRvsPbJEEPdWYqRbKacMzkVZEtbn3e+sSpYnL0xfhKKzHxDCWtv/4gCLDRQ=="
   },
   {
     "href": "build/polyfills.js",
@@ -82,7 +82,7 @@
   {
     "href": "build/vendor.js.map",
     "size": 5661823,
-    "integrity": "sha256-x5kY2Ikz9YtDtFvTQRKM1Aeu80Rx7tfgbSgZcfVzlxg= sha384-eBIEJlI/Fl8eT6qgjzBWQRCU/XiqHxqEaJQSc8Yxxwj1b7j+1QHCktG7IIoWJAu8 sha512-bs55SzObanmOYQXY2nG1SEqyUlTEj5T9e13my9ommx5LFRWk5UjxC+IwRyxa3+YFolatso6xnpkTs25XmbbeGw=="
+    "integrity": "sha256-yXiENG5/J20G/ylG+FJlMNp71DRCRlssjEOgM3aAiAY= sha384-2BOTWut7CibMy/ibY0eFIQdKOQw9ysJRJGdGkncjFuKLLCHe8Uu+shdLvw0wg6vS sha512-PGDBWmUCkGBUXVUuPxXUMkARifa9kIzxPVYrqJcfyY1Pl7NTD4WJA4Z99f2HtUrDkLZ7rDJwVOoS0RuPaBfbSQ=="
   },
   {
     "href": "assets/fonts/ionicons.eot",

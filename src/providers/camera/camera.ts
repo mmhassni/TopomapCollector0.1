@@ -65,7 +65,8 @@ export class CameraProvider {
       encodingType: this.camera.EncodingType.JPEG,
       mediaType: this.camera.MediaType.PICTURE,
       targetWidth: width,
-      targetHeight: height
+      targetHeight: height,
+      correctOrientation: true
     };
 
 
