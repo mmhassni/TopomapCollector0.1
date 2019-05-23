@@ -77,7 +77,42 @@
     Enregistrer modifications
   </button>
 
+  <br><br>
 
+  <ion-item  [id]="id"  style="padding:4" >
+
+    <ion-label style="color: #000;">
+      <h1 >Bornes Centroïdes :</h1>
+
+
+
+
+    </ion-label>
+
+
+
+    <ion-icon name="add-circle" (click)="recupererGraphic()" item-end></ion-icon>
+
+
+  </ion-item>
+
+
+
+  <ion-list>
+
+    <div *ngFor="let item of listeCentroides;let index = index;">
+      <button   mode="md" ion-item    (click)="itemTapped($event, item)">
+        Borne {{index+1}}
+        <p>X = {{item.xnordmaroc.toFixed(2)}} </p>
+        <p>Y = {{item.ynordmaroc.toFixed(2)}} </p>
+
+        <ion-icon  style="zoom:1; /*background-color: #32db64;*/padding-right: 10px;padding-left: 30px;padding-top: 10px;padding-bottom: 10px;" name="md-more" (click)="detailItemTapped($event, item)" item-end></ion-icon>
+
+      </button>
+    </div>
+
+
+  </ion-list>
 
 
 
@@ -149,39 +184,7 @@
   <ion-item padding="0" style="border-bottom: 0px;">
   </ion-item>
 
-  <ion-item  [id]="id"  style="padding:4" >
 
-    <ion-label style="color: #000;">
-      <h1 >Bornes Centroïdes :</h1>
-
-
-
-
-    </ion-label>
-
-    <button padding ion-button clear  item-end (click)="recupererGraphic()">
-      Mesurer
-    </button>
-
-  </ion-item>
-
-
-
-  <ion-list>
-
-    <div *ngFor="let item of listeCentroides;let index = index;">
-      <button   mode="md" ion-item    (click)="itemTapped($event, item)">
-        Borne {{index+1}}
-        <p>X = {{item.xnordmaroc.toFixed(2)}} </p>
-        <p>Y = {{item.ynordmaroc.toFixed(2)}} </p>
-
-        <ion-icon  style="zoom:1; /*background-color: #32db64;*/padding-right: 10px;padding-left: 30px;padding-top: 10px;padding-bottom: 10px;" name="md-more" (click)="detailItemTapped($event, item)" item-end></ion-icon>
-
-      </button>
-    </div>
-
-
-  </ion-list>
 
 
 

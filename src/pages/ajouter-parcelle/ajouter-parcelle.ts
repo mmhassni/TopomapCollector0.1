@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {Events, IonicPage, NavController, NavParams, ToastController} from 'ionic-angular';
+import {ActionSheetController, Events, IonicPage, NavController, NavParams, ToastController} from 'ionic-angular';
 import {HttpClient} from "@angular/common/http";
 import {CameraProvider} from "../../providers/camera/camera";
 import {MapLocationPage} from "../map-location/map-location";
@@ -32,23 +32,30 @@ export class AjouterParcellePage {
   public y ;
 
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public httpClient : HttpClient,public toastCtrl : ToastController,  public cameraProvider : CameraProvider,public events: Events) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public actionSheetCtrl: ActionSheetController, public httpClient : HttpClient,public toastCtrl : ToastController,  public cameraProvider : CameraProvider,public events: Events) {
 
 
     this.objetActuel =  this.navParams.data.informationsActuelles;
+
+    this.refreshCentroides();
+
 
     this.events.subscribe('graphicActuel', graphicActuel => {
       console.log(graphicActuel);
 
       if (graphicActuel) {
-        this.x = (graphicActuel as any).geometry.latitude;
-        this.y = (graphicActuel as any).geometry.longitude;
+        this.x = (graphicActuel as any).geometry.longitude;
+        this.y = (graphicActuel as any).geometry.latitude;
         this.httpClient.get("http://ec2-52-47-166-154.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
           "INSERT INTO public.centroides( " +
-          "id,shape) " +
+          "id,shape,idparcelle) " +
           "VALUES ((select max(id) from centroides)+1," +
-          "ST_Multi( ST_GeomFromText('POINT(" + this.x + " " + this.y + ")', 4326));")
+          "ST_Multi( ST_GeomFromText('POINT(" + this.x + " " + this.y + ")', 4326))," +
+          "" + this.navParams.data.informationsActuelles.id + ");")
           .subscribe(data => {
+
+          },error1 => {
+            this.refreshCentroides();
 
           });
       }
@@ -255,38 +262,11 @@ export class AjouterParcellePage {
 
       });
 
+
+
+
     //ajout de la couche des titres DA
-    this.httpClient.get("http://ec2-52-47-166-154.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
-      "select id, St_astext(shape) as shape " +
-      "from centroides " +
-      "where idparcelle = " + this.navParams.data.informationsActuelles.id + " "
-      )
-      .subscribe( data => {
 
-      let coucheActuel = (data as any).features;
-      this.listeCentroides = [];
-
-      for(let i = 0; i< coucheActuel.length;i++) {
-
-
-        let jsontext = wellknow.parse(coucheActuel[i].shape).coordinates[0];
-
-        console.log(proj4);
-        let pointNordMaroc = proj4.default("+proj=lcc +lat_1=33.3 +lat_0=33.3 +lon_0=-5.4 +k_0=0.999625769 +x_0=500000 +y_0=300000 +a=6378249.2 +b=6356515 +towgs84=31,146,47,0,0,0,0 +units=m +no_defs ",
-          jsontext);
-
-
-        this.listeCentroides.push({
-          x:jsontext[0],
-          y:jsontext[1],
-          xnordmaroc:pointNordMaroc[0],
-          ynordmaroc:pointNordMaroc[1]
-        })
-
-
-      }
-
-    });
 
 
 
@@ -296,8 +276,47 @@ export class AjouterParcellePage {
 
   }
 
+  refreshCentroides(){
+
+    this.httpClient.get("http://ec2-52-47-166-154.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
+      "select id, St_astext(shape) as shape " +
+      "from centroides " +
+      "where idparcelle = " + this.navParams.data.informationsActuelles.id + " "
+    )
+      .subscribe( data => {
+
+        let coucheActuel = (data as any).features;
+        this.listeCentroides = [];
+
+        for(let i = 0; i< coucheActuel.length;i++) {
+
+
+          let jsontext = wellknow.parse(coucheActuel[i].shape).coordinates[0];
+
+          console.log(proj4);
+          let pointNordMaroc = proj4.default("+proj=lcc +lat_1=33.3 +lat_0=33.3 +lon_0=-5.4 +k_0=0.999625769 +x_0=500000 +y_0=300000 +a=6378249.2 +b=6356515 +towgs84=31,146,47,0,0,0,0 +units=m +no_defs ",
+            jsontext);
+
+
+          this.listeCentroides.push({
+            id: (coucheActuel[i] as any).id,
+            x:jsontext[0],
+            y:jsontext[1],
+            xnordmaroc:pointNordMaroc[0],
+            ynordmaroc:pointNordMaroc[1]
+          })
+
+
+        }
+
+      });
+
+  }
+
   ionViewDidLoad() {
     console.log('ionViewDidLoad ListeParcellePage');
+    this.refreshCentroides();
+
   }
 
   onConstructionsSelectChange($event) {
@@ -485,4 +504,44 @@ export class AjouterParcellePage {
       y: (this.objetActuel as any).y});
   }
 
+
+
+
+  detailItemTapped($event, item) {
+
+    event.stopPropagation();
+
+    // @ts-ignore
+    const actionSheet = this.actionSheetCtrl.create({
+      title: 'Actions',
+      buttons: [{
+        text: "Supprimer",
+        role: 'destructive',
+        icon: 'trash',
+        mode:"ios",
+        translucent:true,
+        handler: () => {
+
+
+          console.log('Delete clicked');
+
+          this.httpClient.get("http://ec2-52-47-166-154.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
+            "DELETE FROM public.centroides WHERE id=" + item.id)
+            .subscribe(data => {
+
+            },error1 => {
+
+              this.refreshCentroides();
+
+            });
+
+
+        }
+      }]
+    });
+    actionSheet.present();
+
+
+
+  }
 }

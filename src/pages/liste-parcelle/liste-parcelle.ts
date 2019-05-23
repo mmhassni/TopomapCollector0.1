@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {IonicPage, NavController, NavParams, ToastController} from 'ionic-angular';
+import {ActionSheetController, IonicPage, NavController, NavParams, ToastController} from 'ionic-angular';
 import {HttpClient} from "@angular/common/http";
 import {CameraProvider} from "../../providers/camera/camera";
 import {AjouterParcellePage} from "../ajouter-parcelle/ajouter-parcelle";
@@ -24,7 +24,7 @@ export class ListeParcellePage {
 
 
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public httpClient : HttpClient,public toastCtrl : ToastController,  public cameraProvider : CameraProvider) {
+  constructor(public navCtrl: NavController, public actionSheetCtrl: ActionSheetController, public navParams: NavParams, public httpClient : HttpClient,public toastCtrl : ToastController,  public cameraProvider : CameraProvider) {
 
     this.refresh();
 
@@ -186,5 +186,43 @@ export class ListeParcellePage {
 
     }
     return retour;
+  }
+
+  detailItemTapped($event, item) {
+
+    event.stopPropagation();
+
+    // @ts-ignore
+    const actionSheet = this.actionSheetCtrl.create({
+      title: 'Actions',
+      buttons: [{
+        text: "Supprimer",
+        role: 'destructive',
+        icon: 'trash',
+        mode:"ios",
+        translucent:true,
+        handler: () => {
+
+
+          console.log('Delete clicked');
+
+          this.httpClient.get("http://ec2-52-47-166-154.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
+            "DELETE FROM public.parcelles WHERE id=" + item.id)
+            .subscribe(data => {
+
+            },error1 => {
+
+              this.refresh();
+
+            });
+
+
+        }
+      }]
+    });
+    actionSheet.present();
+
+
+
   }
 }

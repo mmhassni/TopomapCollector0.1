@@ -31,8 +31,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
  * Ionic pages and navigation.
  */
 var ListeParcellePage = /** @class */ (function () {
-    function ListeParcellePage(navCtrl, navParams, httpClient, toastCtrl, cameraProvider) {
+    function ListeParcellePage(navCtrl, actionSheetCtrl, navParams, httpClient, toastCtrl, cameraProvider) {
         this.navCtrl = navCtrl;
+        this.actionSheetCtrl = actionSheetCtrl;
         this.navParams = navParams;
         this.httpClient = httpClient;
         this.toastCtrl = toastCtrl;
@@ -158,13 +159,39 @@ var ListeParcellePage = /** @class */ (function () {
         }
         return retour;
     };
+    ListeParcellePage.prototype.detailItemTapped = function ($event, item) {
+        var _this = this;
+        event.stopPropagation();
+        // @ts-ignore
+        var actionSheet = this.actionSheetCtrl.create({
+            title: 'Actions',
+            buttons: [{
+                    text: "Supprimer",
+                    role: 'destructive',
+                    icon: 'trash',
+                    mode: "ios",
+                    translucent: true,
+                    handler: function () {
+                        console.log('Delete clicked');
+                        _this.httpClient.get("http://ec2-52-47-166-154.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
+                            "DELETE FROM public.parcelles WHERE id=" + item.id)
+                            .subscribe(function (data) {
+                        }, function (error1) {
+                            _this.refresh();
+                        });
+                    }
+                }]
+        });
+        actionSheet.present();
+    };
     ListeParcellePage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-liste-parcelle',template:/*ion-inline-start:"/Users/admin/Downloads/Topomap/TopomapCollector0.1/src/pages/liste-parcelle/liste-parcelle.html"*/'\n\n<!--\n  Generated template for the ListeFournisseurPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n  <ion-navbar>\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>Gestion Parcelles</ion-title>\n  </ion-navbar>\n</ion-header>\n\n\n\n<ion-content padding>\n\n\n\n  <ion-item padding="0">\n    <h1 >Liste Parcelle:</h1>\n    <ion-icon name="add-circle" (click)="ajouterItem()" item-end></ion-icon>\n  </ion-item>\n\n\n  <ion-list>\n    <button ion-item *ngFor="let item of listeObjetActuelle"   (click)="itemTapped($event, item)">\n      Parcelle P{{item?.id}}\n      <p>Plusvalues : {{item?.plusvalues}}</p>\n      <p>Constructions : {{item?.constructions}}</p>\n      <p>Adresse : {{item?.adresse}}</p>\n      <p>Consistance : {{item?.consistance}}</p>\n      <p>Col Naïb : {{item?.coldenaib}}</p>\n      <button ion-button clear item-end  (click)="detailItemTapped($event, item)">Détail</button>\n    </button>\n  </ion-list>\n\n\n</ion-content>\n\n'/*ion-inline-end:"/Users/admin/Downloads/Topomap/TopomapCollector0.1/src/pages/liste-parcelle/liste-parcelle.html"*/,
+            selector: 'page-liste-parcelle',template:/*ion-inline-start:"/Users/admin/Downloads/Topomap/TopomapCollector0.1/src/pages/liste-parcelle/liste-parcelle.html"*/'\n\n<!--\n  Generated template for the ListeFournisseurPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n  <ion-navbar>\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>Gestion Parcelles</ion-title>\n  </ion-navbar>\n</ion-header>\n\n\n\n<ion-content padding>\n\n\n\n  <ion-item padding="0">\n    <h1 >Liste Parcelle:</h1>\n    <ion-icon name="add-circle" (click)="ajouterItem()" item-end></ion-icon>\n  </ion-item>\n\n\n  <ion-list>\n    <button ion-item *ngFor="let item of listeObjetActuelle"   (click)="itemTapped($event, item)">\n      Parcelle P{{item?.id}}\n      <p>Plusvalues : {{item?.plusvalues}}</p>\n      <p>Constructions : {{item?.constructions}}</p>\n      <p>Adresse : {{item?.adresse}}</p>\n      <p>Consistance : {{item?.consistance}}</p>\n      <p>Col Naïb : {{item?.coldenaib}}</p>\n      <ion-icon  style="zoom:1; /*background-color: #32db64;*/padding-right: 10px;padding-left: 30px;padding-top: 10px;padding-bottom: 10px;" name="md-more" (click)="detailItemTapped($event, item)" item-end></ion-icon>\n\n    </button>\n\n  </ion-list>\n\n\n</ion-content>\n\n'/*ion-inline-end:"/Users/admin/Downloads/Topomap/TopomapCollector0.1/src/pages/liste-parcelle/liste-parcelle.html"*/,
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavParams */], __WEBPACK_IMPORTED_MODULE_2__angular_common_http__["a" /* HttpClient */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* ToastController */], __WEBPACK_IMPORTED_MODULE_3__providers_camera_camera__["a" /* CameraProvider */]])
+        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* ActionSheetController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* ActionSheetController */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavParams */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_2__angular_common_http__["a" /* HttpClient */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__angular_common_http__["a" /* HttpClient */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* ToastController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* ToastController */]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_3__providers_camera_camera__["a" /* CameraProvider */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__providers_camera_camera__["a" /* CameraProvider */]) === "function" && _f || Object])
     ], ListeParcellePage);
     return ListeParcellePage;
+    var _a, _b, _c, _d, _e, _f;
 }());
 
 //# sourceMappingURL=liste-parcelle.js.map
@@ -242,10 +269,11 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
  * Ionic pages and navigation.
  */
 var AjouterParcellePage = /** @class */ (function () {
-    function AjouterParcellePage(navCtrl, navParams, httpClient, toastCtrl, cameraProvider, events) {
+    function AjouterParcellePage(navCtrl, navParams, actionSheetCtrl, httpClient, toastCtrl, cameraProvider, events) {
         var _this = this;
         this.navCtrl = navCtrl;
         this.navParams = navParams;
+        this.actionSheetCtrl = actionSheetCtrl;
         this.httpClient = httpClient;
         this.toastCtrl = toastCtrl;
         this.cameraProvider = cameraProvider;
@@ -256,17 +284,21 @@ var AjouterParcellePage = /** @class */ (function () {
         this.listeChoixConsistance = [];
         this.listeCentroides = [];
         this.objetActuel = this.navParams.data.informationsActuelles;
+        this.refreshCentroides();
         this.events.subscribe('graphicActuel', function (graphicActuel) {
             console.log(graphicActuel);
             if (graphicActuel) {
-                _this.x = graphicActuel.geometry.latitude;
-                _this.y = graphicActuel.geometry.longitude;
+                _this.x = graphicActuel.geometry.longitude;
+                _this.y = graphicActuel.geometry.latitude;
                 _this.httpClient.get("http://ec2-52-47-166-154.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
                     "INSERT INTO public.centroides( " +
-                    "id,shape) " +
+                    "id,shape,idparcelle) " +
                     "VALUES ((select max(id) from centroides)+1," +
-                    "ST_Multi( ST_GeomFromText('POINT(" + _this.x + " " + _this.y + ")', 4326));")
+                    "ST_Multi( ST_GeomFromText('POINT(" + _this.x + " " + _this.y + ")', 4326))," +
+                    "" + _this.navParams.data.informationsActuelles.id + ");")
                     .subscribe(function (data) {
+                }, function (error1) {
+                    _this.refreshCentroides();
                 });
             }
         });
@@ -421,6 +453,9 @@ var AjouterParcellePage = /** @class */ (function () {
             }
         });
         //ajout de la couche des titres DA
+    }
+    AjouterParcellePage.prototype.refreshCentroides = function () {
+        var _this = this;
         this.httpClient.get("http://ec2-52-47-166-154.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
             "select id, St_astext(shape) as shape " +
             "from centroides " +
@@ -433,6 +468,7 @@ var AjouterParcellePage = /** @class */ (function () {
                 console.log(__WEBPACK_IMPORTED_MODULE_6_proj4__);
                 var pointNordMaroc = __WEBPACK_IMPORTED_MODULE_6_proj4__["default"]("+proj=lcc +lat_1=33.3 +lat_0=33.3 +lon_0=-5.4 +k_0=0.999625769 +x_0=500000 +y_0=300000 +a=6378249.2 +b=6356515 +towgs84=31,146,47,0,0,0,0 +units=m +no_defs ", jsontext);
                 _this.listeCentroides.push({
+                    id: coucheActuel[i].id,
                     x: jsontext[0],
                     y: jsontext[1],
                     xnordmaroc: pointNordMaroc[0],
@@ -440,9 +476,10 @@ var AjouterParcellePage = /** @class */ (function () {
                 });
             }
         });
-    }
+    };
     AjouterParcellePage.prototype.ionViewDidLoad = function () {
         console.log('ionViewDidLoad ListeParcellePage');
+        this.refreshCentroides();
     };
     AjouterParcellePage.prototype.onConstructionsSelectChange = function ($event) {
         if ($event) {
@@ -593,14 +630,39 @@ var AjouterParcellePage = /** @class */ (function () {
             y: this.objetActuel.y
         });
     };
+    AjouterParcellePage.prototype.detailItemTapped = function ($event, item) {
+        var _this = this;
+        event.stopPropagation();
+        // @ts-ignore
+        var actionSheet = this.actionSheetCtrl.create({
+            title: 'Actions',
+            buttons: [{
+                    text: "Supprimer",
+                    role: 'destructive',
+                    icon: 'trash',
+                    mode: "ios",
+                    translucent: true,
+                    handler: function () {
+                        console.log('Delete clicked');
+                        _this.httpClient.get("http://ec2-52-47-166-154.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
+                            "DELETE FROM public.centroides WHERE id=" + item.id)
+                            .subscribe(function (data) {
+                        }, function (error1) {
+                            _this.refreshCentroides();
+                        });
+                    }
+                }]
+        });
+        actionSheet.present();
+    };
     AjouterParcellePage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-ajouter-parcelle',template:/*ion-inline-start:"/Users/admin/Downloads/Topomap/TopomapCollector0.1/src/pages/ajouter-parcelle/ajouter-parcelle.html"*/'<!--\n  Generated template for the AjouterProjetPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n  <ion-navbar>\n\n    <ion-title>Gestion Parcelles</ion-title>\n\n  </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content padding>\n\n  <ion-item padding="0" style="border-bottom: 0px;">\n    <h1 >Informations :</h1>\n  </ion-item>\n\n  <ion-item>\n    <ion-label style="opacity:1; color: #000;font-weight: bold">Consistance:</ion-label>\n    <ion-select (ionChange) = "onConsistanceSelectChange($event)"   multiple="false" name = "Type vehicule" [(ngModel)]="objetActuel.consistanceionselect"  >\n      <ion-option *ngFor="let item of listeChoixConsistance" [value]="item[0]">{{item[0]}}</ion-option>\n    </ion-select>\n  </ion-item>\n\n  <ion-item *ngIf="objetActuel.consistanceionselect || objetActuel.consistance">\n    <ion-input  (ngModelChange)="onConsistanceInuptChange($event)"  text-center type="text" name="adressefournisseur" [(ngModel)]="objetActuel.consistance"  ></ion-input>\n  </ion-item>\n\n  <ion-item>\n    <ion-label style="opacity:1; color: #000;font-weight: bold">Plus Values:</ion-label>\n    <ion-select (ionChange) = "onPlusvaluesSelectChange($event)"   multiple="true" name = "Type vehicule" [(ngModel)]="objetActuel.plusvaluesionselect"  >\n      <ion-option *ngFor="let item of listeChoixPlusvalues" [value]="item[0]">{{item[0]}}</ion-option>\n    </ion-select>\n  </ion-item>\n\n  <ion-item *ngIf="objetActuel.plusvaluesionselect || objetActuel.plusvalues">\n    <ion-input (ngModelChange)="onPlusvaluesInuptChange($event)"  text-center type="text" name="adressefournisseur" [(ngModel)]="objetActuel.plusvalues"  ></ion-input>\n  </ion-item>\n\n\n  <ion-item>\n    <ion-label style="opacity:1; color: #000;font-weight: bold">Constructions: </ion-label>\n    <ion-select (ionChange) = "onConstructionsSelectChange($event)"   multiple="true" name = "Type vehicule" [(ngModel)]="objetActuel.constructionsionselect"  >\n      <ion-option *ngFor="let item of listeChoixConstructions" [value]="item[0]">{{item[0]}}</ion-option>\n    </ion-select>\n  </ion-item>\n\n  <ion-item *ngIf="objetActuel.constructionsionselect || objetActuel.constructions">\n    <ion-input (ngModelChange)="onConstructionsInuptChange($event)"  text-center type="text" name="adressefournisseur" [(ngModel)]="objetActuel.constructions"  ></ion-input>\n  </ion-item>\n\n  <ion-item>\n    <ion-label style="color: #000;font-weight: bold">\n      Adresse :\n    </ion-label>\n    <ion-input text-center type="text" [(ngModel)]="objetActuel.adresse"  ></ion-input>\n  </ion-item>\n\n  <ion-item>\n    <ion-label style="color: #000;font-weight: bold">\n      Coll selon Naïb :\n    </ion-label>\n    <ion-input text-center type="text" [(ngModel)]="objetActuel.coldenaib"  ></ion-input>\n  </ion-item>\n\n\n\n\n\n  <button type="submit" color="tertiary" ion-button (click)="enregistrerInformationsAttributaires()" block >\n    Enregistrer modifications\n  </button>\n\n\n\n\n\n\n\n  <ion-item padding="0" style="border-bottom: 0px;">\n    <h1 >Photo CIN Recto :</h1>\n  </ion-item>\n\n  <img style="width: auto;margin: auto;display: block"  [(src)]="objetActuel.photocinrecto" *ngIf="objetActuel.photocinrecto"/>\n\n  <br>\n\n  <div text-center>\n    <button ion-button round  (click)="photoChooser(objetActuel,\'photocinrecto\',1200,2000,100)">\n      Charger Photo  <ion-icon padding name="camera"></ion-icon>\n    </button>\n  </div>\n\n\n\n\n  <ion-item padding="0" style="border-bottom: 0px;">\n    <h1 >Photo CIN Verso :</h1>\n  </ion-item>\n\n  <img style="width: auto;margin: auto;display: block"  [(src)]="objetActuel.photocinverso" *ngIf="objetActuel.photocinverso"/>\n\n  <br>\n\n  <div text-center>\n    <button ion-button round  (click)="photoChooser(objetActuel,\'photocinverso\',1200,2000,100)">\n      Charger Photo  <ion-icon padding name="camera"></ion-icon>\n    </button>\n  </div>\n\n\n  <ion-item padding="0" style="border-bottom: 0px;">\n    <h1 >Photo Parcelle :</h1>\n  </ion-item>\n\n  <img style="width: auto;margin: auto;display: block"  [(src)]="objetActuel.photoparcelle" *ngIf="objetActuel.photoparcelle"/>\n\n  <br>\n\n  <div text-center>\n    <button ion-button round  (click)="photoChooser(objetActuel,\'photoparcelle\',1200,2000,100)">\n      Charger Photo  <ion-icon padding name="camera"></ion-icon>\n    </button>\n  </div>\n\n\n  <ion-item padding="0" style="border-bottom: 0px;">\n    <h1 >Photo Croquis :</h1>\n  </ion-item>\n\n  <img style="width: auto;margin: auto;display: block"  [(src)]="objetActuel.photocroquis" *ngIf="objetActuel.photocroquis"/>\n\n  <br>\n\n  <div text-center>\n    <button ion-button round  (click)="photoChooser(objetActuel,\'photocroquis\',1200,2000,100)">\n      Charger Photo  <ion-icon padding name="camera"></ion-icon>\n    </button>\n  </div>\n\n\n\n  <ion-item padding="0" style="border-bottom: 0px;">\n  </ion-item>\n\n  <ion-item  [id]="id"  style="padding:4" >\n\n    <ion-label style="color: #000;">\n      <h1 >Bornes Centroïdes :</h1>\n\n\n\n\n    </ion-label>\n\n    <button padding ion-button clear  item-end (click)="recupererGraphic()">\n      Mesurer\n    </button>\n\n  </ion-item>\n\n\n\n  <ion-list>\n\n    <div *ngFor="let item of listeCentroides;let index = index;">\n      <button   mode="md" ion-item    (click)="itemTapped($event, item)">\n        Borne {{index+1}}\n        <p>X = {{item.xnordmaroc.toFixed(2)}} </p>\n        <p>Y = {{item.ynordmaroc.toFixed(2)}} </p>\n\n        <ion-icon  style="zoom:1; /*background-color: #32db64;*/padding-right: 10px;padding-left: 30px;padding-top: 10px;padding-bottom: 10px;" name="md-more" (click)="detailItemTapped($event, item)" item-end></ion-icon>\n\n      </button>\n    </div>\n\n\n  </ion-list>\n\n\n\n</ion-content>\n'/*ion-inline-end:"/Users/admin/Downloads/Topomap/TopomapCollector0.1/src/pages/ajouter-parcelle/ajouter-parcelle.html"*/,
+            selector: 'page-ajouter-parcelle',template:/*ion-inline-start:"/Users/admin/Downloads/Topomap/TopomapCollector0.1/src/pages/ajouter-parcelle/ajouter-parcelle.html"*/'<!--\n  Generated template for the AjouterProjetPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n  <ion-navbar>\n\n    <ion-title>Gestion Parcelles</ion-title>\n\n  </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content padding>\n\n  <ion-item padding="0" style="border-bottom: 0px;">\n    <h1 >Informations :</h1>\n  </ion-item>\n\n  <ion-item>\n    <ion-label style="opacity:1; color: #000;font-weight: bold">Consistance:</ion-label>\n    <ion-select (ionChange) = "onConsistanceSelectChange($event)"   multiple="false" name = "Type vehicule" [(ngModel)]="objetActuel.consistanceionselect"  >\n      <ion-option *ngFor="let item of listeChoixConsistance" [value]="item[0]">{{item[0]}}</ion-option>\n    </ion-select>\n  </ion-item>\n\n  <ion-item *ngIf="objetActuel.consistanceionselect || objetActuel.consistance">\n    <ion-input  (ngModelChange)="onConsistanceInuptChange($event)"  text-center type="text" name="adressefournisseur" [(ngModel)]="objetActuel.consistance"  ></ion-input>\n  </ion-item>\n\n  <ion-item>\n    <ion-label style="opacity:1; color: #000;font-weight: bold">Plus Values:</ion-label>\n    <ion-select (ionChange) = "onPlusvaluesSelectChange($event)"   multiple="true" name = "Type vehicule" [(ngModel)]="objetActuel.plusvaluesionselect"  >\n      <ion-option *ngFor="let item of listeChoixPlusvalues" [value]="item[0]">{{item[0]}}</ion-option>\n    </ion-select>\n  </ion-item>\n\n  <ion-item *ngIf="objetActuel.plusvaluesionselect || objetActuel.plusvalues">\n    <ion-input (ngModelChange)="onPlusvaluesInuptChange($event)"  text-center type="text" name="adressefournisseur" [(ngModel)]="objetActuel.plusvalues"  ></ion-input>\n  </ion-item>\n\n\n  <ion-item>\n    <ion-label style="opacity:1; color: #000;font-weight: bold">Constructions: </ion-label>\n    <ion-select (ionChange) = "onConstructionsSelectChange($event)"   multiple="true" name = "Type vehicule" [(ngModel)]="objetActuel.constructionsionselect"  >\n      <ion-option *ngFor="let item of listeChoixConstructions" [value]="item[0]">{{item[0]}}</ion-option>\n    </ion-select>\n  </ion-item>\n\n  <ion-item *ngIf="objetActuel.constructionsionselect || objetActuel.constructions">\n    <ion-input (ngModelChange)="onConstructionsInuptChange($event)"  text-center type="text" name="adressefournisseur" [(ngModel)]="objetActuel.constructions"  ></ion-input>\n  </ion-item>\n\n  <ion-item>\n    <ion-label style="color: #000;font-weight: bold">\n      Adresse :\n    </ion-label>\n    <ion-input text-center type="text" [(ngModel)]="objetActuel.adresse"  ></ion-input>\n  </ion-item>\n\n  <ion-item>\n    <ion-label style="color: #000;font-weight: bold">\n      Coll selon Naïb :\n    </ion-label>\n    <ion-input text-center type="text" [(ngModel)]="objetActuel.coldenaib"  ></ion-input>\n  </ion-item>\n\n\n\n\n\n  <button type="submit" color="tertiary" ion-button (click)="enregistrerInformationsAttributaires()" block >\n    Enregistrer modifications\n  </button>\n\n  <br><br>\n\n  <ion-item  [id]="id"  style="padding:4" >\n\n    <ion-label style="color: #000;">\n      <h1 >Bornes Centroïdes :</h1>\n\n\n\n\n    </ion-label>\n\n\n\n    <ion-icon name="add-circle" (click)="recupererGraphic()" item-end></ion-icon>\n\n\n  </ion-item>\n\n\n\n  <ion-list>\n\n    <div *ngFor="let item of listeCentroides;let index = index;">\n      <button   mode="md" ion-item    (click)="itemTapped($event, item)">\n        Borne {{index+1}}\n        <p>X = {{item.xnordmaroc.toFixed(2)}} </p>\n        <p>Y = {{item.ynordmaroc.toFixed(2)}} </p>\n\n        <ion-icon  style="zoom:1; /*background-color: #32db64;*/padding-right: 10px;padding-left: 30px;padding-top: 10px;padding-bottom: 10px;" name="md-more" (click)="detailItemTapped($event, item)" item-end></ion-icon>\n\n      </button>\n    </div>\n\n\n  </ion-list>\n\n\n\n\n\n  <ion-item padding="0" style="border-bottom: 0px;">\n    <h1 >Photo CIN Recto :</h1>\n  </ion-item>\n\n  <img style="width: auto;margin: auto;display: block"  [(src)]="objetActuel.photocinrecto" *ngIf="objetActuel.photocinrecto"/>\n\n  <br>\n\n  <div text-center>\n    <button ion-button round  (click)="photoChooser(objetActuel,\'photocinrecto\',1200,2000,100)">\n      Charger Photo  <ion-icon padding name="camera"></ion-icon>\n    </button>\n  </div>\n\n\n\n\n  <ion-item padding="0" style="border-bottom: 0px;">\n    <h1 >Photo CIN Verso :</h1>\n  </ion-item>\n\n  <img style="width: auto;margin: auto;display: block"  [(src)]="objetActuel.photocinverso" *ngIf="objetActuel.photocinverso"/>\n\n  <br>\n\n  <div text-center>\n    <button ion-button round  (click)="photoChooser(objetActuel,\'photocinverso\',1200,2000,100)">\n      Charger Photo  <ion-icon padding name="camera"></ion-icon>\n    </button>\n  </div>\n\n\n  <ion-item padding="0" style="border-bottom: 0px;">\n    <h1 >Photo Parcelle :</h1>\n  </ion-item>\n\n  <img style="width: auto;margin: auto;display: block"  [(src)]="objetActuel.photoparcelle" *ngIf="objetActuel.photoparcelle"/>\n\n  <br>\n\n  <div text-center>\n    <button ion-button round  (click)="photoChooser(objetActuel,\'photoparcelle\',1200,2000,100)">\n      Charger Photo  <ion-icon padding name="camera"></ion-icon>\n    </button>\n  </div>\n\n\n  <ion-item padding="0" style="border-bottom: 0px;">\n    <h1 >Photo Croquis :</h1>\n  </ion-item>\n\n  <img style="width: auto;margin: auto;display: block"  [(src)]="objetActuel.photocroquis" *ngIf="objetActuel.photocroquis"/>\n\n  <br>\n\n  <div text-center>\n    <button ion-button round  (click)="photoChooser(objetActuel,\'photocroquis\',1200,2000,100)">\n      Charger Photo  <ion-icon padding name="camera"></ion-icon>\n    </button>\n  </div>\n\n\n\n  <ion-item padding="0" style="border-bottom: 0px;">\n  </ion-item>\n\n\n\n\n\n</ion-content>\n'/*ion-inline-end:"/Users/admin/Downloads/Topomap/TopomapCollector0.1/src/pages/ajouter-parcelle/ajouter-parcelle.html"*/,
         }),
-        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavParams */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2__angular_common_http__["a" /* HttpClient */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__angular_common_http__["a" /* HttpClient */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* ToastController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* ToastController */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_3__providers_camera_camera__["a" /* CameraProvider */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__providers_camera_camera__["a" /* CameraProvider */]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* Events */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* Events */]) === "function" && _f || Object])
+        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavParams */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* ActionSheetController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* ActionSheetController */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_2__angular_common_http__["a" /* HttpClient */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__angular_common_http__["a" /* HttpClient */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* ToastController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* ToastController */]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_3__providers_camera_camera__["a" /* CameraProvider */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__providers_camera_camera__["a" /* CameraProvider */]) === "function" && _f || Object, typeof (_g = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* Events */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* Events */]) === "function" && _g || Object])
     ], AjouterParcellePage);
     return AjouterParcellePage;
-    var _a, _b, _c, _d, _e, _f;
+    var _a, _b, _c, _d, _e, _f, _g;
 }());
 
 //# sourceMappingURL=ajouter-parcelle.js.map
@@ -1229,7 +1291,8 @@ var MapLocationPage = /** @class */ (function () {
                         //ajout de la couche des titres DA
                         this.httpClient.get("http://ec2-52-47-166-154.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
                             "select id, St_astext(shape) as shape " +
-                            "from centroides").subscribe(function (data) {
+                            "from centroides " +
+                            "where not shape is null").subscribe(function (data) {
                             var coucheActuel = data.features;
                             var symbolPointCentroides = {
                                 type: 'simple-marker',

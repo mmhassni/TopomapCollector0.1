@@ -35,8 +35,10 @@
       <p>Adresse : {{item?.adresse}}</p>
       <p>Consistance : {{item?.consistance}}</p>
       <p>Col Naïb : {{item?.coldenaib}}</p>
-      <button ion-button clear item-end  (click)="detailItemTapped($event, item)">Détail</button>
+      <ion-icon  style="zoom:1; /*background-color: #32db64;*/padding-right: 10px;padding-left: 30px;padding-top: 10px;padding-bottom: 10px;" name="md-more" (click)="detailItemTapped($event, item)" item-end></ion-icon>
+
     </button>
+
   </ion-list>
 
 

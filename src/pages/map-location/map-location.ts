@@ -144,9 +144,11 @@ export class MapLocationPage {
 
 
     //ajout de la couche des titres DA
+
     this.httpClient.get("http://ec2-52-47-166-154.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
       "select id, St_astext(shape) as shape " +
-      "from centroides").subscribe( data => {
+      "from centroides " +
+      "where not shape is null").subscribe( data => {
 
       let coucheActuel = (data as any).features;
 
@@ -219,6 +221,7 @@ export class MapLocationPage {
       }
 
     });
+
 
     //ajout de la couche des titres DA
     this.httpClient.get("http://ec2-52-47-166-154.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
