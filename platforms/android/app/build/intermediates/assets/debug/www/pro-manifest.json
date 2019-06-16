@@ -16,8 +16,8 @@
   },
   {
     "href": "build/0.js",
-    "size": 1936,
-    "integrity": "sha256-WlnqQ/4ANjsiUIf4TZ2IIdMFPl/qy3IzCppgMLAlMJA= sha384-lsD6P6lzN5ICqN2fZyb3+7RLEjtvIihDjS1EUZJMbfCdTHfcXA9ae/U/PbfxfrB1 sha512-vZ07U6vGHEWUeLf4Rr3ebskMnKz8kbkxHuxR1smfsWMl6vx39SPpmbay3NaXeCZm8kZjIK017FGuf8FLJ9SkdQ=="
+    "size": 1935,
+    "integrity": "sha256-TZQ7Olf06/CBt42qAjcwqEnLWAwFRytF9HhIiAuUkr4= sha384-nqIeiWn4c191PXopsEn3h5ZP4cTyvyPO51BfAAib/aPjqsTmO8LcK3A+SIDs46IH sha512-XHrBakO+NZp0Ia77FjCpb2o6FnJjnoPwNTDev0xq7Y1uN4fRKkgdCAXYeBkjIyWMPXZPQdVmN/8HGiutr7s8FA=="
   },
   {
     "href": "build/0.js.map",
@@ -27,7 +27,7 @@
   {
     "href": "build/1.js",
     "size": 1962,
-    "integrity": "sha256-k62oSK64QHtb+pTDUs6Byze++tXCOr8qm/FIm3Kd24Q= sha384-yKlXMbOM/8qQWZSzv4RHnTTwqazh/Eb8fla8QF2KspnFBuTkOcH91hIlx3jyjJzT sha512-ojvQv6O2GV8Py4MSXUc92+bFXM5n/h54ZHKR18Jy+W2XwBYVsbohobr96iPQsHfJhEr8AE7K9zjkmD1oKDXtWA=="
+    "integrity": "sha256-HRgqYVQNB2wIZ4XJgxXj5tm7SX8FIfgrfmCbIbWtcl0= sha384-IhFHHFsyyOd1eLhK9uyXVN/SuLHfR+5ChY2zoY7rZIEgzVhV5pgz9RVY6Wyeumve sha512-1QiemFUK4B45OrOc21csIiJB0yZkKnWNUbHQuKf442lRUBKQO4F2WefunbxNwPDXuu/NONGdxhO1yVXgDv/wKQ=="
   },
   {
     "href": "build/1.js.map",
@@ -37,7 +37,7 @@
   {
     "href": "build/2.js",
     "size": 1988,
-    "integrity": "sha256-3HQvWY1WQj16/RmHVF0p1F9MuQmHMdVCoFo3iaxeNkA= sha384-eL5xfjXXst17gF+C++vZbby0iFz2nBbMc7q6qWl9kfN4tvgJWbCuc8iZrOOm4vva sha512-Diige39fnRGKkhd2CjHb4sZNEnY1WSWLvOiiiFCVVrl8aZ+MrnSeRDwKhH9EziuP6tPVg16d7TG8AuUXHGl7Jw=="
+    "integrity": "sha256-o/mCWUjnMcw99PFy31o7r8UB8Kc4a+x5eaLGL93LODQ= sha384-+A2clYZIOuGEdpOkLmGQoePGpIjLd12tqO9ZWjVTGCQPZ/cuydNd+H46QViTzXNL sha512-ic70PXS3Hf+jBNiB747p1MHrPri8W8uOjiYgBHhhh7Y3YtoLTS2NdbNGO3HPZjkJ51WGLDKC4QIIgjbuHFoWOg=="
   },
   {
     "href": "build/2.js.map",
@@ -56,13 +56,13 @@
   },
   {
     "href": "build/main.js",
-    "size": 79851,
-    "integrity": "sha256-u5u3Rcg9QwLwPrY5hEj78oL4PqC9pGy9tsnsm0LKTs0= sha384-eWNL+gjq0+B7yXqEbS1lx4Cgc1O0s6oglC6ZIswVTq854SNfcy1zNXKtfCWDH/6C sha512-N2fiJ1RQrO76cN/uIOksYvSoS7Hg2wd/iQKraLvROjulwsT7P/hleKWLuB01Mro8pSJtaIKrt3loDNzNBASPdA=="
+    "size": 106801,
+    "integrity": "sha256-7XJe8LVbV2fF1Mq54BCkaBZZxyjIr7ewDvWbPFxMJww= sha384-2Cpj32RdAI1T3awSVOHzH+Pj4+7venhvsHbgYaXfweld3FRo0lfiSGyCsUlBk3Ut sha512-3qvUzSCL10FHrWOFe+ZxlZhUh5h7uZnxodojV9bldCSY+ca/73cLgcgcwpYXmyhj/m06qb0cxMQrgneTqGyxnQ=="
   },
   {
     "href": "build/main.js.map",
-    "size": 69621,
-    "integrity": "sha256-3iY/mB0tJ/1WteNPLFtXBn4G1kS2EsvpFOaEBkLFn2k= sha384-4WRcHs7NEXeyyxJNyrZ7Im4Nh5CcYvPrvJtpz35pw3+EHXJSvxuiT6w7m2GEw3Dj sha512-VE/1lZWVT+PJWAXHlsvyfxInA6tQRvsPbJEEPdWYqRbKacMzkVZEtbn3e+sSpYnL0xfhKKzHxDCWtv/4gCLDRQ=="
+    "size": 93808,
+    "integrity": "sha256-YvO2fYY758ldC3gOk8y3wC3e4sg2wy6TF2X/Dc6kIp8= sha384-TDvQyt9Wh/P0cLVhn+LfOKGB0bmSnznRAIHpC9AmJw4ikv7uEIKlt4KceR3qcGyB sha512-1ohh50kz+dwwa1ZQXtaXvn1bsdLlq+Polc/U+0ivTnZdr6QR/cOIE5cxSgFlPuIDZ/rVKOW1NPm7mzYuI9tUaQ=="
   },
   {
     "href": "build/polyfills.js",
@@ -76,13 +76,13 @@
   },
   {
     "href": "build/vendor.js",
-    "size": 4806993,
-    "integrity": "sha256-5wqjTivebAP5dkCirgnaTP5EdOX/lFpzbFl9nIkm3t8= sha384-54gt3sDeIqNEZktcLqL4fbDbEfTAnGYjgQf8da5/XfywqJkOTll3fPvaaj3/QKMs sha512-6mNNfF/oAcgrLFIptTUGXZfw9OA0KWxWWQV8llIhh9EA6LMexEH5BgVIg1/0h4SGa9xsFcu2rNxo9wEQx2Fp9w=="
+    "size": 5487896,
+    "integrity": "sha256-nOwg6cIsXZAAmlOWJwYFUEPT2d8rUVQDwL4CMTTl97E= sha384-0Va1DTPZWAXE+AEjlT2aOKbTgWnJOZmSZCQB/z7ZsR5uOZdT67vfk/L31BVterhN sha512-2rvQLrCuwWkNuQ9P8nXMKHnifRtUHkqYymrRK8G3cIUSgy3uN1nvEzeJZ/AQB2BO34F7OyIRGpmKPT4ltqZnBg=="
   },
   {
     "href": "build/vendor.js.map",
-    "size": 5661823,
-    "integrity": "sha256-yXiENG5/J20G/ylG+FJlMNp71DRCRlssjEOgM3aAiAY= sha384-2BOTWut7CibMy/ibY0eFIQdKOQw9ysJRJGdGkncjFuKLLCHe8Uu+shdLvw0wg6vS sha512-PGDBWmUCkGBUXVUuPxXUMkARifa9kIzxPVYrqJcfyY1Pl7NTD4WJA4Z99f2HtUrDkLZ7rDJwVOoS0RuPaBfbSQ=="
+    "size": 6446384,
+    "integrity": "sha256-Fp+knUTAtIV5U0CDqgmG+DRFyW86YUnqnurhMAxzIJQ= sha384-aTCWpVpsdMtROHHTuzvanAltp8A9v63LBRWHZfJbEIL0+E1+UtXngedzXvN9pGwZ sha512-gh1PeE443ktY2cc+D2JA+Sesmb8xYVI4HMfGTZJ1srKInu6NGIWbf2fRPLFid9JzEZDGqJXCybsBVsAGdjjsNw=="
   },
   {
     "href": "assets/fonts/ionicons.eot",

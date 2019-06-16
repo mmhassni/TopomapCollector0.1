@@ -19,6 +19,8 @@ import {MapLocationPage} from "../pages/map-location/map-location";
 import {AjouterParcellePage} from "../pages/ajouter-parcelle/ajouter-parcelle";
 import {ListeParcellePage} from "../pages/liste-parcelle/liste-parcelle";
 
+import { IonicStorageModule } from '@ionic/storage';
+
 
 
 
@@ -36,7 +38,8 @@ import {ListeParcellePage} from "../pages/liste-parcelle/liste-parcelle";
   imports: [
     BrowserModule,
     HttpClientModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    IonicStorageModule.forRoot()
   ],
   bootstrap: [IonicApp],
   entryComponents: [

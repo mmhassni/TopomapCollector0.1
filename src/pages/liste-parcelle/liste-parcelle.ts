@@ -205,12 +205,20 @@ export class ListeParcellePage {
           console.log('Delete clicked');
 
           this.httpClient.get("http://ec2-52-47-166-154.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
-            "DELETE FROM public.parcelles WHERE id=" + item.id)
+            "DELETE FROM public.parcelles WHERE id = " + item.id)
             .subscribe(data => {
 
             },error1 => {
 
-              this.refresh();
+              this.httpClient.get("http://ec2-52-47-166-154.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
+                "DELETE FROM public.centroides WHERE idparcelle = " + item.id)
+                .subscribe(data => {
+
+                },error1 => {
+
+                  this.refresh();
+
+                });
 
             });
 

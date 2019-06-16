@@ -5,6 +5,9 @@ import {CameraProvider} from "../../providers/camera/camera";
 import {MapLocationPage} from "../map-location/map-location";
 import * as wellknow from 'wellknown';
 import * as proj4 from 'proj4';
+import {StockageProvider} from "../../providers/stockage/stockage";
+import {Storage} from "@ionic/storage";
+import {timeout} from "rxjs/operators";
 
 
 /**
@@ -31,25 +34,47 @@ export class AjouterParcellePage {
   public x ;
   public y ;
 
+  public photoSent = {};
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public actionSheetCtrl: ActionSheetController, public httpClient : HttpClient,public toastCtrl : ToastController,  public cameraProvider : CameraProvider,public events: Events) {
+  public bddPhoto = {} ;
+
+  public listePhoto = {
+    "photocinrecto":"photocinrecto",
+    "photocinverso":"photocinverso",
+    "photoparcelle":"photoparcelle",
+    "photocroquis":"photocroquis"
+  };
+
+  constructor(public navCtrl: NavController,public storage: Storage, public navParams: NavParams,public stockageProvider: StockageProvider, public actionSheetCtrl: ActionSheetController, public httpClient : HttpClient,public toastCtrl : ToastController,  public cameraProvider : CameraProvider,public events: Events) {
+
+
+
+
+    this.events.subscribe('refreshphotos', graphicActuel => {
+      this.refreshPhoto();
+      console.log("bien recu");
+
+    });
 
 
     this.objetActuel =  this.navParams.data.informationsActuelles;
 
+
+
+    this.refreshPhoto();
     this.refreshCentroides();
 
 
     this.events.subscribe('graphicActuel', graphicActuel => {
       console.log(graphicActuel);
 
-      if (graphicActuel) {
+      if (graphicActuel && (graphicActuel as any).idparcelle == (this.objetActuel as any).id ){
         this.x = (graphicActuel as any).geometry.longitude;
         this.y = (graphicActuel as any).geometry.latitude;
         this.httpClient.get("http://ec2-52-47-166-154.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
           "INSERT INTO public.centroides( " +
-          "id,shape,idparcelle) " +
-          "VALUES ((select max(id) from centroides)+1," +
+          "shape,idparcelle) " +
+          "VALUES (" +
           "ST_Multi( ST_GeomFromText('POINT(" + this.x + " " + this.y + ")', 4326))," +
           "" + this.navParams.data.informationsActuelles.id + ");")
           .subscribe(data => {
@@ -193,75 +218,14 @@ export class AjouterParcellePage {
 
       });
 
-    this.httpClient.get("http://ec2-52-47-166-154.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
-      "select photo from photoparcelles " +
-      "where idparcelle = " + this.navParams.data.informationsActuelles.id + " " +
-      "and typephoto = 'photocinrecto' " +
-      "order by id desc " +
-      "limit 1"
-    )
-      .subscribe( data =>{
-
-        try{
-          (this.objetActuel as any).photocinrecto = (data as any).features[0].photo;
-        }catch(e){
-          console.log(e);
-        }
-
-      });
-
-    this.httpClient.get("http://ec2-52-47-166-154.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
-      "select photo from photoparcelles " +
-      "where idparcelle = " + this.navParams.data.informationsActuelles.id + " " +
-      "and typephoto = 'photocinverso' " +
-      "order by id desc " +
-      "limit 1"
-    )
-      .subscribe( data =>{
-
-        try{
-          (this.objetActuel as any).photocinverso = (data as any).features[0].photo;
-        }catch(e){
-          console.log(e);
-        }
-
-      });
-
-    this.httpClient.get("http://ec2-52-47-166-154.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
-      "select photo from photoparcelles " +
-      "where idparcelle = " + this.navParams.data.informationsActuelles.id + " " +
-      "and typephoto = 'photoparcelle' " +
-      "order by id desc " +
-      "limit 1"
-    )
-      .subscribe( data =>{
-
-        try{
-          (this.objetActuel as any).photoparcelle = (data as any).features[0].photo;
-        }catch(e){
-          console.log(e);
-        }
 
 
-      });
 
-    this.httpClient.get("http://ec2-52-47-166-154.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
-      "select photo from photoparcelles " +
-      "where idparcelle = " + this.navParams.data.informationsActuelles.id + " " +
-      "and typephoto = 'photocroquis' " +
-      "order by id desc " +
-      "limit 1"
-    )
-      .subscribe( data =>{
 
-        try{
-          (this.objetActuel as any).photocroquis = (data as any).features[0].photo;
-        }catch(e){
-          console.log(e);
-        }
 
-      });
 
+
+    //this.stockageProvider.traverseKeys();
 
 
 
@@ -275,6 +239,8 @@ export class AjouterParcellePage {
 
 
   }
+
+
 
   refreshCentroides(){
 
@@ -455,6 +421,7 @@ export class AjouterParcellePage {
 
           toast.present();
 
+
         }
 
       });
@@ -489,6 +456,7 @@ export class AjouterParcellePage {
     try{
       await this.cameraProvider.photoChooser(objetActuel,photoActuelle,width,heigth,quality,this.objetActuel);
 
+
     }
     catch(e){
       console.log(e);
@@ -500,11 +468,46 @@ export class AjouterParcellePage {
 
     this.navCtrl.push(MapLocationPage,{
       action: "getLocation",
+      idparcelle: (this.objetActuel as any).id,
       x: (this.objetActuel as any).x,
       y: (this.objetActuel as any).y});
   }
 
 
+  detailActionMenu(){
+
+
+    // @ts-ignore
+    const actionSheet = this.actionSheetCtrl.create({
+      title: 'Actions',
+      buttons: [
+        {
+        text: "Synchroniser",
+        role: 'destructive',
+        icon: 'md-sync',
+        handler: () => {
+          this.synchroniserPhoto();
+          }
+      },
+        {
+        text: "Rafraichir",
+        role: 'destructive',
+        icon: 'md-refresh',
+        handler: () => {
+
+          this.refreshPhoto();
+          this.refreshCentroides();
+
+          }
+        }
+
+
+      ]
+    });
+    actionSheet.present();
+
+
+  }
 
 
   detailItemTapped($event, item) {
@@ -541,5 +544,255 @@ export class AjouterParcellePage {
 
 
 
+  }
+
+  reenvoyerPhoto(libellephoto) {
+
+    console.log("click");
+
+    this.httpClient.post("http://ec2-52-47-166-154.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
+      "insert into photoparcelles (photo,idparcelle,typephoto) " +
+      "values ("+
+      "" + "'postBody'"   + "," +
+      "" + this.adaptValueQuery( (this.objetActuel as any).id          , "number"  )   + "," +
+      "" + this.adaptValueQuery( libellephoto       , "text"  )   + "" +
+      ")",  (this.objetActuel as any)[libellephoto]
+    )
+      .pipe(
+        timeout(6000)
+      )
+
+      .subscribe( data =>{
+
+        console.log("wwwwqqqq");
+
+
+      },err => {
+
+        console.log("eee");
+
+        let messageGetToast = "Informations attributaires enregistrées";
+
+        console.log(JSON.stringify(err));
+
+
+        if(err.error && (err.error.message == "org.postgresql.util.PSQLException: Aucun résultat retourné par la requête." || err.error.message == "org.postgresql.util.PSQLException: No results were returned by the query.")  ){
+
+          let toast = this.toastCtrl.create({
+            message: messageGetToast,
+            duration: 1000,
+            position: 'top',
+            cssClass: "toast-success"
+          });
+
+          toast.present();
+
+
+          this.stockageProvider.updatePushValue(libellephoto,(this.objetActuel as any).id,{sent:true});
+
+
+
+
+        }
+        else{
+          messageGetToast = "Informations attributaires non enregistrées";
+
+          let toast = this.toastCtrl.create({
+            message: messageGetToast,
+            duration: 1000,
+            position: 'top',
+            cssClass: "toast-echec"
+          });
+
+          toast.present();
+
+          this.stockageProvider.updatePushValue(libellephoto,(this.objetActuel as any).id,
+            {
+              photo: (this.objetActuel as any)[libellephoto],
+              requete:"http://ec2-52-47-166-154.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
+                "insert into photoparcelles (photo,idparcelle,typephoto) " +
+                "values ("+
+                "" + "'postBody'"   + "," +
+                "" + this.adaptValueQuery( (this.objetActuel as any).id          , "number"  )   + "," +
+                "" + this.adaptValueQuery( libellephoto       , "text"  )   + "" +
+                ")",
+              sent:false
+            });
+
+
+        }
+
+      });
+
+    console.log("eee");
+
+
+
+  }
+
+  synchroniserPhoto(){
+    for(let key in this.listePhoto){
+
+      this.httpClient.post("http://ec2-52-47-166-154.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
+        "insert into photoparcelles (photo,idparcelle,typephoto) " +
+        "values ("+
+        "" + "'postBody'"   + "," +
+        "" + this.adaptValueQuery( (this.objetActuel as any).id          , "number"  )   + "," +
+        "" + this.adaptValueQuery( key       , "text"  )   + "" +
+        ")",  (this.objetActuel as any)[key]
+      )
+        .pipe(
+          timeout(6000)
+        )
+
+        .subscribe( data =>{
+
+          console.log("wwwwqqqq");
+
+
+        },err => {
+
+          console.log("eee");
+
+          let messageGetToast = "Informations attributaires enregistrées";
+
+          console.log(JSON.stringify(err));
+
+
+          if(err.error && (err.error.message == "org.postgresql.util.PSQLException: Aucun résultat retourné par la requête." || err.error.message == "org.postgresql.util.PSQLException: No results were returned by the query.")  ){
+
+            let toast = this.toastCtrl.create({
+              message: messageGetToast,
+              duration: 1000,
+              position: 'top',
+              cssClass: "toast-success"
+            });
+
+            toast.present();
+
+
+            this.stockageProvider.updatePushValue(key,(this.objetActuel as any).id,{sent:true});
+
+
+
+
+          }
+          else{
+            messageGetToast = "Informations attributaires non enregistrées";
+
+            let toast = this.toastCtrl.create({
+              message: messageGetToast,
+              duration: 1000,
+              position: 'top',
+              cssClass: "toast-echec"
+            });
+
+            toast.present();
+
+            this.stockageProvider.updatePushValue(key,(this.objetActuel as any).id,
+              {
+                photo: (this.objetActuel as any)[key],
+                requete:"http://ec2-52-47-166-154.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
+                  "insert into photoparcelles (photo,idparcelle,typephoto) " +
+                  "values ("+
+                  "" + "'postBody'"   + "," +
+                  "" + this.adaptValueQuery( (this.objetActuel as any).id          , "number"  )   + "," +
+                  "" + this.adaptValueQuery( key       , "text"  )   + "" +
+                  ")",
+                sent:false
+              });
+
+
+          }
+
+        });
+
+
+
+    }
+  }
+
+  public refreshPhoto() {
+
+    for(let key in this.listePhoto){
+
+      this.storage.get(key).then((val) => {
+
+        console.log(1);
+
+        this.bddPhoto[key] = val;
+
+        this.photoSent[key] = true;
+        console.log(2);
+
+
+
+        console.log(3);
+
+
+        if( val[(this.objetActuel as any).id] && val[(this.objetActuel as any).id]["sent"] === false ){
+
+          (this.objetActuel as any)[key] = val[(this.objetActuel as any).id]["photo"];
+        }
+
+
+
+        console.log("eeeeee",(this.objetActuel as any)[key].substring(0,14));
+
+        if( !(this.objetActuel as any)[key]){
+
+          this.httpClient.get("http://ec2-52-47-166-154.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
+            "select photo from photoparcelles " +
+            "where idparcelle = " + this.navParams.data.informationsActuelles.id + " " +
+            "and typephoto = '"+ key +"' " +
+            "order by id desc " +
+            "limit 1"
+          )
+            .subscribe( data =>{
+
+              try{
+                (this.objetActuel as any)[key] = (data as any).features[0].photo;
+              }catch(e){
+                console.log(e);
+              }
+
+            });
+
+        }
+
+
+      }).catch((error) => {
+        console.log('get error for ' + key + '', error);
+
+        if( !(this.objetActuel as any)[key] ){
+
+          this.httpClient.get("http://ec2-52-47-166-154.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
+            "select photo from photoparcelles " +
+            "where idparcelle = " + this.navParams.data.informationsActuelles.id + " " +
+            "and typephoto = '"+ key +"' " +
+            "order by id desc " +
+            "limit 1"
+          )
+            .subscribe( data =>{
+
+              try{
+                (this.objetActuel as any)[key] = (data as any).features[0].photo;
+              }catch(e){
+
+              }
+
+            });
+
+        }
+
+      });
+
+    }
+
+
+  }
+
+  actualiser(){
+    this.refreshPhoto();
   }
 }

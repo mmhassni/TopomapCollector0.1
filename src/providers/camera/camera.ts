@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
-import {ActionSheetController, Platform, ToastController} from "ionic-angular";
+import {ActionSheetController, Events, Platform, ToastController} from "ionic-angular";
 import {Camera} from "@ionic-native/camera";
 import {FilePath} from "@ionic-native/file-path/ngx";
 import {HttpClient} from "@angular/common/http";
+import {StockageProvider} from "../stockage/stockage";
+import {timeout} from "rxjs/operators";
 
 /*
   Generated class for the CameraProvider provider.
@@ -13,7 +15,7 @@ import {HttpClient} from "@angular/common/http";
 @Injectable()
 export class CameraProvider {
 
-  constructor(public actionSheetCtrl: ActionSheetController, public httpClient : HttpClient,public toastCtrl : ToastController, private camera: Camera, public platform: Platform, private filePath: FilePath) {
+  constructor(public actionSheetCtrl: ActionSheetController, public stockageProvider: StockageProvider, public httpClient : HttpClient,public toastCtrl : ToastController, private camera: Camera, public platform: Platform, private filePath: FilePath,public events: Events) {
     console.log('Hello CameraProvider Provider');
   }
 
@@ -49,7 +51,7 @@ export class CameraProvider {
 
   }
 
-  takePicture(sourceType,objetActuel,photoAttributName,width,height,quality,objet) {
+  async takePicture(sourceType,objetActuel,photoAttributName,width,height,quality,objet) {
 
     /*
     const CameraOptions  = {
@@ -97,6 +99,9 @@ export class CameraProvider {
         "" + this.adaptValueQuery( photoAttributName        , "text"  )   + "" +
         ")", 'data:image/jpeg;base64,' + imageData
       )
+        .pipe(
+          timeout(6000)
+        )
         .subscribe( data =>{
 
         },err => {
@@ -117,6 +122,15 @@ export class CameraProvider {
 
             toast.present();
 
+            this.stockageProvider.updatePushValue(
+              photoAttributName,
+              (objet as any).id,
+              {
+                sent: true
+              }
+
+            );
+
 
 
           }
@@ -131,6 +145,25 @@ export class CameraProvider {
             });
 
             toast.present();
+
+            this.stockageProvider.updatePushValue(
+              photoAttributName,
+              (objet as any).id,
+              {
+                photo : 'data:image/jpeg;base64,' + imageData,
+                requete: "http://ec2-52-47-166-154.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
+                  "insert into photoparcelles (photo,idparcelle,typephoto) " +
+                  "values ("+
+                  "" + "'postBody'"   + "," +
+                  "" + this.adaptValueQuery( (objet as any).id          , "number"  )   + "," +
+                  "" + this.adaptValueQuery( photoAttributName        , "text"  )   + "" +
+                  ")",
+                sent: false}
+
+            );
+
+
+
 
           }
 

@@ -32,12 +32,15 @@ export class MapLocationPage {
   public listeCoucheTitreDA = [];
   public action = "";
 
+  public idparcelleactuelle;
+
 
   constructor(public navCtrl: NavController,public events: Events, public httpClient: HttpClient, public navParams: NavParams,public platform: Platform, private geolocation: Geolocation) {
 
 
     if(this.navParams.data && this.navParams.data.action == "getLocation"){
       this.action = "getLocation";
+      this.idparcelleactuelle =  this.navParams.data.idparcelle;
     }
     this.getGeo();
 
@@ -135,8 +138,8 @@ export class MapLocationPage {
         // create the map view at the DOM element in this component
         container: this.mapEl.nativeElement,
         //center: [this.currentLong, this.currentLat],
-        center: [-5.1495, 33.80804],
-        zoom: 16
+        center: [this.currentLong, this.currentLat],
+        zoom: 21
       });
 
       mapView.map = map;
@@ -362,6 +365,7 @@ export class MapLocationPage {
 
 
   popPosition() {
+    MapLocationPage.graphicActuel["idparcelle"] = this.idparcelleactuelle;
     MapLocationPage.popedGraphicActuel = MapLocationPage.graphicActuel;
     this.events.publish('graphicActuel', MapLocationPage.popedGraphicActuel);
     this.navCtrl.pop();

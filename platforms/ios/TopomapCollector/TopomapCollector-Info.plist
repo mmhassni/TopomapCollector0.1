@@ -66,5 +66,7 @@
     <string>0</string>
     <key>IonMinBackgroundDuration</key>
     <string>30</string>
+    <key>NSCameraUsageDescription</key>
+    <string>You can take photos</string>
   </dict>
 </plist>

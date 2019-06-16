@@ -11,7 +11,7 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Gestion Parcelles</ion-title>
+    <ion-title>Statistiques incidents</ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -27,10 +27,10 @@
   </ion-item>
 
 
-  <ion-list>
-    <button ion-item *ngFor="let item of listeObjetActuelle"   (click)="itemTapped($event, item)">
+  <ion-list >
+    <button mode="md" ion-item *ngFor="let item of listeObjetActuelle"   (click)="itemTapped($event, item)">
       Parcelle P{{item?.id}}
-      <p>Plusvalues : {{item?.plusvalues}}</p>
+      <p>Incident : {{item?.plusvalues}}</p>
       <p>Constructions : {{item?.constructions}}</p>
       <p>Adresse : {{item?.adresse}}</p>
       <p>Consistance : {{item?.consistance}}</p>

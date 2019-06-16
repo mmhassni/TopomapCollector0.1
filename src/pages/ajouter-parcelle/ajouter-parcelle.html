@@ -9,6 +9,17 @@
 
     <ion-title>Gestion Parcelles</ion-title>
 
+    <ion-buttons end>
+
+
+      <div (click)="detailActionMenu()">
+        <ion-icon  style="zoom:1.5; /*background-color: #32db64;*/padding-right: 10px;padding-left: 30px;padding-top: 0px;padding-bottom: 0px;" name="md-more"  item-end></ion-icon>
+
+      </div>
+
+
+    </ion-buttons>
+
   </ion-navbar>
 
 </ion-header>
@@ -23,7 +34,7 @@
 
   <ion-item>
     <ion-label style="opacity:1; color: #000;font-weight: bold">Consistance:</ion-label>
-    <ion-select (ionChange) = "onConsistanceSelectChange($event)"   multiple="false" name = "Type vehicule" [(ngModel)]="objetActuel.consistanceionselect"  >
+    <ion-select (ionChange) = "onConsistanceSelectChange($event)"   multiple="true" name = "Type vehicule" [(ngModel)]="objetActuel.consistanceionselect"  >
       <ion-option *ngFor="let item of listeChoixConsistance" [value]="item[0]">{{item[0]}}</ion-option>
     </ion-select>
   </ion-item>
@@ -117,8 +128,13 @@
 
 
 
-
-  <ion-item padding="0" style="border-bottom: 0px;">
+  <ion-item  *ngIf="bddPhoto['photocinrecto'] && bddPhoto['photocinrecto'][objetActuel.id] &&  bddPhoto['photocinrecto'][objetActuel.id]['sent'].toString() === 'false' " padding="0" style="border-bottom: 0px;background-color: #f53d3d">
+    <h1 >Photo CIN Recto:</h1>
+  </ion-item>
+  <ion-item  *ngIf="bddPhoto['photocinrecto'] && bddPhoto['photocinrecto'][objetActuel.id] &&  bddPhoto['photocinrecto'][objetActuel.id]['sent'].toString() === 'true'"  padding="0" style="border-bottom: 0px;background-color: #32db64">
+    <h1 >Photo CIN Recto:</h1>
+  </ion-item>
+  <ion-item *ngIf="!bddPhoto['photocinrecto'] || !bddPhoto['photocinrecto'][objetActuel.id]" padding="0" style="border-bottom: 0px;">
     <h1 >Photo CIN Recto :</h1>
   </ion-item>
 
@@ -132,10 +148,20 @@
     </button>
   </div>
 
+  <div *ngIf="objetActuel.photocinrecto" text-center>
+    <button ion-button round  (click)="reenvoyerPhoto('photocinrecto')">
+      Réenvoyer  <ion-icon padding name="refresh"></ion-icon>
+    </button>
+  </div>
 
 
-
-  <ion-item padding="0" style="border-bottom: 0px;">
+  <ion-item  *ngIf="bddPhoto['photocinverso'] && bddPhoto['photocinverso'][objetActuel.id] &&  bddPhoto['photocinverso'][objetActuel.id]['sent'].toString() === 'false' " padding="0" style="border-bottom: 0px;background-color: #f53d3d">
+    <h1 >Photo CIN Verso:</h1>
+  </ion-item>
+  <ion-item  *ngIf="bddPhoto['photocinverso'] && bddPhoto['photocinverso'][objetActuel.id] &&  bddPhoto['photocinverso'][objetActuel.id]['sent'].toString() === 'true'"  padding="0" style="border-bottom: 0px;background-color: #32db64">
+    <h1 >Photo CIN Verso:</h1>
+  </ion-item>
+  <ion-item *ngIf="!bddPhoto['photocinverso'] || !bddPhoto['photocinverso'][objetActuel.id]" padding="0" style="border-bottom: 0px;">
     <h1 >Photo CIN Verso :</h1>
   </ion-item>
 
@@ -149,10 +175,22 @@
     </button>
   </div>
 
+  <div *ngIf="objetActuel.photocinverso" text-center>
+    <button ion-button round  (click)="reenvoyerPhoto('photocinverso')">
+      Réenvoyer  <ion-icon padding name="refresh"></ion-icon>
+    </button>
+  </div>
 
-  <ion-item padding="0" style="border-bottom: 0px;">
-    <h1 >Photo Parcelle :</h1>
+  <ion-item  *ngIf="bddPhoto['photoparcelle'] && bddPhoto['photoparcelle'][objetActuel.id] &&  bddPhoto['photoparcelle'][objetActuel.id]['sent'].toString() === 'false' " padding="0" style="border-bottom: 0px;background-color: #f53d3d">
+    <h1 >Photo Parcelle:</h1>
   </ion-item>
+  <ion-item  *ngIf="bddPhoto['photoparcelle'] && bddPhoto['photoparcelle'][objetActuel.id] &&  bddPhoto['photoparcelle'][objetActuel.id]['sent'].toString() === 'true'"  padding="0" style="border-bottom: 0px;background-color: #32db64">
+    <h1 >Photo Parcelle:</h1>
+  </ion-item>
+  <ion-item *ngIf="!bddPhoto['photoparcelle'] || !bddPhoto['photoparcelle'][objetActuel.id]" padding="0" style="border-bottom: 0px;">
+    <h1 >Photo Parcelle:</h1>
+  </ion-item>
+
 
   <img style="width: auto;margin: auto;display: block"  [(src)]="objetActuel.photoparcelle" *ngIf="objetActuel.photoparcelle"/>
 
@@ -164,9 +202,20 @@
     </button>
   </div>
 
+  <div *ngIf="objetActuel.photoparcelle" text-center>
+    <button ion-button round  (click)="reenvoyerPhoto('photoparcelle')">
+      Réenvoyer  <ion-icon padding name="refresh"></ion-icon>
+    </button>
+  </div>
 
-  <ion-item padding="0" style="border-bottom: 0px;">
-    <h1 >Photo Croquis :</h1>
+  <ion-item  *ngIf="bddPhoto['photocroquis'] && bddPhoto['photocroquis'][objetActuel.id] &&  bddPhoto['photocroquis'][objetActuel.id]['sent'].toString() === 'false' " padding="0" style="border-bottom: 0px;background-color: #f53d3d">
+    <h1 >Photo Croquis:</h1>
+  </ion-item>
+  <ion-item  *ngIf="bddPhoto['photocroquis'] && bddPhoto['photocroquis'][objetActuel.id] &&  bddPhoto['photocroquis'][objetActuel.id]['sent'].toString() === 'true'"  padding="0" style="border-bottom: 0px;background-color: #32db64">
+    <h1 >Photo Croquis:</h1>
+  </ion-item>
+  <ion-item *ngIf="!bddPhoto['photocroquis'] || !bddPhoto['photocroquis'][objetActuel.id]" padding="0" style="border-bottom: 0px;">
+    <h1 >Photo Croquis:</h1>
   </ion-item>
 
   <img style="width: auto;margin: auto;display: block"  [(src)]="objetActuel.photocroquis" *ngIf="objetActuel.photocroquis"/>
@@ -176,6 +225,12 @@
   <div text-center>
     <button ion-button round  (click)="photoChooser(objetActuel,'photocroquis',1200,2000,100)">
       Charger Photo  <ion-icon padding name="camera"></ion-icon>
+    </button>
+  </div>
+
+  <div *ngIf="objetActuel.photocroquis" text-center>
+    <button ion-button round  (click)="reenvoyerPhoto('photocroquis')">
+      Réenvoyer  <ion-icon padding name="refresh"></ion-icon>
     </button>
   </div>
 
