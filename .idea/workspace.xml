@@ -2,19 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7b171b8e-49e4-4b5e-8a93-1ca4019260a8" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.sourcemaps/main.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/.sourcemaps/main.js.map" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/platforms/android/.gradle/4.1/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/platforms/android/.gradle/4.1/fileHashes/fileHashes.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/platforms/android/.gradle/4.1/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/platforms/android/.gradle/4.1/fileHashes/fileHashes.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/platforms/android/.gradle/4.1/taskHistory/fileSnapshots.bin" beforeDir="false" afterPath="$PROJECT_DIR$/platforms/android/.gradle/4.1/taskHistory/fileSnapshots.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/platforms/android/.gradle/4.1/taskHistory/taskHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/platforms/android/.gradle/4.1/taskHistory/taskHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/platforms/android/.gradle/4.1/taskHistory/taskHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/platforms/android/.gradle/4.1/taskHistory/taskHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/platforms/android/app/build/generated/res/resValues/debug/values/generated.xml" beforeDir="false" afterPath="$PROJECT_DIR$/platforms/android/app/build/generated/res/resValues/debug/values/generated.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/platforms/android/app/build/intermediates/assets/debug/cdvasset.manifest" beforeDir="false" afterPath="$PROJECT_DIR$/platforms/android/app/build/intermediates/assets/debug/cdvasset.manifest" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/platforms/android/app/build/intermediates/assets/debug/www/build/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/platforms/android/app/build/intermediates/assets/debug/www/build/main.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/platforms/android/app/build/intermediates/assets/debug/www/build/main.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/platforms/android/app/build/intermediates/assets/debug/www/build/main.js.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/platforms/android/app/build/intermediates/assets/debug/www/build/vendor.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/platforms/android/app/build/intermediates/assets/debug/www/build/vendor.js.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/platforms/android/app/build/intermediates/assets/debug/www/pro-manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/platforms/android/app/build/intermediates/assets/debug/www/pro-manifest.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/platforms/android/app/build/intermediates/blame/res/debug/multi-v2/debug.json" beforeDir="false" afterPath="$PROJECT_DIR$/platforms/android/app/build/intermediates/blame/res/debug/multi-v2/debug.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/platforms/android/app/build/intermediates/blame/res/debug/single/debug.json" beforeDir="false" afterPath="$PROJECT_DIR$/platforms/android/app/build/intermediates/blame/res/debug/single/debug.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/platforms/android/app/build/intermediates/incremental/mergeDebugResources/compile-file-map.properties" beforeDir="false" afterPath="$PROJECT_DIR$/platforms/android/app/build/intermediates/incremental/mergeDebugResources/compile-file-map.properties" afterDir="false" />
@@ -25,16 +18,8 @@
       <change beforePath="$PROJECT_DIR$/platforms/android/app/build/intermediates/res/debug/resources-debug.ap_" beforeDir="false" afterPath="$PROJECT_DIR$/platforms/android/app/build/intermediates/res/debug/resources-debug.ap_" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/platforms/android/app/build/intermediates/res/merged/debug/values_values.arsc.flat" beforeDir="false" afterPath="$PROJECT_DIR$/platforms/android/app/build/intermediates/res/merged/debug/values_values.arsc.flat" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/platforms/android/app/build/outputs/apk/debug/app-debug.apk" beforeDir="false" afterPath="$PROJECT_DIR$/platforms/android/app/build/outputs/apk/debug/app-debug.apk" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/platforms/android/app/src/main/assets/cdvasset.manifest" beforeDir="false" afterPath="$PROJECT_DIR$/platforms/android/app/src/main/assets/cdvasset.manifest" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/platforms/android/app/src/main/assets/www/build/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/platforms/android/app/src/main/assets/www/build/main.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/platforms/android/app/src/main/assets/www/build/main.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/platforms/android/app/src/main/assets/www/build/main.js.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/platforms/android/app/src/main/assets/www/build/vendor.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/platforms/android/app/src/main/assets/www/build/vendor.js.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/platforms/android/app/src/main/assets/www/pro-manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/platforms/android/app/src/main/assets/www/pro-manifest.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/app.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/app.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/www/build/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/www/build/main.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/www/build/main.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/www/build/main.js.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/www/build/vendor.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/www/build/vendor.js.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/www/pro-manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/www/pro-manifest.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/ajouter-parcelle/ajouter-parcelle.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/ajouter-parcelle/ajouter-parcelle.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/www/index.html" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -47,10 +32,22 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/pages/ajouter-parcelle/ajouter-parcelle.ts">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="137">
+              <caret line="731" column="6" selection-start-line="731" selection-start-column="6" selection-end-line="731" selection-end-column="6" />
+              <folding>
+                <element signature="e#0#42#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/pages/ajouter-parcelle/ajouter-parcelle.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="975">
+            <state relative-caret-position="1834">
               <caret line="154" column="13" selection-start-line="154" selection-start-column="13" selection-end-line="154" selection-end-column="13" />
               <folding>
                 <element signature="n#style#0;n#ion-icon#0;n#div#0;n#ion-buttons#0;n#ion-navbar#0;n#ion-header#0;n#!!top" expanded="true" />
@@ -108,25 +105,13 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/app/app.component.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="113">
+            <state relative-caret-position="-778">
               <caret line="71" lean-forward="true" selection-start-line="71" selection-end-line="71" />
               <folding>
                 <element signature="e#0#51#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/providers/stockage/stockage.ts">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1440">
-              <caret line="98" column="25" selection-start-line="98" selection-start-column="25" selection-end-line="98" selection-end-column="25" />
-              <folding>
-                <element signature="e#0#43#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -225,12 +210,12 @@
         <option value="$PROJECT_DIR$/src/providers/stockage/stockage.ts" />
         <option value="$PROJECT_DIR$/src/pages/map-location/map-location.html" />
         <option value="$PROJECT_DIR$/config.xml" />
-        <option value="$PROJECT_DIR$/src/pages/ajouter-parcelle/ajouter-parcelle.ts" />
         <option value="$PROJECT_DIR$/src/providers/camera/camera.ts" />
         <option value="$PROJECT_DIR$/src/pages/ajouter-parcelle/ajouter-parcelle.html" />
         <option value="$PROJECT_DIR$/src/pages/liste-parcelle/liste-parcelle.ts" />
         <option value="$PROJECT_DIR$/src/pages/liste-parcelle/liste-parcelle.html" />
         <option value="$PROJECT_DIR$/src/app/app.component.ts" />
+        <option value="$PROJECT_DIR$/src/pages/ajouter-parcelle/ajouter-parcelle.ts" />
       </list>
     </option>
   </component>
@@ -380,17 +365,18 @@
       <workItem from="1560679165140" duration="3715000" />
       <workItem from="1560712944791" duration="2304000" />
       <workItem from="1560727210451" duration="16995000" />
-      <workItem from="1561113132104" duration="909000" />
+      <workItem from="1561113132104" duration="1233000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="126419000" />
+    <option name="totallyTimeSpent" value="126743000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1280" height="800" extended-state="0" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.7471452" visible="true" weight="0.32168388" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.7471452" visible="true" weight="0.32168388" />
       <window_info id="Structure" order="1" sideWeight="0.25285482" side_tool="true" weight="0.43764892" />
       <window_info id="npm" order="2" side_tool="true" />
       <window_info id="Favorites" order="3" side_tool="true" />
@@ -405,7 +391,7 @@
       <window_info anchor="bottom" id="Version Control" order="8" />
       <window_info anchor="bottom" id="TypeScript" order="9" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="11" visible="true" weight="0.38767123" />
+      <window_info anchor="bottom" id="Terminal" order="11" visible="true" weight="0.38767123" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -511,16 +497,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/pages/ajouter-parcelle/ajouter-parcelle.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="945">
-          <caret line="72" column="20" selection-start-line="72" selection-start-column="9" selection-end-line="72" selection-end-column="20" />
-          <folding>
-            <element signature="e#0#42#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/providers/stockage/stockage.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1440">
@@ -584,9 +560,30 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/pages/liste-parcelle/liste-parcelle.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="267">
+          <caret line="21" lean-forward="true" selection-start-line="21" selection-end-line="21" />
+          <folding>
+            <element signature="n#style#0;n#ion-item#1;n#ion-content#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#ion-icon#0;n#button#0;n#ion-list#0;n#ion-content#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/app.component.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-778">
+          <caret line="71" lean-forward="true" selection-start-line="71" selection-end-line="71" />
+          <folding>
+            <element signature="e#0#51#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/pages/ajouter-parcelle/ajouter-parcelle.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="975">
+        <state relative-caret-position="1834">
           <caret line="154" column="13" selection-start-line="154" selection-start-column="13" selection-end-line="154" selection-end-column="13" />
           <folding>
             <element signature="n#style#0;n#ion-icon#0;n#div#0;n#ion-buttons#0;n#ion-navbar#0;n#ion-header#0;n#!!top" expanded="true" />
@@ -607,23 +604,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/pages/liste-parcelle/liste-parcelle.html">
+    <entry file="file://$PROJECT_DIR$/src/pages/ajouter-parcelle/ajouter-parcelle.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="267">
-          <caret line="21" lean-forward="true" selection-start-line="21" selection-end-line="21" />
+        <state relative-caret-position="137">
+          <caret line="731" column="6" selection-start-line="731" selection-start-column="6" selection-end-line="731" selection-end-column="6" />
           <folding>
-            <element signature="n#style#0;n#ion-item#1;n#ion-content#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#ion-icon#0;n#button#0;n#ion-list#0;n#ion-content#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/app.component.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="113">
-          <caret line="71" lean-forward="true" selection-start-line="71" selection-end-line="71" />
-          <folding>
-            <element signature="e#0#51#0" expanded="true" />
+            <element signature="e#0#42#0" expanded="true" />
           </folding>
         </state>
       </provider>

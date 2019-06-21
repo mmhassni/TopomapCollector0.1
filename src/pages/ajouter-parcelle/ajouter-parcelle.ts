@@ -729,7 +729,7 @@ export class AjouterParcellePage {
 
     for(let key in this.listePhoto){
 
-      if(key == "photocinrecto" ){
+
 
         this.storage.get(key).then((val) => {
 
@@ -797,7 +797,7 @@ export class AjouterParcellePage {
 
         });
 
-      }
+
 
 
 
