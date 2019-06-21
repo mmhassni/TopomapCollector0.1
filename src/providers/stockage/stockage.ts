@@ -35,13 +35,13 @@ export class StockageProvider {
 
       console.log(1);
 
-      this.data[key] = val;
+      //this.data[key] = val;
 
       console.log(1);
 
 
-      if(this.data[key] == undefined || this.data[key] == null){
-        this.data[key] = {};
+      if(val == undefined || val == null){
+        val = {};
       }
 
       console.log(1);
@@ -53,12 +53,12 @@ export class StockageProvider {
       console.log(7);
 
 
-      if(typeof this.data[key] == "object"){
+      if(typeof val == "object"){
 
         console.log(8);
 
 
-        this.data[key][id] = value;
+        val[id] = value;
 
 
         console.log(9);

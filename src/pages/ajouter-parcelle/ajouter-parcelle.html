@@ -7,7 +7,7 @@
 <ion-header>
   <ion-navbar>
 
-    <ion-title>Gestion Parcelles</ion-title>
+    <ion-title>Parcelle : {{objetActuel.id}} </ion-title>
 
     <ion-buttons end>
 
@@ -30,6 +30,11 @@
 
   <ion-item padding="0" style="border-bottom: 0px;">
     <h1 >Informations :</h1>
+  </ion-item>
+
+  <ion-item>
+    <ion-label style="opacity:1; color: #000;font-weight: bold">Parcelle : </ion-label>
+    <ion-input text-center type="text" [(ngModel)]="objetActuel.id"></ion-input>
   </ion-item>
 
   <ion-item>
@@ -112,14 +117,15 @@
   <ion-list>
 
     <div *ngFor="let item of listeCentroides;let index = index;">
+
       <button   mode="md" ion-item    (click)="itemTapped($event, item)">
         Borne {{index+1}}
         <p>X = {{item.xnordmaroc.toFixed(2)}} </p>
         <p>Y = {{item.ynordmaroc.toFixed(2)}} </p>
 
         <ion-icon  style="zoom:1; /*background-color: #32db64;*/padding-right: 10px;padding-left: 30px;padding-top: 10px;padding-bottom: 10px;" name="md-more" (click)="detailItemTapped($event, item)" item-end></ion-icon>
-
       </button>
+
     </div>
 
 
@@ -137,6 +143,7 @@
   <ion-item *ngIf="!bddPhoto['photocinrecto'] || !bddPhoto['photocinrecto'][objetActuel.id]" padding="0" style="border-bottom: 0px;">
     <h1 >Photo CIN Recto :</h1>
   </ion-item>
+
 
   <img style="width: auto;margin: auto;display: block"  [(src)]="objetActuel.photocinrecto" *ngIf="objetActuel.photocinrecto"/>
 

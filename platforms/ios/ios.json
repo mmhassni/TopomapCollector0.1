@@ -146,7 +146,7 @@
           "NSCameraUsageDescription": [
             {
               "xml": "<string>You can take photos</string>",
-              "count": 1
+              "count": 2
             }
           ]
         }

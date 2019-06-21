@@ -45,9 +45,22 @@ export class AjouterParcellePage {
     "photocroquis":"photocroquis"
   };
 
-  constructor(public navCtrl: NavController,public storage: Storage, public navParams: NavParams,public stockageProvider: StockageProvider, public actionSheetCtrl: ActionSheetController, public httpClient : HttpClient,public toastCtrl : ToastController,  public cameraProvider : CameraProvider,public events: Events) {
+  public uploadProgress = 0;
 
+  constructor(public navCtrl: NavController,
+              public storage: Storage,
+              public navParams: NavParams,
+              public stockageProvider: StockageProvider,
+              public actionSheetCtrl: ActionSheetController,
+              public httpClient : HttpClient,
+              public toastCtrl : ToastController,
+              public cameraProvider : CameraProvider,
+              public events: Events) {
 
+    this.cameraProvider.resetProgress();
+    this.cameraProvider.uploadProgress.subscribe((progress) => {
+      this.uploadProgress = progress;
+    });
 
 
     this.events.subscribe('refreshphotos', graphicActuel => {
@@ -716,76 +729,77 @@ export class AjouterParcellePage {
 
     for(let key in this.listePhoto){
 
-      this.storage.get(key).then((val) => {
+      if(key == "photocinrecto" ){
 
-        console.log(1);
+        this.storage.get(key).then((val) => {
 
-        this.bddPhoto[key] = val;
+          console.log(1);
 
-        this.photoSent[key] = true;
-        console.log(2);
+          this.bddPhoto[key] = val;
 
-
-
-        console.log(3);
+          this.photoSent[key] = true;
 
 
-        if( val[(this.objetActuel as any).id] && val[(this.objetActuel as any).id]["sent"] === false ){
+          if( val[(this.objetActuel as any).id] && val[(this.objetActuel as any).id]["sent"] === false ){
 
-          (this.objetActuel as any)[key] = val[(this.objetActuel as any).id]["photo"];
-        }
+            (this.objetActuel as any)[key] = val[(this.objetActuel as any).id]["photo"];
+          }
 
 
 
-        console.log("eeeeee",(this.objetActuel as any)[key].substring(0,14));
+          console.log("eeeeee",(this.objetActuel as any)[key].substring(0,14));
 
-        if( !(this.objetActuel as any)[key]){
+          if( !(this.objetActuel as any)[key]){
 
-          this.httpClient.get("http://ec2-52-47-166-154.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
-            "select photo from photoparcelles " +
-            "where idparcelle = " + this.navParams.data.informationsActuelles.id + " " +
-            "and typephoto = '"+ key +"' " +
-            "order by id desc " +
-            "limit 1"
-          )
-            .subscribe( data =>{
+            this.httpClient.get("http://ec2-52-47-166-154.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
+              "select photo from photoparcelles " +
+              "where idparcelle = " + this.navParams.data.informationsActuelles.id + " " +
+              "and typephoto = '"+ key +"' " +
+              "order by id desc " +
+              "limit 1"
+            )
+              .subscribe( data =>{
 
-              try{
-                (this.objetActuel as any)[key] = (data as any).features[0].photo;
-              }catch(e){
-                console.log(e);
-              }
+                try{
+                  (this.objetActuel as any)[key] = (data as any).features[0].photo;
+                }catch(e){
+                  console.log(e);
+                }
 
-            });
+              });
 
-        }
+          }
 
 
-      }).catch((error) => {
-        console.log('get error for ' + key + '', error);
+        }).catch((error) => {
+          console.log('get error for ' + key + '', error);
 
-        if( !(this.objetActuel as any)[key] ){
+          if( !(this.objetActuel as any)[key] ){
 
-          this.httpClient.get("http://ec2-52-47-166-154.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
-            "select photo from photoparcelles " +
-            "where idparcelle = " + this.navParams.data.informationsActuelles.id + " " +
-            "and typephoto = '"+ key +"' " +
-            "order by id desc " +
-            "limit 1"
-          )
-            .subscribe( data =>{
+            this.httpClient.get("http://ec2-52-47-166-154.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
+              "select photo from photoparcelles " +
+              "where idparcelle = " + this.navParams.data.informationsActuelles.id + " " +
+              "and typephoto = '"+ key +"' " +
+              "order by id desc " +
+              "limit 1"
+            )
+              .subscribe( data =>{
 
-              try{
-                (this.objetActuel as any)[key] = (data as any).features[0].photo;
-              }catch(e){
+                try{
+                  (this.objetActuel as any)[key] = (data as any).features[0].photo;
+                }catch(e){
 
-              }
+                }
 
-            });
+              });
 
-        }
+          }
 
-      });
+        });
+
+      }
+
+
 
     }
 
@@ -795,4 +809,8 @@ export class AjouterParcellePage {
   actualiser(){
     this.refreshPhoto();
   }
+
+
+
+
 }

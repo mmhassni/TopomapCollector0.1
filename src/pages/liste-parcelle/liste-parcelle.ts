@@ -21,6 +21,9 @@ export class ListeParcellePage {
   public objetActuel = {};
 
   public listeObjetActuelle = [];
+  private listeObjetActuelleFiltre: any[];
+  public listeValeurFiltre = ["douar","id","adresse","nom_douar"];
+
 
 
 
@@ -39,6 +42,7 @@ export class ListeParcellePage {
 
 
         this.listeObjetActuelle = (data as any).features;
+        this.listeObjetActuelleFiltre = this.listeObjetActuelle;
 
 
       });
@@ -231,4 +235,37 @@ export class ListeParcellePage {
 
 
   }
+
+  getItems(ev) {
+    // Reset items back to all of the items
+    this.listeObjetActuelleFiltre = this.listeObjetActuelle;
+
+    // set val to the value of the ev target
+    var val = ev.target.value;
+
+    // if the value is an empty string don't filter the items
+    if (val && val.trim() != '') {
+      this.listeObjetActuelleFiltre = this.listeObjetActuelleFiltre.filter((item) => {
+        let requeteFiltre = "";
+        for(let i = 0 ; i < this.listeValeurFiltre.length ; i++){
+          if(item[this.listeValeurFiltre[i]] != undefined){
+            requeteFiltre = requeteFiltre + " " + item[this.listeValeurFiltre[i]];
+          }
+        }
+        console.log(requeteFiltre);
+        return ( requeteFiltre.toLowerCase().indexOf(val.toLowerCase()) > -1);
+      })
+    }
+  }
+
+  total(tableau){
+
+    if(tableau){
+      return tableau.length;
+
+    }
+
+
+  }
+
 }

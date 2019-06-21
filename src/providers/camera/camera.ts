@@ -2,9 +2,10 @@ import { Injectable } from '@angular/core';
 import {ActionSheetController, Events, Platform, ToastController} from "ionic-angular";
 import {Camera} from "@ionic-native/camera";
 import {FilePath} from "@ionic-native/file-path/ngx";
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpEventType} from "@angular/common/http";
 import {StockageProvider} from "../stockage/stockage";
-import {timeout} from "rxjs/operators";
+import {last, map, tap, timeout} from "rxjs/operators";
+import {BehaviorSubject} from "rxjs";
 
 /*
   Generated class for the CameraProvider provider.
@@ -14,6 +15,9 @@ import {timeout} from "rxjs/operators";
 */
 @Injectable()
 export class CameraProvider {
+
+  public uploadProgress: BehaviorSubject<number> = new BehaviorSubject<number>(0);
+  public downloadProgress: BehaviorSubject<number> = new BehaviorSubject<number>(0);
 
   constructor(public actionSheetCtrl: ActionSheetController, public stockageProvider: StockageProvider, public httpClient : HttpClient,public toastCtrl : ToastController, private camera: Camera, public platform: Platform, private filePath: FilePath,public events: Events) {
     console.log('Hello CameraProvider Provider');
@@ -61,125 +65,265 @@ export class CameraProvider {
       mediaType: this.camera.MediaType.PICTURE
     };
     */
-    const CameraOptions  = {
+    let CameraOptions  = {
       quality: quality,
       destinationType: this.camera.DestinationType.DATA_URL,
       encodingType: this.camera.EncodingType.JPEG,
       mediaType: this.camera.MediaType.PICTURE,
       targetWidth: width,
       targetHeight: height,
-      correctOrientation: true
+      correctOrientation: true,
+      sourceType: 0
     };
 
+    if(sourceType == this.camera.PictureSourceType.CAMERA) {
+
+      CameraOptions  = {
+        quality: quality,
+        destinationType: this.camera.DestinationType.DATA_URL,
+        encodingType: this.camera.EncodingType.JPEG,
+        mediaType: this.camera.MediaType.PICTURE,
+        targetWidth: width,
+        targetHeight: height,
+        correctOrientation: true,
+        sourceType: 1
+      };
+
+    }
 
 
 
-    // Get the data of an image
-    this.camera.getPicture(CameraOptions).then((imageData) => {
 
-      console.log("hello");
+    //if(sourceType == this.camera.PictureSourceType.CAMERA) {
+      // Get the data of an image
 
-      // Special handling for Android library
-      if (this.platform.is('android') && sourceType === this.camera.PictureSourceType.PHOTOLIBRARY) {
+      this.camera.getPicture(CameraOptions).then((imageData) => {
 
-        objetActuel[photoAttributName] = 'data:image/jpeg;base64,' + imageData;
-        this.filePath.resolveNativePath(imageData);
+        console.log("hello");
 
-      } else {
+        // Special handling for Android library
+        if (this.platform.is('android') && sourceType === this.camera.PictureSourceType.PHOTOLIBRARY) {
 
-        objetActuel[photoAttributName] = 'data:image/jpeg;base64,' + imageData;
+          objetActuel[photoAttributName] = 'data:image/jpeg;base64,' + imageData;
+          this.filePath.resolveNativePath(imageData);
 
-      }
+        } else {
 
-      this.httpClient.post("http://ec2-52-47-166-154.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
-        "insert into photoparcelles (photo,idparcelle,typephoto) " +
-        "values ("+
-        "" + "'postBody'"   + "," +
-        "" + this.adaptValueQuery( (objet as any).id          , "number"  )   + "," +
-        "" + this.adaptValueQuery( photoAttributName        , "text"  )   + "" +
-        ")", 'data:image/jpeg;base64,' + imageData
-      )
-        .pipe(
-          timeout(6000)
+          objetActuel[photoAttributName] = 'data:image/jpeg;base64,' + imageData;
+
+        }
+
+        this.httpClient.post("http://ec2-52-47-166-154.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
+          "insert into photoparcelles (photo,idparcelle,typephoto) " +
+          "values (" +
+          "" + "'postBody'" + "," +
+          "" + this.adaptValueQuery((objet as any).id, "number") + "," +
+          "" + this.adaptValueQuery(photoAttributName, "text") + "" +
+          ")", 'data:image/jpeg;base64,' + imageData, {
+            responseType: 'arraybuffer',
+            reportProgress: true
+          }
         )
-        .subscribe( data =>{
+          .pipe(
+            timeout(6000),
+            //map(event => this.getStatusMessage(event)),
+            //tap(message => console.log(message)),
+            //last()
+          )
+          .subscribe(data => {
 
-        },err => {
+          }, err => {
 
-          let messageGetToast = "Informations attributaires enregistrées";
+            let messageGetToast = "Informations attributaires enregistrées";
 
-          console.log(JSON.stringify(err));
-
-
-          if(err.error && (err.error.message == "org.postgresql.util.PSQLException: Aucun résultat retourné par la requête." || err.error.message == "org.postgresql.util.PSQLException: No results were returned by the query.")  ){
-
-            let toast = this.toastCtrl.create({
-              message: messageGetToast,
-              duration: 1000,
-              position: 'top',
-              cssClass: "toast-success"
-            });
-
-            toast.present();
-
-            this.stockageProvider.updatePushValue(
-              photoAttributName,
-              (objet as any).id,
-              {
-                sent: true
-              }
-
-            );
+            console.log(JSON.stringify(err));
 
 
+            if (err.error && (err.error.message == "org.postgresql.util.PSQLException: Aucun résultat retourné par la requête." || err.error.message == "org.postgresql.util.PSQLException: No results were returned by the query.")) {
 
+              let toast = this.toastCtrl.create({
+                message: messageGetToast,
+                duration: 1000,
+                position: 'top',
+                cssClass: "toast-success"
+              });
+
+              toast.present();
+
+              this.stockageProvider.updatePushValue(
+                photoAttributName,
+                (objet as any).id,
+                {
+                  sent: true
+                }
+              );
+
+
+            } else {
+              messageGetToast = "Informations attributaires non enregistrées";
+
+              let toast = this.toastCtrl.create({
+                message: messageGetToast,
+                duration: 1000,
+                position: 'top',
+                cssClass: "toast-echec"
+              });
+
+              toast.present();
+
+              this.stockageProvider.updatePushValue(
+                photoAttributName,
+                (objet as any).id,
+                {
+                  photo: 'data:image/jpeg;base64,' + imageData,
+                  requete: "http://ec2-52-47-166-154.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
+                    "insert into photoparcelles (photo,idparcelle,typephoto) " +
+                    "values (" +
+                    "" + "'postBody'" + "," +
+                    "" + this.adaptValueQuery((objet as any).id, "number") + "," +
+                    "" + this.adaptValueQuery(photoAttributName, "text") + "" +
+                    ")",
+                  sent: false
+                }
+              );
+
+
+            }
+
+          });
+
+
+      }, (err) => {
+
+        console.log(err.toString());
+      });
+
+      /*
+
+    }
+
+    if(sourceType == this.camera.PictureSourceType.PHOTOLIBRARY){
+
+      // Get the data of an image
+      this.camera.getPicture(0).then((imageData) => {
+
+        console.log("hello");
+
+        // Special handling for Android library
+        if (this.platform.is('android') && sourceType === this.camera.PictureSourceType.PHOTOLIBRARY) {
+
+          objetActuel[photoAttributName] = 'data:image/jpeg;base64,' + imageData;
+          this.filePath.resolveNativePath(imageData);
+
+        } else {
+
+          objetActuel[photoAttributName] = 'data:image/jpeg;base64,' + imageData;
+
+        }
+
+        this.httpClient.post("http://ec2-52-47-166-154.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
+          "insert into photoparcelles (photo,idparcelle,typephoto) " +
+          "values ("+
+          "" + "'postBody'"   + "," +
+          "" + this.adaptValueQuery( (objet as any).id          , "number"  )   + "," +
+          "" + this.adaptValueQuery( photoAttributName        , "text"  )   + "" +
+          ")", 'data:image/jpeg;base64,' + imageData, {
+            responseType: 'arraybuffer',
+            reportProgress: true
           }
-          else{
-            messageGetToast = "Informations attributaires non enregistrées";
+        )
+          .pipe(
+            timeout(6000),
+            //map(event => this.getStatusMessage(event)),
+            //tap(message => console.log(message)),
+            //last()
+          )
+          .subscribe( data =>{
 
-            let toast = this.toastCtrl.create({
-              message: messageGetToast,
-              duration: 1000,
-              position: 'top',
-              cssClass: "toast-echec"
-            });
+          },err => {
 
-            toast.present();
+            let messageGetToast = "Informations attributaires enregistrées";
 
-            this.stockageProvider.updatePushValue(
-              photoAttributName,
-              (objet as any).id,
-              {
-                photo : 'data:image/jpeg;base64,' + imageData,
-                requete: "http://ec2-52-47-166-154.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
-                  "insert into photoparcelles (photo,idparcelle,typephoto) " +
-                  "values ("+
-                  "" + "'postBody'"   + "," +
-                  "" + this.adaptValueQuery( (objet as any).id          , "number"  )   + "," +
-                  "" + this.adaptValueQuery( photoAttributName        , "text"  )   + "" +
-                  ")",
-                sent: false}
-
-            );
+            console.log(JSON.stringify(err));
 
 
+            if(err.error && (err.error.message == "org.postgresql.util.PSQLException: Aucun résultat retourné par la requête." || err.error.message == "org.postgresql.util.PSQLException: No results were returned by the query.")  ){
 
+              let toast = this.toastCtrl.create({
+                message: messageGetToast,
+                duration: 1000,
+                position: 'top',
+                cssClass: "toast-success"
+              });
 
-          }
+              toast.present();
 
-        });
+              this.stockageProvider.updatePushValue(
+                photoAttributName,
+                (objet as any).id,
+                {
+                  sent: true
+                }
 
-
-
-
-    }, (err) => {
-
-      console.log(err.toString());
-    });
+              );
 
 
 
-  }
+            }
+            else{
+              messageGetToast = "Informations attributaires non enregistrées";
+
+              let toast = this.toastCtrl.create({
+                message: messageGetToast,
+                duration: 1000,
+                position: 'top',
+                cssClass: "toast-echec"
+              });
+
+              toast.present();
+
+              this.stockageProvider.updatePushValue(
+                photoAttributName,
+                (objet as any).id,
+                {
+                  photo : 'data:image/jpeg;base64,' + imageData,
+                  requete: "http://ec2-52-47-166-154.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
+                    "insert into photoparcelles (photo,idparcelle,typephoto) " +
+                    "values ("+
+                    "" + "'postBody'"   + "," +
+                    "" + this.adaptValueQuery( (objet as any).id          , "number"  )   + "," +
+                    "" + this.adaptValueQuery( photoAttributName        , "text"  )   + "" +
+                    ")",
+                  sent: false}
+
+              );
+
+
+
+
+            }
+
+          });
+
+
+
+
+      }, (err) => {
+
+        console.log(err.toString());
+      });
+
+
+    }
+
+    */
+
+
+
+
+
+
+    }
 
   adaptValueQuery(value,type) {
     let retour = null;
@@ -199,6 +343,39 @@ export class CameraProvider {
 
     }
     return retour;
+  }
+
+  getStatusMessage(event){
+
+    let status;
+
+    switch(event.type){
+      case HttpEventType.Sent:
+        return `Uploading Files`;
+
+      case HttpEventType.UploadProgress:
+        status = Math.round(100 * event.loaded / event.total);
+        this.uploadProgress.next(status);
+        return `Files are ${status}% uploaded`;
+
+      case HttpEventType.DownloadProgress:
+        status = Math.round(100 * event.loaded / event.total);
+        this.downloadProgress.next(status); // NOTE: The Content-Length header must be set on the server to calculate this
+        return `Files are ${status}% downloaded`;
+
+      case HttpEventType.Response:
+        return `Done`;
+
+      default:
+        return `Something went wrong`
+    }
+  }
+
+  resetProgress(){
+
+    this.uploadProgress.next(0);
+    this.downloadProgress.next(0);
+
   }
 
 
