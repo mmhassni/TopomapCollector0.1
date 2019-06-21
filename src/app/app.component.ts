@@ -65,7 +65,7 @@ export class MyApp {
 
         console.log(key);
 
-        if(key == "photoparcelle"){
+        //if(key == "photoparcelle"){
 
 
 
@@ -139,7 +139,7 @@ export class MyApp {
             console.log(reason);
           }));
 
-        }
+        //}
 
 
 

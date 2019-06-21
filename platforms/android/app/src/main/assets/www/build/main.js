@@ -1772,37 +1772,37 @@ var MyApp = /** @class */ (function () {
             }
             var _loop_1 = function (key) {
                 console.log(key);
-                if (key == "photoparcelle") {
-                    _this.storage.get(key).then(function (val) {
-                        var _loop_2 = function (itemid) {
-                            if (val[itemid]["sent"].toString()) {
-                                console.log(val[itemid]["sent"]);
-                                _this.httpClient.post(val[itemid]["requete"], val[itemid]["photo"]).pipe(Object(__WEBPACK_IMPORTED_MODULE_7_rxjs_operators__["timeout"])(6000))
-                                    .subscribe(function (data) {
-                                }, function (err) {
-                                    console.log("eee");
-                                    var messageGetToast = "Parcelle : " + itemid + " Informations attributaires enregistrées";
-                                    console.log(JSON.stringify(err));
-                                    if (err.error && (err.error.message == "org.postgresql.util.PSQLException: Aucun résultat retourné par la requête." || err.error.message == "org.postgresql.util.PSQLException: No results were returned by the query.")) {
-                                        var toast = _this.toastCtrl.create({
-                                            message: messageGetToast,
-                                            duration: 1000,
-                                            position: 'top',
-                                            cssClass: "toast-success"
-                                        });
-                                        toast.present();
-                                        _this.stockageProvider.updatePushValue(key, itemid, { sent: true });
-                                    }
-                                });
-                            }
-                        };
-                        for (var itemid in val) {
-                            _loop_2(itemid);
+                //if(key == "photoparcelle"){
+                _this.storage.get(key).then(function (val) {
+                    var _loop_2 = function (itemid) {
+                        if (val[itemid]["sent"].toString()) {
+                            console.log(val[itemid]["sent"]);
+                            _this.httpClient.post(val[itemid]["requete"], val[itemid]["photo"]).pipe(Object(__WEBPACK_IMPORTED_MODULE_7_rxjs_operators__["timeout"])(6000))
+                                .subscribe(function (data) {
+                            }, function (err) {
+                                console.log("eee");
+                                var messageGetToast = "Parcelle : " + itemid + " Informations attributaires enregistrées";
+                                console.log(JSON.stringify(err));
+                                if (err.error && (err.error.message == "org.postgresql.util.PSQLException: Aucun résultat retourné par la requête." || err.error.message == "org.postgresql.util.PSQLException: No results were returned by the query.")) {
+                                    var toast = _this.toastCtrl.create({
+                                        message: messageGetToast,
+                                        duration: 1000,
+                                        position: 'top',
+                                        cssClass: "toast-success"
+                                    });
+                                    toast.present();
+                                    _this.stockageProvider.updatePushValue(key, itemid, { sent: true });
+                                }
+                            });
                         }
-                    }, (function (reason) {
-                        console.log(reason);
-                    }));
-                }
+                    };
+                    for (var itemid in val) {
+                        _loop_2(itemid);
+                    }
+                }, (function (reason) {
+                    console.log(reason);
+                }));
+                //}
             };
             for (var key in _this.listePhoto) {
                 _loop_1(key);
