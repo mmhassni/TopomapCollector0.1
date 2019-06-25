@@ -470,6 +470,19 @@ module.exports = [
     "clobbers": [
       "SQLitePlugin"
     ]
+  },
+  {
+    "id": "cordova-base64-to-gallery.object.assign-polyfill",
+    "file": "plugins/cordova-base64-to-gallery/www/object.assign-polyfill.js",
+    "pluginId": "cordova-base64-to-gallery"
+  },
+  {
+    "id": "cordova-base64-to-gallery.base64ToGallery",
+    "file": "plugins/cordova-base64-to-gallery/www/base64ToGallery.js",
+    "pluginId": "cordova-base64-to-gallery",
+    "clobbers": [
+      "cordova.base64ToGallery"
+    ]
   }
 ];
 module.exports.metadata = 
@@ -492,7 +505,8 @@ module.exports.metadata =
   "cordova-plugin-statusbar": "2.4.2",
   "cordova-plugin-whitelist": "1.3.3",
   "cordova-plugin-zip": "3.1.0",
-  "cordova-sqlite-storage": "3.2.0"
+  "cordova-sqlite-storage": "3.2.0",
+  "cordova-base64-to-gallery": "4.1.3"
 };
 // BOTTOM OF METADATA
 });

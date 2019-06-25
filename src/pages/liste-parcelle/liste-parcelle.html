@@ -11,7 +11,11 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Total : {{total(listeObjetActuelleFiltre)}}</ion-title>
+    <ion-title>
+      Total : {{total(listeObjetActuelleFiltre)}}
+      <br>
+      <span *ngIf="chargement" style="color:red">Chargement ... </span>
+    </ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -42,6 +46,16 @@
       <p>Adresse : {{item?.adresse}}</p>
       <p>Consistance : {{item?.consistance}}</p>
       <p>Col Naïb : {{item?.coldenaib}}</p>
+
+      <p *ngIf="item?.presencephotocin" style="font-weight: bold;color:green">Photo CIN Enregistrée </p>
+      <p *ngIf="!item?.presencephotocin" style="font-weight: bold;color:red">Photo CIN Manquante</p>
+
+      <p *ngIf="item?.presencephotoparcelle" style="font-weight: bold;color:green">Photo Parcelle Enregistrée </p>
+      <p *ngIf="!item?.presencephotoparcelle" style="font-weight: bold;color:red">Photo Parcelle Manquante</p>
+
+      <p *ngIf="item?.presenceshape" style="font-weight: bold;color:green">Centroide Enregistré </p>
+      <p *ngIf="!item?.presenceshape" style="font-weight: bold;color:red">Centroide Manquant</p>
+
       <ion-icon  style="zoom:1; /*background-color: #32db64;*/padding-right: 10px;padding-left: 30px;padding-top: 10px;padding-bottom: 10px;" name="md-more" (click)="detailItemTapped($event, item)" item-end></ion-icon>
 
     </button>

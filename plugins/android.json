@@ -56,6 +56,9 @@
     },
     "cordova-sqlite-storage": {
       "PACKAGE_NAME": "io.ionic.topomapcollector"
+    },
+    "cordova-base64-to-gallery": {
+      "PACKAGE_NAME": "io.ionic.topomapcollector"
     }
   },
   "dependent_plugins": {

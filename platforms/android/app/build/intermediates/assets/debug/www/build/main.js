@@ -7,7 +7,7 @@ webpackJsonp([3],{
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ListeParcellePage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(39);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_common_http__ = __webpack_require__(47);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_common_http__ = __webpack_require__(48);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_camera_camera__ = __webpack_require__(137);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ajouter_parcelle_ajouter_parcelle__ = __webpack_require__(176);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -41,15 +41,51 @@ var ListeParcellePage = /** @class */ (function () {
         this.objetActuel = {};
         this.listeObjetActuelle = [];
         this.listeValeurFiltre = ["douar", "id", "adresse", "nom_douar"];
+        this.chargement = false;
         this.refresh();
     }
     ListeParcellePage.prototype.refresh = function () {
         var _this = this;
+        this.chargement = true;
         this.httpClient.get("http://ec2-52-47-166-154.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
-            "select * from parcelles order by id desc")
+            "select parcelles.id  , " +
+            "parcelles.consistance  , " +
+            "parcelles.plusvalues  , " +
+            "parcelles.constructions  , " +
+            "parcelles.adresse  , " +
+            "parcelles.coldenaib  , " +
+            "substring(photocinrecto.photo for 2) as presencephotocin, " +
+            "substring(photoparcelle.photo for 2) as presencephotoparcelle," +
+            "centroide.shape as presenceshape " +
+            "" +
+            "from parcelles " +
+            "left join (select *, photo as photocinrecto " +
+            "   from photoparcelles as PP1 " +
+            "   where typephoto = 'photocinrecto' " +
+            "   and id = (select max(id) from photoparcelles " +
+            "   where idparcelle = PP1.idparcelle and typephoto = 'photocinrecto' ) " +
+            "  )" +
+            "as photocinrecto on photocinrecto.idparcelle = parcelles.id " +
+            "left join (select *, photo as photoparcelle " +
+            "   from photoparcelles as PP2 " +
+            "   where typephoto = 'photoparcelle' " +
+            "   and id = (select max(id) from photoparcelles " +
+            "   where idparcelle = PP2.idparcelle and typephoto = 'photoparcelle' ) " +
+            "  ) " +
+            "as photoparcelle on photoparcelle.idparcelle = parcelles.id " +
+            "left join (select * " +
+            "   from centroides as CO " +
+            "   where id = (select max(id) from centroides " +
+            "   where idparcelle = CO.idparcelle ) " +
+            "  )" +
+            "as centroide on centroide.idparcelle = parcelles.id " +
+            "order by id desc " +
+            "" +
+            "")
             .subscribe(function (data) {
             _this.listeObjetActuelle = data.features;
             _this.listeObjetActuelleFiltre = _this.listeObjetActuelle;
+            _this.chargement = false;
         });
     };
     ListeParcellePage.prototype.ionViewDidEnter = function () {
@@ -216,7 +252,7 @@ var ListeParcellePage = /** @class */ (function () {
     };
     ListeParcellePage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-liste-parcelle',template:/*ion-inline-start:"/Users/admin/Downloads/Topomap/TopomapCollector0.1/src/pages/liste-parcelle/liste-parcelle.html"*/'\n\n<!--\n  Generated template for the ListeFournisseurPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n  <ion-navbar>\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>Total : {{total(listeObjetActuelleFiltre)}}</ion-title>\n  </ion-navbar>\n</ion-header>\n\n\n\n<ion-content padding>\n\n\n\n  <ion-item padding="0">\n    <h1 >Liste Parcelle ({{total(listeObjetActuelleFiltre)}}) </h1>\n    <ion-icon name="add-circle" (click)="ajouterItem()" item-end></ion-icon>\n  </ion-item>\n\n  <ion-item style="padding-right: 5px" >\n\n    <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>\n\n  </ion-item>\n\n\n\n  <ion-list >\n    <button mode="md" ion-item *ngFor="let item of listeObjetActuelleFiltre"   (click)="itemTapped($event, item)">\n      Parcelle P{{item?.id}}\n      <p>Plus values : {{item?.plusvalues}}</p>\n      <p>Constructions : {{item?.constructions}}</p>\n      <p>Adresse : {{item?.adresse}}</p>\n      <p>Consistance : {{item?.consistance}}</p>\n      <p>Col Naïb : {{item?.coldenaib}}</p>\n      <ion-icon  style="zoom:1; /*background-color: #32db64;*/padding-right: 10px;padding-left: 30px;padding-top: 10px;padding-bottom: 10px;" name="md-more" (click)="detailItemTapped($event, item)" item-end></ion-icon>\n\n    </button>\n\n  </ion-list>\n\n\n</ion-content>\n\n'/*ion-inline-end:"/Users/admin/Downloads/Topomap/TopomapCollector0.1/src/pages/liste-parcelle/liste-parcelle.html"*/,
+            selector: 'page-liste-parcelle',template:/*ion-inline-start:"/Users/admin/Downloads/Topomap/TopomapCollector0.1/src/pages/liste-parcelle/liste-parcelle.html"*/'\n\n<!--\n  Generated template for the ListeFournisseurPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n  <ion-navbar>\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>\n      Total : {{total(listeObjetActuelleFiltre)}}\n      <br>\n      <span *ngIf="chargement" style="color:red">Chargement ... </span>\n    </ion-title>\n  </ion-navbar>\n</ion-header>\n\n\n\n<ion-content padding>\n\n\n\n  <ion-item padding="0">\n    <h1 >Liste Parcelle ({{total(listeObjetActuelleFiltre)}}) </h1>\n    <ion-icon name="add-circle" (click)="ajouterItem()" item-end></ion-icon>\n  </ion-item>\n\n  <ion-item style="padding-right: 5px" >\n\n    <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>\n\n  </ion-item>\n\n\n\n  <ion-list >\n    <button mode="md" ion-item *ngFor="let item of listeObjetActuelleFiltre"   (click)="itemTapped($event, item)">\n      Parcelle P{{item?.id}}\n      <p>Plus values : {{item?.plusvalues}}</p>\n      <p>Constructions : {{item?.constructions}}</p>\n      <p>Adresse : {{item?.adresse}}</p>\n      <p>Consistance : {{item?.consistance}}</p>\n      <p>Col Naïb : {{item?.coldenaib}}</p>\n\n      <p *ngIf="item?.presencephotocin" style="font-weight: bold;color:green">Photo CIN Enregistrée </p>\n      <p *ngIf="!item?.presencephotocin" style="font-weight: bold;color:red">Photo CIN Manquante</p>\n\n      <p *ngIf="item?.presencephotoparcelle" style="font-weight: bold;color:green">Photo Parcelle Enregistrée </p>\n      <p *ngIf="!item?.presencephotoparcelle" style="font-weight: bold;color:red">Photo Parcelle Manquante</p>\n\n      <p *ngIf="item?.presenceshape" style="font-weight: bold;color:green">Centroide Enregistré </p>\n      <p *ngIf="!item?.presenceshape" style="font-weight: bold;color:red">Centroide Manquant</p>\n\n      <ion-icon  style="zoom:1; /*background-color: #32db64;*/padding-right: 10px;padding-left: 30px;padding-top: 10px;padding-bottom: 10px;" name="md-more" (click)="detailItemTapped($event, item)" item-end></ion-icon>\n\n    </button>\n\n  </ion-list>\n\n\n</ion-content>\n\n'/*ion-inline-end:"/Users/admin/Downloads/Topomap/TopomapCollector0.1/src/pages/liste-parcelle/liste-parcelle.html"*/,
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* ActionSheetController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavParams */], __WEBPACK_IMPORTED_MODULE_2__angular_common_http__["a" /* HttpClient */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* ToastController */], __WEBPACK_IMPORTED_MODULE_3__providers_camera_camera__["a" /* CameraProvider */]])
     ], ListeParcellePage);
@@ -234,11 +270,11 @@ var ListeParcellePage = /** @class */ (function () {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return MapLocationPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(39);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_esri_loader__ = __webpack_require__(696);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_esri_loader__ = __webpack_require__(697);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_esri_loader___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_esri_loader__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_geolocation__ = __webpack_require__(330);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_common_http__ = __webpack_require__(47);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_wellknown__ = __webpack_require__(331);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_geolocation__ = __webpack_require__(331);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_common_http__ = __webpack_require__(48);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_wellknown__ = __webpack_require__(332);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_wellknown___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_wellknown__);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -576,12 +612,13 @@ var MapLocationPage = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(39);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_camera__ = __webpack_require__(234);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_file_path_ngx__ = __webpack_require__(238);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_common_http__ = __webpack_require__(47);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_common_http__ = __webpack_require__(48);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__stockage_stockage__ = __webpack_require__(81);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_rxjs_operators__ = __webpack_require__(83);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_rxjs_operators___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_rxjs_operators__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_rxjs__ = __webpack_require__(428);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_rxjs__ = __webpack_require__(429);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_rxjs___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7_rxjs__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__ionic_native_base64_to_gallery__ = __webpack_require__(330);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -634,6 +671,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 
 
 
+
 /*
   Generated class for the CameraProvider provider.
 
@@ -641,8 +679,12 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
   and Angular DI.
 */
 var CameraProvider = /** @class */ (function () {
-    function CameraProvider(actionSheetCtrl, stockageProvider, httpClient, toastCtrl, camera, platform, filePath, events) {
+    // @ts-ignore
+    // @ts-ignore
+    // @ts-ignore
+    function CameraProvider(actionSheetCtrl, base64ToGallery, stockageProvider, httpClient, toastCtrl, camera, platform, filePath, events) {
         this.actionSheetCtrl = actionSheetCtrl;
+        this.base64ToGallery = base64ToGallery;
         this.stockageProvider = stockageProvider;
         this.httpClient = httpClient;
         this.toastCtrl = toastCtrl;
@@ -718,6 +760,24 @@ var CameraProvider = /** @class */ (function () {
                     else {
                         objetActuel[photoAttributName] = 'data:image/jpeg;base64,' + imageData;
                     }
+                    console.log("a vos marques");
+                    /*
+            
+                    if(sourceType == this.camera.PictureSourceType.CAMERA) {
+                      let prefix = "P_" + (objet as any).id.toString() + "_";
+                      try{
+                        this.base64ToGallery.base64ToGallery(imageData, { prefix: prefix , mediaScanner:true }).then(
+                          res => console.log('Saved image to gallery ', res.toString().substring(10) ),
+                          err => console.log('Error saving image to gallery ', err.toString().substring(10) )
+                        );
+                      }
+                      catch(err){
+                        console.log("erreur" + err);
+                      }
+            
+                    }
+            
+                    */
                     _this.httpClient.post("http://ec2-52-47-166-154.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
                         "insert into photoparcelles (photo,idparcelle,typephoto) " +
                         "values (" +
@@ -728,7 +788,7 @@ var CameraProvider = /** @class */ (function () {
                         responseType: 'arraybuffer',
                         reportProgress: true
                     })
-                        .pipe(Object(__WEBPACK_IMPORTED_MODULE_6_rxjs_operators__["timeout"])(6000))
+                        .pipe(Object(__WEBPACK_IMPORTED_MODULE_6_rxjs_operators__["timeout"])(10000))
                         .subscribe(function (data) {
                     }, function (err) {
                         var messageGetToast = "Informations attributaires enregistrées";
@@ -819,7 +879,14 @@ var CameraProvider = /** @class */ (function () {
     };
     CameraProvider = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["A" /* Injectable */])(),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* ActionSheetController */], __WEBPACK_IMPORTED_MODULE_5__stockage_stockage__["a" /* StockageProvider */], __WEBPACK_IMPORTED_MODULE_4__angular_common_http__["a" /* HttpClient */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* ToastController */], __WEBPACK_IMPORTED_MODULE_2__ionic_native_camera__["a" /* Camera */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* Platform */], __WEBPACK_IMPORTED_MODULE_3__ionic_native_file_path_ngx__["a" /* FilePath */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* Events */]])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* ActionSheetController */],
+            __WEBPACK_IMPORTED_MODULE_8__ionic_native_base64_to_gallery__["a" /* Base64ToGallery */],
+            __WEBPACK_IMPORTED_MODULE_5__stockage_stockage__["a" /* StockageProvider */],
+            __WEBPACK_IMPORTED_MODULE_4__angular_common_http__["a" /* HttpClient */],
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* ToastController */],
+            __WEBPACK_IMPORTED_MODULE_2__ionic_native_camera__["a" /* Camera */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* Platform */],
+            __WEBPACK_IMPORTED_MODULE_3__ionic_native_file_path_ngx__["a" /* FilePath */],
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* Events */]])
     ], CameraProvider);
     return CameraProvider;
 }());
@@ -835,12 +902,12 @@ var CameraProvider = /** @class */ (function () {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AjouterParcellePage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(39);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_common_http__ = __webpack_require__(47);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_common_http__ = __webpack_require__(48);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_camera_camera__ = __webpack_require__(137);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__map_location_map_location__ = __webpack_require__(105);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_wellknown__ = __webpack_require__(331);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_wellknown__ = __webpack_require__(332);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_wellknown___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_wellknown__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_proj4__ = __webpack_require__(697);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_proj4__ = __webpack_require__(698);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__providers_stockage_stockage__ = __webpack_require__(81);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__ionic_storage__ = __webpack_require__(82);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_rxjs_operators__ = __webpack_require__(83);
@@ -1293,7 +1360,7 @@ var AjouterParcellePage = /** @class */ (function () {
             "" + this.adaptValueQuery(this.objetActuel.id, "number") + "," +
             "" + this.adaptValueQuery(libellephoto, "text") + "" +
             ")", this.objetActuel[libellephoto])
-            .pipe(Object(__WEBPACK_IMPORTED_MODULE_9_rxjs_operators__["timeout"])(6000))
+            .pipe(Object(__WEBPACK_IMPORTED_MODULE_9_rxjs_operators__["timeout"])(10000))
             .subscribe(function (data) {
             console.log("wwwwqqqq");
         }, function (err) {
@@ -1344,7 +1411,7 @@ var AjouterParcellePage = /** @class */ (function () {
                 "" + this_1.adaptValueQuery(this_1.objetActuel.id, "number") + "," +
                 "" + this_1.adaptValueQuery(key, "text") + "" +
                 ")", this_1.objetActuel[key])
-                .pipe(Object(__WEBPACK_IMPORTED_MODULE_9_rxjs_operators__["timeout"])(6000))
+                .pipe(Object(__WEBPACK_IMPORTED_MODULE_9_rxjs_operators__["timeout"])(10000))
                 .subscribe(function (data) {
                 console.log("wwwwqqqq");
             }, function (err) {
@@ -1392,50 +1459,48 @@ var AjouterParcellePage = /** @class */ (function () {
     AjouterParcellePage.prototype.refreshPhoto = function () {
         var _this = this;
         var _loop_2 = function (key) {
-            if (key == "photocinrecto") {
-                this_2.storage.get(key).then(function (val) {
-                    console.log(1);
-                    _this.bddPhoto[key] = val;
-                    _this.photoSent[key] = true;
-                    if (val[_this.objetActuel.id] && val[_this.objetActuel.id]["sent"] === false) {
-                        _this.objetActuel[key] = val[_this.objetActuel.id]["photo"];
-                    }
-                    console.log("eeeeee", _this.objetActuel[key].substring(0, 14));
-                    if (!_this.objetActuel[key]) {
-                        _this.httpClient.get("http://ec2-52-47-166-154.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
-                            "select photo from photoparcelles " +
-                            "where idparcelle = " + _this.navParams.data.informationsActuelles.id + " " +
-                            "and typephoto = '" + key + "' " +
-                            "order by id desc " +
-                            "limit 1")
-                            .subscribe(function (data) {
-                            try {
-                                _this.objetActuel[key] = data.features[0].photo;
-                            }
-                            catch (e) {
-                                console.log(e);
-                            }
-                        });
-                    }
-                }).catch(function (error) {
-                    console.log('get error for ' + key + '', error);
-                    if (!_this.objetActuel[key]) {
-                        _this.httpClient.get("http://ec2-52-47-166-154.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
-                            "select photo from photoparcelles " +
-                            "where idparcelle = " + _this.navParams.data.informationsActuelles.id + " " +
-                            "and typephoto = '" + key + "' " +
-                            "order by id desc " +
-                            "limit 1")
-                            .subscribe(function (data) {
-                            try {
-                                _this.objetActuel[key] = data.features[0].photo;
-                            }
-                            catch (e) {
-                            }
-                        });
-                    }
-                });
-            }
+            this_2.storage.get(key).then(function (val) {
+                console.log(1);
+                _this.bddPhoto[key] = val;
+                _this.photoSent[key] = true;
+                if (val[_this.objetActuel.id] && val[_this.objetActuel.id]["sent"] === false) {
+                    _this.objetActuel[key] = val[_this.objetActuel.id]["photo"];
+                }
+                console.log("eeeeee", _this.objetActuel[key].substring(0, 14));
+                if (!_this.objetActuel[key]) {
+                    _this.httpClient.get("http://ec2-52-47-166-154.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
+                        "select photo from photoparcelles " +
+                        "where idparcelle = " + _this.navParams.data.informationsActuelles.id + " " +
+                        "and typephoto = '" + key + "' " +
+                        "order by id desc " +
+                        "limit 1")
+                        .subscribe(function (data) {
+                        try {
+                            _this.objetActuel[key] = data.features[0].photo;
+                        }
+                        catch (e) {
+                            console.log(e);
+                        }
+                    });
+                }
+            }).catch(function (error) {
+                console.log('get error for ' + key + '', error);
+                if (!_this.objetActuel[key]) {
+                    _this.httpClient.get("http://ec2-52-47-166-154.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
+                        "select photo from photoparcelles " +
+                        "where idparcelle = " + _this.navParams.data.informationsActuelles.id + " " +
+                        "and typephoto = '" + key + "' " +
+                        "order by id desc " +
+                        "limit 1")
+                        .subscribe(function (data) {
+                        try {
+                            _this.objetActuel[key] = data.features[0].photo;
+                        }
+                        catch (e) {
+                        }
+                    });
+                }
+            });
         };
         var this_2 = this;
         for (var key in this.listePhoto) {
@@ -1447,7 +1512,7 @@ var AjouterParcellePage = /** @class */ (function () {
     };
     AjouterParcellePage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-ajouter-parcelle',template:/*ion-inline-start:"/Users/admin/Downloads/Topomap/TopomapCollector0.1/src/pages/ajouter-parcelle/ajouter-parcelle.html"*/'<!--\n  Generated template for the AjouterProjetPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n  <ion-navbar>\n\n    <ion-title>Parcelle : {{objetActuel.id}} </ion-title>\n\n    <ion-buttons end>\n\n\n      <div (click)="detailActionMenu()">\n        <ion-icon  style="zoom:1.5; /*background-color: #32db64;*/padding-right: 10px;padding-left: 30px;padding-top: 0px;padding-bottom: 0px;" name="md-more"  item-end></ion-icon>\n\n      </div>\n\n\n    </ion-buttons>\n\n  </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content padding>\n\n  <ion-item padding="0" style="border-bottom: 0px;">\n    <h1 >Informations :</h1>\n  </ion-item>\n\n  <ion-item>\n    <ion-label style="opacity:1; color: #000;font-weight: bold">Parcelle : </ion-label>\n    <ion-input text-center type="text" [(ngModel)]="objetActuel.id"></ion-input>\n  </ion-item>\n\n  <ion-item>\n    <ion-label style="opacity:1; color: #000;font-weight: bold">Consistance:</ion-label>\n    <ion-select (ionChange) = "onConsistanceSelectChange($event)"   multiple="true" name = "Type vehicule" [(ngModel)]="objetActuel.consistanceionselect"  >\n      <ion-option *ngFor="let item of listeChoixConsistance" [value]="item[0]">{{item[0]}}</ion-option>\n    </ion-select>\n  </ion-item>\n\n  <ion-item *ngIf="objetActuel.consistanceionselect || objetActuel.consistance">\n    <ion-input  (ngModelChange)="onConsistanceInuptChange($event)"  text-center type="text" name="adressefournisseur" [(ngModel)]="objetActuel.consistance"  ></ion-input>\n  </ion-item>\n\n  <ion-item>\n    <ion-label style="opacity:1; color: #000;font-weight: bold">Plus Values:</ion-label>\n    <ion-select (ionChange) = "onPlusvaluesSelectChange($event)"   multiple="true" name = "Type vehicule" [(ngModel)]="objetActuel.plusvaluesionselect"  >\n      <ion-option *ngFor="let item of listeChoixPlusvalues" [value]="item[0]">{{item[0]}}</ion-option>\n    </ion-select>\n  </ion-item>\n\n  <ion-item *ngIf="objetActuel.plusvaluesionselect || objetActuel.plusvalues">\n    <ion-input (ngModelChange)="onPlusvaluesInuptChange($event)"  text-center type="text" name="adressefournisseur" [(ngModel)]="objetActuel.plusvalues"  ></ion-input>\n  </ion-item>\n\n\n  <ion-item>\n    <ion-label style="opacity:1; color: #000;font-weight: bold">Constructions: </ion-label>\n    <ion-select (ionChange) = "onConstructionsSelectChange($event)"   multiple="true" name = "Type vehicule" [(ngModel)]="objetActuel.constructionsionselect"  >\n      <ion-option *ngFor="let item of listeChoixConstructions" [value]="item[0]">{{item[0]}}</ion-option>\n    </ion-select>\n  </ion-item>\n\n  <ion-item *ngIf="objetActuel.constructionsionselect || objetActuel.constructions">\n    <ion-input (ngModelChange)="onConstructionsInuptChange($event)"  text-center type="text" name="adressefournisseur" [(ngModel)]="objetActuel.constructions"  ></ion-input>\n  </ion-item>\n\n  <ion-item>\n    <ion-label style="color: #000;font-weight: bold">\n      Adresse :\n    </ion-label>\n    <ion-input text-center type="text" [(ngModel)]="objetActuel.adresse"  ></ion-input>\n  </ion-item>\n\n  <ion-item>\n    <ion-label style="color: #000;font-weight: bold">\n      Coll selon Naïb :\n    </ion-label>\n    <ion-input text-center type="text" [(ngModel)]="objetActuel.coldenaib"  ></ion-input>\n  </ion-item>\n\n\n\n\n\n  <button type="submit" color="tertiary" ion-button (click)="enregistrerInformationsAttributaires()" block >\n    Enregistrer modifications\n  </button>\n\n  <br><br>\n\n  <ion-item  [id]="id"  style="padding:4" >\n\n    <ion-label style="color: #000;">\n      <h1 >Bornes Centroïdes :</h1>\n\n\n\n\n    </ion-label>\n\n\n\n    <ion-icon name="add-circle" (click)="recupererGraphic()" item-end></ion-icon>\n\n\n  </ion-item>\n\n\n\n  <ion-list>\n\n    <div *ngFor="let item of listeCentroides;let index = index;">\n\n      <button   mode="md" ion-item    (click)="itemTapped($event, item)">\n        Borne {{index+1}}\n        <p>X = {{item.xnordmaroc.toFixed(2)}} </p>\n        <p>Y = {{item.ynordmaroc.toFixed(2)}} </p>\n\n        <ion-icon  style="zoom:1; /*background-color: #32db64;*/padding-right: 10px;padding-left: 30px;padding-top: 10px;padding-bottom: 10px;" name="md-more" (click)="detailItemTapped($event, item)" item-end></ion-icon>\n      </button>\n\n    </div>\n\n\n  </ion-list>\n\n\n\n\n  <ion-item  *ngIf="bddPhoto[\'photocinrecto\'] && bddPhoto[\'photocinrecto\'][objetActuel.id] &&  bddPhoto[\'photocinrecto\'][objetActuel.id][\'sent\'].toString() === \'false\' " padding="0" style="border-bottom: 0px;background-color: #f53d3d">\n    <h1 >Photo CIN Recto:</h1>\n  </ion-item>\n  <ion-item  *ngIf="bddPhoto[\'photocinrecto\'] && bddPhoto[\'photocinrecto\'][objetActuel.id] &&  bddPhoto[\'photocinrecto\'][objetActuel.id][\'sent\'].toString() === \'true\'"  padding="0" style="border-bottom: 0px;background-color: #32db64">\n    <h1 >Photo CIN Recto:</h1>\n  </ion-item>\n  <ion-item *ngIf="!bddPhoto[\'photocinrecto\'] || !bddPhoto[\'photocinrecto\'][objetActuel.id]" padding="0" style="border-bottom: 0px;">\n    <h1 >Photo CIN Recto :</h1>\n  </ion-item>\n\n\n  <img style="width: auto;margin: auto;display: block"  [(src)]="objetActuel.photocinrecto" *ngIf="objetActuel.photocinrecto"/>\n\n  <br>\n\n  <div text-center>\n    <button ion-button round  (click)="photoChooser(objetActuel,\'photocinrecto\',1200,2000,100)">\n      Charger Photo  <ion-icon padding name="camera"></ion-icon>\n    </button>\n  </div>\n\n  <div *ngIf="objetActuel.photocinrecto" text-center>\n    <button ion-button round  (click)="reenvoyerPhoto(\'photocinrecto\')">\n      Réenvoyer  <ion-icon padding name="refresh"></ion-icon>\n    </button>\n  </div>\n\n\n  <ion-item  *ngIf="bddPhoto[\'photocinverso\'] && bddPhoto[\'photocinverso\'][objetActuel.id] &&  bddPhoto[\'photocinverso\'][objetActuel.id][\'sent\'].toString() === \'false\' " padding="0" style="border-bottom: 0px;background-color: #f53d3d">\n    <h1 >Photo CIN Verso:</h1>\n  </ion-item>\n  <ion-item  *ngIf="bddPhoto[\'photocinverso\'] && bddPhoto[\'photocinverso\'][objetActuel.id] &&  bddPhoto[\'photocinverso\'][objetActuel.id][\'sent\'].toString() === \'true\'"  padding="0" style="border-bottom: 0px;background-color: #32db64">\n    <h1 >Photo CIN Verso:</h1>\n  </ion-item>\n  <ion-item *ngIf="!bddPhoto[\'photocinverso\'] || !bddPhoto[\'photocinverso\'][objetActuel.id]" padding="0" style="border-bottom: 0px;">\n    <h1 >Photo CIN Verso :</h1>\n  </ion-item>\n\n  <img style="width: auto;margin: auto;display: block"  [(src)]="objetActuel.photocinverso" *ngIf="objetActuel.photocinverso"/>\n\n  <br>\n\n  <div text-center>\n    <button ion-button round  (click)="photoChooser(objetActuel,\'photocinverso\',1200,2000,100)">\n      Charger Photo  <ion-icon padding name="camera"></ion-icon>\n    </button>\n  </div>\n\n  <div *ngIf="objetActuel.photocinverso" text-center>\n    <button ion-button round  (click)="reenvoyerPhoto(\'photocinverso\')">\n      Réenvoyer  <ion-icon padding name="refresh"></ion-icon>\n    </button>\n  </div>\n\n  <ion-item  *ngIf="bddPhoto[\'photoparcelle\'] && bddPhoto[\'photoparcelle\'][objetActuel.id] &&  bddPhoto[\'photoparcelle\'][objetActuel.id][\'sent\'].toString() === \'false\' " padding="0" style="border-bottom: 0px;background-color: #f53d3d">\n    <h1 >Photo Parcelle:</h1>\n  </ion-item>\n  <ion-item  *ngIf="bddPhoto[\'photoparcelle\'] && bddPhoto[\'photoparcelle\'][objetActuel.id] &&  bddPhoto[\'photoparcelle\'][objetActuel.id][\'sent\'].toString() === \'true\'"  padding="0" style="border-bottom: 0px;background-color: #32db64">\n    <h1 >Photo Parcelle:</h1>\n  </ion-item>\n  <ion-item *ngIf="!bddPhoto[\'photoparcelle\'] || !bddPhoto[\'photoparcelle\'][objetActuel.id]" padding="0" style="border-bottom: 0px;">\n    <h1 >Photo Parcelle:</h1>\n  </ion-item>\n\n\n  <img style="width: auto;margin: auto;display: block"  [(src)]="objetActuel.photoparcelle" *ngIf="objetActuel.photoparcelle"/>\n\n  <br>\n\n  <div text-center>\n    <button ion-button round  (click)="photoChooser(objetActuel,\'photoparcelle\',1200,2000,100)">\n      Charger Photo  <ion-icon padding name="camera"></ion-icon>\n    </button>\n  </div>\n\n  <div *ngIf="objetActuel.photoparcelle" text-center>\n    <button ion-button round  (click)="reenvoyerPhoto(\'photoparcelle\')">\n      Réenvoyer  <ion-icon padding name="refresh"></ion-icon>\n    </button>\n  </div>\n\n  <ion-item  *ngIf="bddPhoto[\'photocroquis\'] && bddPhoto[\'photocroquis\'][objetActuel.id] &&  bddPhoto[\'photocroquis\'][objetActuel.id][\'sent\'].toString() === \'false\' " padding="0" style="border-bottom: 0px;background-color: #f53d3d">\n    <h1 >Photo Croquis:</h1>\n  </ion-item>\n  <ion-item  *ngIf="bddPhoto[\'photocroquis\'] && bddPhoto[\'photocroquis\'][objetActuel.id] &&  bddPhoto[\'photocroquis\'][objetActuel.id][\'sent\'].toString() === \'true\'"  padding="0" style="border-bottom: 0px;background-color: #32db64">\n    <h1 >Photo Croquis:</h1>\n  </ion-item>\n  <ion-item *ngIf="!bddPhoto[\'photocroquis\'] || !bddPhoto[\'photocroquis\'][objetActuel.id]" padding="0" style="border-bottom: 0px;">\n    <h1 >Photo Croquis:</h1>\n  </ion-item>\n\n  <img style="width: auto;margin: auto;display: block"  [(src)]="objetActuel.photocroquis" *ngIf="objetActuel.photocroquis"/>\n\n  <br>\n\n  <div text-center>\n    <button ion-button round  (click)="photoChooser(objetActuel,\'photocroquis\',1200,2000,100)">\n      Charger Photo  <ion-icon padding name="camera"></ion-icon>\n    </button>\n  </div>\n\n  <div *ngIf="objetActuel.photocroquis" text-center>\n    <button ion-button round  (click)="reenvoyerPhoto(\'photocroquis\')">\n      Réenvoyer  <ion-icon padding name="refresh"></ion-icon>\n    </button>\n  </div>\n\n\n\n  <ion-item padding="0" style="border-bottom: 0px;">\n  </ion-item>\n\n\n\n\n\n</ion-content>\n'/*ion-inline-end:"/Users/admin/Downloads/Topomap/TopomapCollector0.1/src/pages/ajouter-parcelle/ajouter-parcelle.html"*/,
+            selector: 'page-ajouter-parcelle',template:/*ion-inline-start:"/Users/admin/Downloads/Topomap/TopomapCollector0.1/src/pages/ajouter-parcelle/ajouter-parcelle.html"*/'<!--\n  Generated template for the AjouterProjetPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n  <ion-navbar>\n\n    <ion-title>Parcelle : {{objetActuel.id}} </ion-title>\n\n    <ion-buttons end>\n\n\n      <div (click)="detailActionMenu()">\n        <ion-icon  style="zoom:1.5; /*background-color: #32db64;*/padding-right: 10px;padding-left: 30px;padding-top: 0px;padding-bottom: 0px;" name="md-more"  item-end></ion-icon>\n\n      </div>\n\n\n    </ion-buttons>\n\n  </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content padding>\n\n  <ion-item padding="0" style="border-bottom: 0px;">\n    <h1 >Informations :</h1>\n  </ion-item>\n\n  <ion-item>\n    <ion-label style="opacity:1; color: #000;font-weight: bold">Parcelle : </ion-label>\n    <ion-input text-center type="text" readonly="true" [(ngModel)]="objetActuel.id"></ion-input>\n  </ion-item>\n\n  <ion-item>\n    <ion-label style="opacity:1; color: #000;font-weight: bold">Consistance:</ion-label>\n    <ion-select (ionChange) = "onConsistanceSelectChange($event)"   multiple="true" name = "Type vehicule" [(ngModel)]="objetActuel.consistanceionselect"  >\n      <ion-option *ngFor="let item of listeChoixConsistance" [value]="item[0]">{{item[0]}}</ion-option>\n    </ion-select>\n  </ion-item>\n\n  <ion-item *ngIf="objetActuel.consistanceionselect || objetActuel.consistance">\n    <ion-input  (ngModelChange)="onConsistanceInuptChange($event)"  text-center type="text" name="adressefournisseur" [(ngModel)]="objetActuel.consistance"  ></ion-input>\n  </ion-item>\n\n  <ion-item>\n    <ion-label style="opacity:1; color: #000;font-weight: bold">Plus Values:</ion-label>\n    <ion-select (ionChange) = "onPlusvaluesSelectChange($event)"   multiple="true" name = "Type vehicule" [(ngModel)]="objetActuel.plusvaluesionselect"  >\n      <ion-option *ngFor="let item of listeChoixPlusvalues" [value]="item[0]">{{item[0]}}</ion-option>\n    </ion-select>\n  </ion-item>\n\n  <ion-item *ngIf="objetActuel.plusvaluesionselect || objetActuel.plusvalues">\n    <ion-input (ngModelChange)="onPlusvaluesInuptChange($event)"  text-center type="text" name="adressefournisseur" [(ngModel)]="objetActuel.plusvalues"  ></ion-input>\n  </ion-item>\n\n\n  <ion-item>\n    <ion-label style="opacity:1; color: #000;font-weight: bold">Constructions: </ion-label>\n    <ion-select (ionChange) = "onConstructionsSelectChange($event)"   multiple="true" name = "Type vehicule" [(ngModel)]="objetActuel.constructionsionselect"  >\n      <ion-option *ngFor="let item of listeChoixConstructions" [value]="item[0]">{{item[0]}}</ion-option>\n    </ion-select>\n  </ion-item>\n\n  <ion-item *ngIf="objetActuel.constructionsionselect || objetActuel.constructions">\n    <ion-input (ngModelChange)="onConstructionsInuptChange($event)"  text-center type="text" name="adressefournisseur" [(ngModel)]="objetActuel.constructions"  ></ion-input>\n  </ion-item>\n\n  <ion-item>\n    <ion-label style="color: #000;font-weight: bold">\n      Adresse :\n    </ion-label>\n    <ion-input text-center type="text" [(ngModel)]="objetActuel.adresse"  ></ion-input>\n  </ion-item>\n\n  <ion-item>\n    <ion-label style="color: #000;font-weight: bold">\n      Coll selon Naïb :\n    </ion-label>\n    <ion-input text-center type="text" [(ngModel)]="objetActuel.coldenaib"  ></ion-input>\n  </ion-item>\n\n\n\n\n\n  <button type="submit" color="tertiary" ion-button (click)="enregistrerInformationsAttributaires()" block >\n    Enregistrer modifications\n  </button>\n\n  <br><br>\n\n  <ion-item  [id]="id"  style="padding:4" >\n\n    <ion-label style="color: #000;">\n      <h1 >Bornes Centroïdes :</h1>\n\n\n\n\n    </ion-label>\n\n\n\n    <ion-icon name="add-circle" (click)="recupererGraphic()" item-end></ion-icon>\n\n\n  </ion-item>\n\n\n\n  <ion-list>\n\n    <div *ngFor="let item of listeCentroides;let index = index;">\n\n      <button   mode="md" ion-item    (click)="itemTapped($event, item)">\n        Borne {{index+1}}\n        <p>X = {{item.xnordmaroc.toFixed(2)}} </p>\n        <p>Y = {{item.ynordmaroc.toFixed(2)}} </p>\n\n        <ion-icon  style="zoom:1; /*background-color: #32db64;*/padding-right: 10px;padding-left: 30px;padding-top: 10px;padding-bottom: 10px;" name="md-more" (click)="detailItemTapped($event, item)" item-end></ion-icon>\n      </button>\n\n    </div>\n\n\n  </ion-list>\n\n\n\n\n  <ion-item  *ngIf="bddPhoto[\'photocinrecto\'] && bddPhoto[\'photocinrecto\'][objetActuel.id] &&  bddPhoto[\'photocinrecto\'][objetActuel.id][\'sent\'].toString() === \'false\' " padding="0" style="border-bottom: 0px;background-color: #f53d3d">\n    <h1 >Photo CIN Recto:</h1>\n  </ion-item>\n  <ion-item  *ngIf="bddPhoto[\'photocinrecto\'] && bddPhoto[\'photocinrecto\'][objetActuel.id] &&  bddPhoto[\'photocinrecto\'][objetActuel.id][\'sent\'].toString() === \'true\'"  padding="0" style="border-bottom: 0px;background-color: #32db64">\n    <h1 >Photo CIN Recto:</h1>\n  </ion-item>\n  <ion-item *ngIf="!bddPhoto[\'photocinrecto\'] || !bddPhoto[\'photocinrecto\'][objetActuel.id]" padding="0" style="border-bottom: 0px;">\n    <h1 >Photo CIN Recto :</h1>\n  </ion-item>\n\n\n  <img style="width: auto;margin: auto;display: block"  [(src)]="objetActuel.photocinrecto" *ngIf="objetActuel.photocinrecto"/>\n\n  <br>\n\n  <div text-center>\n    <button ion-button round  (click)="photoChooser(objetActuel,\'photocinrecto\',1200,2000,100)">\n      Charger Photo  <ion-icon padding name="camera"></ion-icon>\n    </button>\n  </div>\n\n  <div *ngIf="objetActuel.photocinrecto" text-center>\n    <button ion-button round  (click)="reenvoyerPhoto(\'photocinrecto\')">\n      Réenvoyer  <ion-icon padding name="refresh"></ion-icon>\n    </button>\n  </div>\n\n\n  <ion-item  *ngIf="bddPhoto[\'photocinverso\'] && bddPhoto[\'photocinverso\'][objetActuel.id] &&  bddPhoto[\'photocinverso\'][objetActuel.id][\'sent\'].toString() === \'false\' " padding="0" style="border-bottom: 0px;background-color: #f53d3d">\n    <h1 >Photo CIN Verso:</h1>\n  </ion-item>\n  <ion-item  *ngIf="bddPhoto[\'photocinverso\'] && bddPhoto[\'photocinverso\'][objetActuel.id] &&  bddPhoto[\'photocinverso\'][objetActuel.id][\'sent\'].toString() === \'true\'"  padding="0" style="border-bottom: 0px;background-color: #32db64">\n    <h1 >Photo CIN Verso:</h1>\n  </ion-item>\n  <ion-item *ngIf="!bddPhoto[\'photocinverso\'] || !bddPhoto[\'photocinverso\'][objetActuel.id]" padding="0" style="border-bottom: 0px;">\n    <h1 >Photo CIN Verso :</h1>\n  </ion-item>\n\n  <img style="width: auto;margin: auto;display: block"  [(src)]="objetActuel.photocinverso" *ngIf="objetActuel.photocinverso"/>\n\n  <br>\n\n  <div text-center>\n    <button ion-button round  (click)="photoChooser(objetActuel,\'photocinverso\',1200,2000,100)">\n      Charger Photo  <ion-icon padding name="camera"></ion-icon>\n    </button>\n  </div>\n\n  <div *ngIf="objetActuel.photocinverso" text-center>\n    <button ion-button round  (click)="reenvoyerPhoto(\'photocinverso\')">\n      Réenvoyer  <ion-icon padding name="refresh"></ion-icon>\n    </button>\n  </div>\n\n  <ion-item  *ngIf="bddPhoto[\'photoparcelle\'] && bddPhoto[\'photoparcelle\'][objetActuel.id] &&  bddPhoto[\'photoparcelle\'][objetActuel.id][\'sent\'].toString() === \'false\' " padding="0" style="border-bottom: 0px;background-color: #f53d3d">\n    <h1 >Photo Parcelle:</h1>\n  </ion-item>\n  <ion-item  *ngIf="bddPhoto[\'photoparcelle\'] && bddPhoto[\'photoparcelle\'][objetActuel.id] &&  bddPhoto[\'photoparcelle\'][objetActuel.id][\'sent\'].toString() === \'true\'"  padding="0" style="border-bottom: 0px;background-color: #32db64">\n    <h1 >Photo Parcelle:</h1>\n  </ion-item>\n  <ion-item *ngIf="!bddPhoto[\'photoparcelle\'] || !bddPhoto[\'photoparcelle\'][objetActuel.id]" padding="0" style="border-bottom: 0px;">\n    <h1 >Photo Parcelle:</h1>\n  </ion-item>\n\n\n  <img style="width: auto;margin: auto;display: block"  [(src)]="objetActuel.photoparcelle" *ngIf="objetActuel.photoparcelle"/>\n\n  <br>\n\n  <div text-center>\n    <button ion-button round  (click)="photoChooser(objetActuel,\'photoparcelle\',1200,2000,100)">\n      Charger Photo  <ion-icon padding name="camera"></ion-icon>\n    </button>\n  </div>\n\n  <div *ngIf="objetActuel.photoparcelle" text-center>\n    <button ion-button round  (click)="reenvoyerPhoto(\'photoparcelle\')">\n      Réenvoyer  <ion-icon padding name="refresh"></ion-icon>\n    </button>\n  </div>\n\n  <ion-item  *ngIf="bddPhoto[\'photocroquis\'] && bddPhoto[\'photocroquis\'][objetActuel.id] &&  bddPhoto[\'photocroquis\'][objetActuel.id][\'sent\'].toString() === \'false\' " padding="0" style="border-bottom: 0px;background-color: #f53d3d">\n    <h1 >Photo Croquis:</h1>\n  </ion-item>\n  <ion-item  *ngIf="bddPhoto[\'photocroquis\'] && bddPhoto[\'photocroquis\'][objetActuel.id] &&  bddPhoto[\'photocroquis\'][objetActuel.id][\'sent\'].toString() === \'true\'"  padding="0" style="border-bottom: 0px;background-color: #32db64">\n    <h1 >Photo Croquis:</h1>\n  </ion-item>\n  <ion-item *ngIf="!bddPhoto[\'photocroquis\'] || !bddPhoto[\'photocroquis\'][objetActuel.id]" padding="0" style="border-bottom: 0px;">\n    <h1 >Photo Croquis:</h1>\n  </ion-item>\n\n  <img style="width: auto;margin: auto;display: block"  [(src)]="objetActuel.photocroquis" *ngIf="objetActuel.photocroquis"/>\n\n  <br>\n\n  <div text-center>\n    <button ion-button round  (click)="photoChooser(objetActuel,\'photocroquis\',1200,2000,100)">\n      Charger Photo  <ion-icon padding name="camera"></ion-icon>\n    </button>\n  </div>\n\n  <div *ngIf="objetActuel.photocroquis" text-center>\n    <button ion-button round  (click)="reenvoyerPhoto(\'photocroquis\')">\n      Réenvoyer  <ion-icon padding name="refresh"></ion-icon>\n    </button>\n  </div>\n\n\n\n  <ion-item padding="0" style="border-bottom: 0px;">\n  </ion-item>\n\n\n\n\n\n</ion-content>\n'/*ion-inline-end:"/Users/admin/Downloads/Topomap/TopomapCollector0.1/src/pages/ajouter-parcelle/ajouter-parcelle.html"*/,
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */],
             __WEBPACK_IMPORTED_MODULE_8__ionic_storage__["b" /* Storage */],
@@ -1488,15 +1553,15 @@ webpackEmptyAsyncContext.id = 187;
 
 var map = {
 	"../pages/ajouter-parcelle/ajouter-parcelle.module": [
-		778,
+		779,
 		2
 	],
 	"../pages/liste-parcelle/liste-parcelle.module": [
-		776,
+		777,
 		1
 	],
 	"../pages/map-location/map-location.module": [
-		777,
+		778,
 		0
 	]
 };
@@ -1516,7 +1581,7 @@ module.exports = webpackAsyncContext;
 
 /***/ }),
 
-/***/ 384:
+/***/ 385:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1553,13 +1618,13 @@ var TabsPage = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 385:
+/***/ 386:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__ = __webpack_require__(386);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app_module__ = __webpack_require__(390);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__ = __webpack_require__(387);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app_module__ = __webpack_require__(391);
 
 
 Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* platformBrowserDynamic */])().bootstrapModule(__WEBPACK_IMPORTED_MODULE_1__app_module__["a" /* AppModule */]);
@@ -1567,35 +1632,37 @@ Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* pl
 
 /***/ }),
 
-/***/ 390:
+/***/ 391:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppModule; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_platform_browser__ = __webpack_require__(45);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_platform_browser__ = __webpack_require__(46);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(39);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__app_component__ = __webpack_require__(773);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__pages_tabs_tabs__ = __webpack_require__(384);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__ionic_native_status_bar__ = __webpack_require__(382);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__ionic_native_splash_screen__ = __webpack_require__(383);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__app_component__ = __webpack_require__(774);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__pages_tabs_tabs__ = __webpack_require__(385);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__ionic_native_status_bar__ = __webpack_require__(383);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__ionic_native_splash_screen__ = __webpack_require__(384);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__providers_stockage_stockage__ = __webpack_require__(81);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__providers_camera_camera__ = __webpack_require__(137);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__ionic_native_file_path_ngx__ = __webpack_require__(238);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__ionic_native_device__ = __webpack_require__(775);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__ionic_native_device__ = __webpack_require__(776);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__ionic_native_camera__ = __webpack_require__(234);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__ionic_native_geolocation__ = __webpack_require__(330);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__angular_common_http__ = __webpack_require__(47);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__ionic_native_geolocation__ = __webpack_require__(331);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__angular_common_http__ = __webpack_require__(48);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__pages_map_location_map_location__ = __webpack_require__(105);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__pages_ajouter_parcelle_ajouter_parcelle__ = __webpack_require__(176);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__pages_liste_parcelle_liste_parcelle__ = __webpack_require__(104);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__ionic_storage__ = __webpack_require__(82);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__ionic_native_base64_to_gallery__ = __webpack_require__(330);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -1648,6 +1715,7 @@ var AppModule = /** @class */ (function () {
                 __WEBPACK_IMPORTED_MODULE_14__pages_map_location_map_location__["a" /* MapLocationPage */]
             ],
             providers: [
+                __WEBPACK_IMPORTED_MODULE_18__ionic_native_base64_to_gallery__["a" /* Base64ToGallery */],
                 __WEBPACK_IMPORTED_MODULE_5__ionic_native_status_bar__["a" /* StatusBar */],
                 __WEBPACK_IMPORTED_MODULE_6__ionic_native_splash_screen__["a" /* SplashScreen */],
                 __WEBPACK_IMPORTED_MODULE_11__ionic_native_camera__["a" /* Camera */],
@@ -1667,23 +1735,23 @@ var AppModule = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 773:
+/***/ 774:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return MyApp; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(39);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__ = __webpack_require__(382);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__ = __webpack_require__(383);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__pages_tabs_tabs__ = __webpack_require__(384);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__ionic_pro__ = __webpack_require__(774);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__ = __webpack_require__(383);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__ = __webpack_require__(384);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__pages_tabs_tabs__ = __webpack_require__(385);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__ionic_pro__ = __webpack_require__(775);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__ionic_pro___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__ionic_pro__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__pages_liste_parcelle_liste_parcelle__ = __webpack_require__(104);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_rxjs_operators__ = __webpack_require__(83);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_rxjs_operators___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7_rxjs_operators__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__ionic_storage__ = __webpack_require__(82);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__angular_common_http__ = __webpack_require__(47);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__angular_common_http__ = __webpack_require__(48);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__providers_stockage_stockage__ = __webpack_require__(81);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -1777,7 +1845,7 @@ var MyApp = /** @class */ (function () {
                     var _loop_2 = function (itemid) {
                         if (val[itemid]["sent"].toString()) {
                             console.log(val[itemid]["sent"]);
-                            _this.httpClient.post(val[itemid]["requete"], val[itemid]["photo"]).pipe(Object(__WEBPACK_IMPORTED_MODULE_7_rxjs_operators__["timeout"])(6000))
+                            _this.httpClient.post(val[itemid]["requete"], val[itemid]["photo"]).pipe(Object(__WEBPACK_IMPORTED_MODULE_7_rxjs_operators__["timeout"])(100000))
                                 .subscribe(function (data) {
                             }, function (err) {
                                 console.log("eee");
@@ -1946,8 +2014,8 @@ var StockageProvider = /** @class */ (function () {
         var _this = this;
         this.storage.get(key).then(function (val) {
             console.log(1);
-            if (!_this.data) {
-                _this.data = {};
+            if (!val) {
+                val = {};
             }
             console.log(1);
             //this.data[key] = val;
@@ -1955,14 +2023,15 @@ var StockageProvider = /** @class */ (function () {
             if (val == undefined || val == null) {
                 val = {};
             }
-            console.log(1);
-            console.log("typeof", typeof _this.data[key]);
+            console.log("22");
+            console.log(val.toString().substring(15));
+            console.log("typeof", typeof val);
             console.log(7);
             if (typeof val == "object") {
                 console.log(8);
                 val[id] = value;
                 console.log(9);
-                _this.setValue(key, _this.data[key]);
+                _this.setValue(key, val);
                 console.log(10);
             }
             else {
@@ -2029,5 +2098,5 @@ var StockageProvider = /** @class */ (function () {
 
 /***/ })
 
-},[385]);
+},[386]);
 //# sourceMappingURL=main.js.map

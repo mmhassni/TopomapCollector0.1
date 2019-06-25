@@ -23,6 +23,7 @@ export class ListeParcellePage {
   public listeObjetActuelle = [];
   private listeObjetActuelleFiltre: any[];
   public listeValeurFiltre = ["douar","id","adresse","nom_douar"];
+  private chargement = false;
 
 
 
@@ -36,13 +37,51 @@ export class ListeParcellePage {
 
   refresh(){
 
+
+    this.chargement = true;
     this.httpClient.get("http://ec2-52-47-166-154.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
-      "select * from parcelles order by id desc")
+      "select parcelles.id  , " +
+      "parcelles.consistance  , " +
+      "parcelles.plusvalues  , " +
+      "parcelles.constructions  , " +
+      "parcelles.adresse  , " +
+      "parcelles.coldenaib  , " +
+      "substring(photocinrecto.photo for 2) as presencephotocin, " +
+      "substring(photoparcelle.photo for 2) as presencephotoparcelle," +
+      "centroide.shape as presenceshape " +
+      "" +
+      "from parcelles " +
+      "left join (select *, photo as photocinrecto " +
+      "   from photoparcelles as PP1 " +
+      "   where typephoto = 'photocinrecto' " +
+      "   and id = (select max(id) from photoparcelles " +
+      "   where idparcelle = PP1.idparcelle and typephoto = 'photocinrecto' ) " +
+      "  )" +
+      "as photocinrecto on photocinrecto.idparcelle = parcelles.id " +
+      "left join (select *, photo as photoparcelle " +
+      "   from photoparcelles as PP2 " +
+      "   where typephoto = 'photoparcelle' " +
+      "   and id = (select max(id) from photoparcelles " +
+      "   where idparcelle = PP2.idparcelle and typephoto = 'photoparcelle' ) " +
+      "  ) " +
+      "as photoparcelle on photoparcelle.idparcelle = parcelles.id " +
+      "left join (select * " +
+      "   from centroides as CO " +
+      "   where id = (select max(id) from centroides " +
+      "   where idparcelle = CO.idparcelle ) " +
+      "  )" +
+      "as centroide on centroide.idparcelle = parcelles.id " +
+      "order by id desc " +
+      "" +
+      "")
       .subscribe( data =>{
 
 
         this.listeObjetActuelle = (data as any).features;
         this.listeObjetActuelleFiltre = this.listeObjetActuelle;
+
+        this.chargement = false;
+
 
 
       });

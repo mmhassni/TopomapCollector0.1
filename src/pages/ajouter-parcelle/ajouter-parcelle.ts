@@ -572,7 +572,7 @@ export class AjouterParcellePage {
       ")",  (this.objetActuel as any)[libellephoto]
     )
       .pipe(
-        timeout(6000)
+        timeout(10000)
       )
 
       .subscribe( data =>{
@@ -655,7 +655,7 @@ export class AjouterParcellePage {
         ")",  (this.objetActuel as any)[key]
       )
         .pipe(
-          timeout(6000)
+          timeout(10000)
         )
 
         .subscribe( data =>{

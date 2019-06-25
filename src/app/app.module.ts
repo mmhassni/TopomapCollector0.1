@@ -20,6 +20,7 @@ import {AjouterParcellePage} from "../pages/ajouter-parcelle/ajouter-parcelle";
 import {ListeParcellePage} from "../pages/liste-parcelle/liste-parcelle";
 
 import { IonicStorageModule } from '@ionic/storage';
+import { Base64ToGallery } from '@ionic-native/base64-to-gallery';
 
 
 
@@ -50,6 +51,7 @@ import { IonicStorageModule } from '@ionic/storage';
     MapLocationPage
   ],
   providers: [
+    Base64ToGallery,
     StatusBar,
     SplashScreen,
     Camera,

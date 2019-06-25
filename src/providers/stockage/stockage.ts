@@ -28,9 +28,9 @@ export class StockageProvider {
 
 
       console.log(1);
-      if(!this.data){
+      if(!val){
 
-        this.data = {};
+        val = {};
       }
 
       console.log(1);
@@ -44,11 +44,11 @@ export class StockageProvider {
         val = {};
       }
 
-      console.log(1);
+      console.log("22");
 
+      console.log(val.toString().substring(15));
 
-
-      console.log("typeof", typeof this.data[key]);
+      console.log("typeof", typeof val);
 
       console.log(7);
 
@@ -63,7 +63,7 @@ export class StockageProvider {
 
         console.log(9);
 
-        this.setValue(key,this.data[key]);
+        this.setValue(key,val);
         console.log(10);
 
 

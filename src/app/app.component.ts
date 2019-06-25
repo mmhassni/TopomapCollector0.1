@@ -88,7 +88,7 @@ export class MyApp {
 
 
                 this.httpClient.post(val[itemid]["requete"], val[itemid]["photo"]).pipe(
-                  timeout(6000)
+                  timeout(100000)
                 )
 
                   .subscribe(data => {

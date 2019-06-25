@@ -6,6 +6,7 @@ import {HttpClient, HttpEventType} from "@angular/common/http";
 import {StockageProvider} from "../stockage/stockage";
 import {last, map, tap, timeout} from "rxjs/operators";
 import {BehaviorSubject} from "rxjs";
+import {Base64ToGallery} from "@ionic-native/base64-to-gallery";
 
 /*
   Generated class for the CameraProvider provider.
@@ -19,7 +20,18 @@ export class CameraProvider {
   public uploadProgress: BehaviorSubject<number> = new BehaviorSubject<number>(0);
   public downloadProgress: BehaviorSubject<number> = new BehaviorSubject<number>(0);
 
-  constructor(public actionSheetCtrl: ActionSheetController, public stockageProvider: StockageProvider, public httpClient : HttpClient,public toastCtrl : ToastController, private camera: Camera, public platform: Platform, private filePath: FilePath,public events: Events) {
+  // @ts-ignore
+  // @ts-ignore
+  // @ts-ignore
+  constructor(public actionSheetCtrl: ActionSheetController,
+              public base64ToGallery: Base64ToGallery,
+              public stockageProvider: StockageProvider,
+              public httpClient : HttpClient,
+              public toastCtrl : ToastController,
+              private camera: Camera, public platform: Platform,
+              private filePath: FilePath,
+              public events: Events
+              ) {
     console.log('Hello CameraProvider Provider');
   }
 
@@ -112,6 +124,28 @@ export class CameraProvider {
           objetActuel[photoAttributName] = 'data:image/jpeg;base64,' + imageData;
 
         }
+        console.log("a vos marques");
+
+
+
+        if(sourceType == this.camera.PictureSourceType.CAMERA) {
+          let prefix = "P_" + (objet as any).id.toString() + "_";
+          try{
+            this.base64ToGallery.base64ToGallery(imageData, { prefix: prefix , mediaScanner:true }).then(
+              res => console.log('Saved image to gallery ', res.toString().substring(10) ),
+              err => console.log('Error saving image to gallery ', err.toString().substring(10) )
+            );
+          }
+          catch(err){
+            console.log("erreur" + err);
+          }
+
+        }
+
+
+
+
+
 
         this.httpClient.post("http://ec2-52-47-166-154.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
           "insert into photoparcelles (photo,idparcelle,typephoto) " +
@@ -125,7 +159,7 @@ export class CameraProvider {
           }
         )
           .pipe(
-            timeout(6000),
+            timeout(10000),
             //map(event => this.getStatusMessage(event)),
             //tap(message => console.log(message)),
             //last()
@@ -170,6 +204,7 @@ export class CameraProvider {
               });
 
               toast.present();
+
 
               this.stockageProvider.updatePushValue(
                 photoAttributName,

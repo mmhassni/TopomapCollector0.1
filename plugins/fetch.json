@@ -157,5 +157,13 @@
     },
     "is_top_level": true,
     "variables": {}
+  },
+  "cordova-base64-to-gallery": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-base64-to-gallery@4.1.3"
+    },
+    "is_top_level": true,
+    "variables": {}
   }
 }
