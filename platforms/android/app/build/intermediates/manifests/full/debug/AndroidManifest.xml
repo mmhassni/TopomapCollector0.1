@@ -58,6 +58,10 @@
                 android:resource="@xml/camera_provider_paths" />
         </provider>
 
+        <activity
+            android:name="com.sarriaroman.PhotoViewer.PhotoActivity"
+            android:theme="@android:style/Theme.Holo.NoActionBar.Fullscreen" />
+
         <meta-data
             android:name="android.support.VERSION"
             android:value="25.4.0" />

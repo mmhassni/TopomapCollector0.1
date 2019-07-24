@@ -199,7 +199,7 @@
   </ion-item>
 
 
-  <img style="width: auto;margin: auto;display: block"  [(src)]="objetActuel.photoparcelle" *ngIf="objetActuel.photoparcelle"/>
+  <img (click)="afficherPhoto(this)" style="width: auto;margin: auto;display: block"  [(src)]="objetActuel.photoparcelle" *ngIf="objetActuel.photoparcelle"/>
 
   <br>
 
@@ -225,7 +225,7 @@
     <h1 >Photo Croquis:</h1>
   </ion-item>
 
-  <img style="width: auto;margin: auto;display: block"  [(src)]="objetActuel.photocroquis" *ngIf="objetActuel.photocroquis"/>
+  <img  style="width: auto;margin: auto;display: block"  [(src)]="objetActuel.photocroquis" *ngIf="objetActuel.photocroquis"/>
 
   <br>
 

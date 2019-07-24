@@ -39,7 +39,7 @@ export class ListeParcellePage {
 
 
     this.chargement = true;
-    this.httpClient.get("http://ec2-52-47-166-154.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
+    this.httpClient.get("http://ec2-35-180-97-251.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
       "select parcelles.id  , " +
       "parcelles.consistance  , " +
       "parcelles.plusvalues  , " +
@@ -161,7 +161,7 @@ export class ListeParcellePage {
 
   ajouterItem() {
 
-    this.httpClient.get("http://ec2-52-47-166-154.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
+    this.httpClient.get("http://ec2-35-180-97-251.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
       "insert into parcelles(consistance,plusvalues,constructions,adresse,coldenaib) " +
       "values ("+
       "" + this.adaptValueQuery( null    , "text"  )   + "," +
@@ -247,13 +247,13 @@ export class ListeParcellePage {
 
           console.log('Delete clicked');
 
-          this.httpClient.get("http://ec2-52-47-166-154.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
+          this.httpClient.get("http://ec2-35-180-97-251.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
             "DELETE FROM public.parcelles WHERE id = " + item.id)
             .subscribe(data => {
 
             },error1 => {
 
-              this.httpClient.get("http://ec2-52-47-166-154.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
+              this.httpClient.get("http://ec2-35-180-97-251.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
                 "DELETE FROM public.centroides WHERE idparcelle = " + item.id)
                 .subscribe(data => {
 

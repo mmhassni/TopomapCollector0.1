@@ -101,6 +101,7 @@
 		E52C64B10151402292CBA0BA /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89CC52D8D51B47B1B00E6EB9 /* AudioToolbox.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		FBD6787FAA634412B3976A85 /* aeskey.c in Sources */ = {isa = PBXBuildFile; fileRef = 1A5C757438AD457EB310C304 /* aeskey.c */; };
 		8CBBB016B048463589129FFE /* Base64ToGallery.m in Sources */ = {isa = PBXBuildFile; fileRef = AFF830DC4BA74F09A0DFA8CC /* Base64ToGallery.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		06A3A69326344C7A86D4EE2A /* PhotoViewer.m in Sources */ = {isa = PBXBuildFile; fileRef = 708FA17D99DE497A95F7A59A /* PhotoViewer.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -326,6 +327,7 @@
 		FE83F95D8B08446A9E50DD4C /* CodePushJWTClaimsSet.h */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = CodePushJWTClaimsSet.h; path = "cordova-plugin-code-push/CodePushJWTClaimsSet.h"; sourceTree = "<group>"; };
 		AFF830DC4BA74F09A0DFA8CC /* Base64ToGallery.m */ = {isa = PBXFileReference; name = "Base64ToGallery.m"; path = "cordova-base64-to-gallery/Base64ToGallery.m"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; explicitFileType = undefined; includeInIndex = 0; };
 		8261A42FC8D94B3FB7C3667B /* Base64ToGallery.h */ = {isa = PBXFileReference; name = "Base64ToGallery.h"; path = "cordova-base64-to-gallery/Base64ToGallery.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
+		708FA17D99DE497A95F7A59A /* PhotoViewer.m */ = {isa = PBXFileReference; name = "PhotoViewer.m"; path = "com-sarriaroman-photoviewer/PhotoViewer.m"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -616,6 +618,7 @@
 				591CAC76ABBC4D08AD847343 /* sqlite3.h */,
 				AFF830DC4BA74F09A0DFA8CC /* Base64ToGallery.m */,
 				8261A42FC8D94B3FB7C3667B /* Base64ToGallery.h */,
+				708FA17D99DE497A95F7A59A /* PhotoViewer.m */,
 			);
 			name = Plugins;
 			path = TopomapCollector/Plugins;
@@ -824,6 +827,7 @@
 				C3642A76F71F498AB20E1C44 /* PSPDFThreadSafeMutableDictionary.m in Sources */,
 				D7D3A2E7C32C4CBF84667FC0 /* sqlite3.c in Sources */,
 				8CBBB016B048463589129FFE /* Base64ToGallery.m in Sources */,
+				06A3A69326344C7A86D4EE2A /* PhotoViewer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -1,4 +1,4 @@
-webpackJsonp([3],{
+webpackJsonp([4],{
 
 /***/ 104:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -6,10 +6,10 @@ webpackJsonp([3],{
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ListeParcellePage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(39);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_common_http__ = __webpack_require__(48);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(33);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_common_http__ = __webpack_require__(45);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_camera_camera__ = __webpack_require__(137);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ajouter_parcelle_ajouter_parcelle__ = __webpack_require__(176);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ajouter_parcelle_ajouter_parcelle__ = __webpack_require__(177);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -47,7 +47,7 @@ var ListeParcellePage = /** @class */ (function () {
     ListeParcellePage.prototype.refresh = function () {
         var _this = this;
         this.chargement = true;
-        this.httpClient.get("http://ec2-52-47-166-154.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
+        this.httpClient.get("http://ec2-35-180-97-251.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
             "select parcelles.id  , " +
             "parcelles.consistance  , " +
             "parcelles.plusvalues  , " +
@@ -143,7 +143,7 @@ var ListeParcellePage = /** @class */ (function () {
     };
     ListeParcellePage.prototype.ajouterItem = function () {
         var _this = this;
-        this.httpClient.get("http://ec2-52-47-166-154.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
+        this.httpClient.get("http://ec2-35-180-97-251.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
             "insert into parcelles(consistance,plusvalues,constructions,adresse,coldenaib) " +
             "values (" +
             "" + this.adaptValueQuery(null, "text") + "," +
@@ -209,11 +209,11 @@ var ListeParcellePage = /** @class */ (function () {
                     icon: 'trash',
                     handler: function () {
                         console.log('Delete clicked');
-                        _this.httpClient.get("http://ec2-52-47-166-154.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
+                        _this.httpClient.get("http://ec2-35-180-97-251.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
                             "DELETE FROM public.parcelles WHERE id = " + item.id)
                             .subscribe(function (data) {
                         }, function (error1) {
-                            _this.httpClient.get("http://ec2-52-47-166-154.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
+                            _this.httpClient.get("http://ec2-35-180-97-251.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
                                 "DELETE FROM public.centroides WHERE idparcelle = " + item.id)
                                 .subscribe(function (data) {
                             }, function (error1) {
@@ -269,12 +269,12 @@ var ListeParcellePage = /** @class */ (function () {
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return MapLocationPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(39);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_esri_loader__ = __webpack_require__(697);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(33);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_esri_loader__ = __webpack_require__(700);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_esri_loader___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_esri_loader__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_geolocation__ = __webpack_require__(331);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_common_http__ = __webpack_require__(48);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_wellknown__ = __webpack_require__(332);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_geolocation__ = __webpack_require__(333);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_common_http__ = __webpack_require__(45);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_wellknown__ = __webpack_require__(150);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_wellknown___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_wellknown__);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -435,7 +435,7 @@ var MapLocationPage = /** @class */ (function () {
                             mapView.map = map;
                         }
                         //ajout de la couche des titres DA
-                        this.httpClient.get("http://ec2-52-47-166-154.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
+                        this.httpClient.get("http://ec2-35-180-97-251.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
                             "select id, St_astext(shape) as shape " +
                             "from centroides " +
                             "where not shape is null").subscribe(function (data) {
@@ -492,7 +492,7 @@ var MapLocationPage = /** @class */ (function () {
                             }
                         });
                         //ajout de la couche des titres DA
-                        this.httpClient.get("http://ec2-52-47-166-154.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
+                        this.httpClient.get("http://ec2-35-180-97-251.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
                             "select%20%20id,collectivi,ordre," + '"vocation p"' + ",superficie,%20St_astext(shape)%20as%20shape%20" +
                             "from%20occupirr").subscribe(function (data) {
                             var coucheActuel = data.features;
@@ -537,7 +537,7 @@ var MapLocationPage = /** @class */ (function () {
                             }
                         });
                         //ajout de la couche des titres DA
-                        this.httpClient.get("http://ec2-52-47-166-154.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
+                        this.httpClient.get("http://ec2-35-180-97-251.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
                             "select%20%20id,%20St_astext(shape)%20as%20shape%20" +
                             "from%20titredademo").subscribe(function (data) {
                             var coucheActuel = data.features;
@@ -609,16 +609,16 @@ var MapLocationPage = /** @class */ (function () {
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return CameraProvider; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(39);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_camera__ = __webpack_require__(234);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_file_path_ngx__ = __webpack_require__(238);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_common_http__ = __webpack_require__(48);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(33);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_camera__ = __webpack_require__(236);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_file_path_ngx__ = __webpack_require__(240);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_common_http__ = __webpack_require__(45);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__stockage_stockage__ = __webpack_require__(81);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_rxjs_operators__ = __webpack_require__(83);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_rxjs_operators___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_rxjs_operators__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_rxjs__ = __webpack_require__(429);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_rxjs__ = __webpack_require__(432);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_rxjs___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7_rxjs__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__ionic_native_base64_to_gallery__ = __webpack_require__(330);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__ionic_native_base64_to_gallery__ = __webpack_require__(332);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -761,24 +761,16 @@ var CameraProvider = /** @class */ (function () {
                         objetActuel[photoAttributName] = 'data:image/jpeg;base64,' + imageData;
                     }
                     console.log("a vos marques");
-                    /*
-            
-                    if(sourceType == this.camera.PictureSourceType.CAMERA) {
-                      let prefix = "P_" + (objet as any).id.toString() + "_";
-                      try{
-                        this.base64ToGallery.base64ToGallery(imageData, { prefix: prefix , mediaScanner:true }).then(
-                          res => console.log('Saved image to gallery ', res.toString().substring(10) ),
-                          err => console.log('Error saving image to gallery ', err.toString().substring(10) )
-                        );
-                      }
-                      catch(err){
-                        console.log("erreur" + err);
-                      }
-            
+                    if (sourceType == _this.camera.PictureSourceType.CAMERA) {
+                        var prefix = "P_" + objet.id.toString() + "_";
+                        try {
+                            _this.base64ToGallery.base64ToGallery(imageData, { prefix: prefix, mediaScanner: true }).then(function (res) { return console.log('Saved image to gallery ', res.toString().substring(10)); }, function (err) { return console.log('Error saving image to gallery ', err.toString().substring(10)); });
+                        }
+                        catch (err) {
+                            console.log("erreur" + err);
+                        }
                     }
-            
-                    */
-                    _this.httpClient.post("http://ec2-52-47-166-154.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
+                    _this.httpClient.post("http://ec2-35-180-97-251.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
                         "insert into photoparcelles (photo,idparcelle,typephoto) " +
                         "values (" +
                         "" + "'postBody'" + "," +
@@ -816,7 +808,7 @@ var CameraProvider = /** @class */ (function () {
                             toast.present();
                             _this.stockageProvider.updatePushValue(photoAttributName, objet.id, {
                                 photo: 'data:image/jpeg;base64,' + imageData,
-                                requete: "http://ec2-52-47-166-154.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
+                                requete: "http://ec2-35-180-97-251.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
                                     "insert into photoparcelles (photo,idparcelle,typephoto) " +
                                     "values (" +
                                     "" + "'postBody'" + "," +
@@ -895,23 +887,24 @@ var CameraProvider = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 176:
+/***/ 177:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AjouterParcellePage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(39);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_common_http__ = __webpack_require__(48);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(33);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_common_http__ = __webpack_require__(45);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_camera_camera__ = __webpack_require__(137);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__map_location_map_location__ = __webpack_require__(105);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_wellknown__ = __webpack_require__(332);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_wellknown__ = __webpack_require__(150);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_wellknown___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_wellknown__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_proj4__ = __webpack_require__(698);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_proj4__ = __webpack_require__(334);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__providers_stockage_stockage__ = __webpack_require__(81);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__ionic_storage__ = __webpack_require__(82);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_rxjs_operators__ = __webpack_require__(83);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_rxjs_operators___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_9_rxjs_operators__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__ionic_native_photo_viewer__ = __webpack_require__(346);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -966,6 +959,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 
 
 
+
 /**
  * Generated class for the AjouterParcellePage page.
  *
@@ -973,7 +967,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
  * Ionic pages and navigation.
  */
 var AjouterParcellePage = /** @class */ (function () {
-    function AjouterParcellePage(navCtrl, storage, navParams, stockageProvider, actionSheetCtrl, httpClient, toastCtrl, cameraProvider, events) {
+    function AjouterParcellePage(navCtrl, storage, navParams, stockageProvider, actionSheetCtrl, httpClient, toastCtrl, cameraProvider, photoViewer, events) {
         var _this = this;
         this.navCtrl = navCtrl;
         this.storage = storage;
@@ -983,6 +977,7 @@ var AjouterParcellePage = /** @class */ (function () {
         this.httpClient = httpClient;
         this.toastCtrl = toastCtrl;
         this.cameraProvider = cameraProvider;
+        this.photoViewer = photoViewer;
         this.events = events;
         this.objetActuel = {};
         this.listeChoixPlusvalues = [];
@@ -1014,7 +1009,7 @@ var AjouterParcellePage = /** @class */ (function () {
             if (graphicActuel && graphicActuel.idparcelle == _this.objetActuel.id) {
                 _this.x = graphicActuel.geometry.longitude;
                 _this.y = graphicActuel.geometry.latitude;
-                _this.httpClient.get("http://ec2-52-47-166-154.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
+                _this.httpClient.get("http://ec2-35-180-97-251.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
                     "INSERT INTO public.centroides( " +
                     "shape,idparcelle) " +
                     "VALUES (" +
@@ -1026,7 +1021,7 @@ var AjouterParcellePage = /** @class */ (function () {
                 });
             }
         });
-        this.httpClient.get("http://ec2-52-47-166-154.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
+        this.httpClient.get("http://ec2-35-180-97-251.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
             "select plusvalues from parcelles")
             .subscribe(function (data) {
             var tableStatistiques = {};
@@ -1058,7 +1053,7 @@ var AjouterParcellePage = /** @class */ (function () {
             _this.listeChoixPlusvalues = tableIndexStatSorted;
             console.log(tableIndexStatSorted);
         });
-        this.httpClient.get("http://ec2-52-47-166-154.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
+        this.httpClient.get("http://ec2-35-180-97-251.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
             "select constructions from parcelles")
             .subscribe(function (data) {
             var tableStatistiques = {};
@@ -1089,7 +1084,7 @@ var AjouterParcellePage = /** @class */ (function () {
             _this.listeChoixConstructions = tableIndexStatSorted;
             console.log(tableIndexStatSorted);
         });
-        this.httpClient.get("http://ec2-52-47-166-154.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
+        this.httpClient.get("http://ec2-35-180-97-251.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
             "select consistance from parcelles")
             .subscribe(function (data) {
             var tableStatistiques = {};
@@ -1125,7 +1120,7 @@ var AjouterParcellePage = /** @class */ (function () {
     }
     AjouterParcellePage.prototype.refreshCentroides = function () {
         var _this = this;
-        this.httpClient.get("http://ec2-52-47-166-154.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
+        this.httpClient.get("http://ec2-35-180-97-251.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
             "select id, St_astext(shape) as shape " +
             "from centroides " +
             "where idparcelle = " + this.navParams.data.informationsActuelles.id + " ")
@@ -1220,7 +1215,7 @@ var AjouterParcellePage = /** @class */ (function () {
         var _this = this;
         if (this.objetActuel.consistance == undefined) {
         }
-        this.httpClient.get("http://ec2-52-47-166-154.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
+        this.httpClient.get("http://ec2-35-180-97-251.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
             "update parcelles set " +
             " consistance = " + this.adaptValueQuery(this.objetActuel.consistance, "text") +
             ", plusvalues = " + this.adaptValueQuery(this.objetActuel.plusvalues, "text") +
@@ -1339,7 +1334,7 @@ var AjouterParcellePage = /** @class */ (function () {
                     icon: 'trash',
                     handler: function () {
                         console.log('Delete clicked');
-                        _this.httpClient.get("http://ec2-52-47-166-154.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
+                        _this.httpClient.get("http://ec2-35-180-97-251.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
                             "DELETE FROM public.centroides WHERE id=" + item.id)
                             .subscribe(function (data) {
                         }, function (error1) {
@@ -1353,7 +1348,7 @@ var AjouterParcellePage = /** @class */ (function () {
     AjouterParcellePage.prototype.reenvoyerPhoto = function (libellephoto) {
         var _this = this;
         console.log("click");
-        this.httpClient.post("http://ec2-52-47-166-154.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
+        this.httpClient.post("http://ec2-35-180-97-251.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
             "insert into photoparcelles (photo,idparcelle,typephoto) " +
             "values (" +
             "" + "'postBody'" + "," +
@@ -1388,7 +1383,7 @@ var AjouterParcellePage = /** @class */ (function () {
                 toast.present();
                 _this.stockageProvider.updatePushValue(libellephoto, _this.objetActuel.id, {
                     photo: _this.objetActuel[libellephoto],
-                    requete: "http://ec2-52-47-166-154.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
+                    requete: "http://ec2-35-180-97-251.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
                         "insert into photoparcelles (photo,idparcelle,typephoto) " +
                         "values (" +
                         "" + "'postBody'" + "," +
@@ -1404,7 +1399,7 @@ var AjouterParcellePage = /** @class */ (function () {
     AjouterParcellePage.prototype.synchroniserPhoto = function () {
         var _this = this;
         var _loop_1 = function (key) {
-            this_1.httpClient.post("http://ec2-52-47-166-154.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
+            this_1.httpClient.post("http://ec2-35-180-97-251.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
                 "insert into photoparcelles (photo,idparcelle,typephoto) " +
                 "values (" +
                 "" + "'postBody'" + "," +
@@ -1439,7 +1434,7 @@ var AjouterParcellePage = /** @class */ (function () {
                     toast.present();
                     _this.stockageProvider.updatePushValue(key, _this.objetActuel.id, {
                         photo: _this.objetActuel[key],
-                        requete: "http://ec2-52-47-166-154.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
+                        requete: "http://ec2-35-180-97-251.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
                             "insert into photoparcelles (photo,idparcelle,typephoto) " +
                             "values (" +
                             "" + "'postBody'" + "," +
@@ -1468,7 +1463,7 @@ var AjouterParcellePage = /** @class */ (function () {
                 }
                 console.log("eeeeee", _this.objetActuel[key].substring(0, 14));
                 if (!_this.objetActuel[key]) {
-                    _this.httpClient.get("http://ec2-52-47-166-154.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
+                    _this.httpClient.get("http://ec2-35-180-97-251.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
                         "select photo from photoparcelles " +
                         "where idparcelle = " + _this.navParams.data.informationsActuelles.id + " " +
                         "and typephoto = '" + key + "' " +
@@ -1486,7 +1481,7 @@ var AjouterParcellePage = /** @class */ (function () {
             }).catch(function (error) {
                 console.log('get error for ' + key + '', error);
                 if (!_this.objetActuel[key]) {
-                    _this.httpClient.get("http://ec2-52-47-166-154.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
+                    _this.httpClient.get("http://ec2-35-180-97-251.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
                         "select photo from photoparcelles " +
                         "where idparcelle = " + _this.navParams.data.informationsActuelles.id + " " +
                         "and typephoto = '" + key + "' " +
@@ -1510,9 +1505,12 @@ var AjouterParcellePage = /** @class */ (function () {
     AjouterParcellePage.prototype.actualiser = function () {
         this.refreshPhoto();
     };
+    AjouterParcellePage.prototype.afficherPhoto = function (param) {
+        this.photoViewer.show(this.objetActuel.photoparcelle);
+    };
     AjouterParcellePage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-ajouter-parcelle',template:/*ion-inline-start:"/Users/admin/Downloads/Topomap/TopomapCollector0.1/src/pages/ajouter-parcelle/ajouter-parcelle.html"*/'<!--\n  Generated template for the AjouterProjetPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n  <ion-navbar>\n\n    <ion-title>Parcelle : {{objetActuel.id}} </ion-title>\n\n    <ion-buttons end>\n\n\n      <div (click)="detailActionMenu()">\n        <ion-icon  style="zoom:1.5; /*background-color: #32db64;*/padding-right: 10px;padding-left: 30px;padding-top: 0px;padding-bottom: 0px;" name="md-more"  item-end></ion-icon>\n\n      </div>\n\n\n    </ion-buttons>\n\n  </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content padding>\n\n  <ion-item padding="0" style="border-bottom: 0px;">\n    <h1 >Informations :</h1>\n  </ion-item>\n\n  <ion-item>\n    <ion-label style="opacity:1; color: #000;font-weight: bold">Parcelle : </ion-label>\n    <ion-input text-center type="text" readonly="true" [(ngModel)]="objetActuel.id"></ion-input>\n  </ion-item>\n\n  <ion-item>\n    <ion-label style="opacity:1; color: #000;font-weight: bold">Consistance:</ion-label>\n    <ion-select (ionChange) = "onConsistanceSelectChange($event)"   multiple="true" name = "Type vehicule" [(ngModel)]="objetActuel.consistanceionselect"  >\n      <ion-option *ngFor="let item of listeChoixConsistance" [value]="item[0]">{{item[0]}}</ion-option>\n    </ion-select>\n  </ion-item>\n\n  <ion-item *ngIf="objetActuel.consistanceionselect || objetActuel.consistance">\n    <ion-input  (ngModelChange)="onConsistanceInuptChange($event)"  text-center type="text" name="adressefournisseur" [(ngModel)]="objetActuel.consistance"  ></ion-input>\n  </ion-item>\n\n  <ion-item>\n    <ion-label style="opacity:1; color: #000;font-weight: bold">Plus Values:</ion-label>\n    <ion-select (ionChange) = "onPlusvaluesSelectChange($event)"   multiple="true" name = "Type vehicule" [(ngModel)]="objetActuel.plusvaluesionselect"  >\n      <ion-option *ngFor="let item of listeChoixPlusvalues" [value]="item[0]">{{item[0]}}</ion-option>\n    </ion-select>\n  </ion-item>\n\n  <ion-item *ngIf="objetActuel.plusvaluesionselect || objetActuel.plusvalues">\n    <ion-input (ngModelChange)="onPlusvaluesInuptChange($event)"  text-center type="text" name="adressefournisseur" [(ngModel)]="objetActuel.plusvalues"  ></ion-input>\n  </ion-item>\n\n\n  <ion-item>\n    <ion-label style="opacity:1; color: #000;font-weight: bold">Constructions: </ion-label>\n    <ion-select (ionChange) = "onConstructionsSelectChange($event)"   multiple="true" name = "Type vehicule" [(ngModel)]="objetActuel.constructionsionselect"  >\n      <ion-option *ngFor="let item of listeChoixConstructions" [value]="item[0]">{{item[0]}}</ion-option>\n    </ion-select>\n  </ion-item>\n\n  <ion-item *ngIf="objetActuel.constructionsionselect || objetActuel.constructions">\n    <ion-input (ngModelChange)="onConstructionsInuptChange($event)"  text-center type="text" name="adressefournisseur" [(ngModel)]="objetActuel.constructions"  ></ion-input>\n  </ion-item>\n\n  <ion-item>\n    <ion-label style="color: #000;font-weight: bold">\n      Adresse :\n    </ion-label>\n    <ion-input text-center type="text" [(ngModel)]="objetActuel.adresse"  ></ion-input>\n  </ion-item>\n\n  <ion-item>\n    <ion-label style="color: #000;font-weight: bold">\n      Coll selon Naïb :\n    </ion-label>\n    <ion-input text-center type="text" [(ngModel)]="objetActuel.coldenaib"  ></ion-input>\n  </ion-item>\n\n\n\n\n\n  <button type="submit" color="tertiary" ion-button (click)="enregistrerInformationsAttributaires()" block >\n    Enregistrer modifications\n  </button>\n\n  <br><br>\n\n  <ion-item  [id]="id"  style="padding:4" >\n\n    <ion-label style="color: #000;">\n      <h1 >Bornes Centroïdes :</h1>\n\n\n\n\n    </ion-label>\n\n\n\n    <ion-icon name="add-circle" (click)="recupererGraphic()" item-end></ion-icon>\n\n\n  </ion-item>\n\n\n\n  <ion-list>\n\n    <div *ngFor="let item of listeCentroides;let index = index;">\n\n      <button   mode="md" ion-item    (click)="itemTapped($event, item)">\n        Borne {{index+1}}\n        <p>X = {{item.xnordmaroc.toFixed(2)}} </p>\n        <p>Y = {{item.ynordmaroc.toFixed(2)}} </p>\n\n        <ion-icon  style="zoom:1; /*background-color: #32db64;*/padding-right: 10px;padding-left: 30px;padding-top: 10px;padding-bottom: 10px;" name="md-more" (click)="detailItemTapped($event, item)" item-end></ion-icon>\n      </button>\n\n    </div>\n\n\n  </ion-list>\n\n\n\n\n  <ion-item  *ngIf="bddPhoto[\'photocinrecto\'] && bddPhoto[\'photocinrecto\'][objetActuel.id] &&  bddPhoto[\'photocinrecto\'][objetActuel.id][\'sent\'].toString() === \'false\' " padding="0" style="border-bottom: 0px;background-color: #f53d3d">\n    <h1 >Photo CIN Recto:</h1>\n  </ion-item>\n  <ion-item  *ngIf="bddPhoto[\'photocinrecto\'] && bddPhoto[\'photocinrecto\'][objetActuel.id] &&  bddPhoto[\'photocinrecto\'][objetActuel.id][\'sent\'].toString() === \'true\'"  padding="0" style="border-bottom: 0px;background-color: #32db64">\n    <h1 >Photo CIN Recto:</h1>\n  </ion-item>\n  <ion-item *ngIf="!bddPhoto[\'photocinrecto\'] || !bddPhoto[\'photocinrecto\'][objetActuel.id]" padding="0" style="border-bottom: 0px;">\n    <h1 >Photo CIN Recto :</h1>\n  </ion-item>\n\n\n  <img style="width: auto;margin: auto;display: block"  [(src)]="objetActuel.photocinrecto" *ngIf="objetActuel.photocinrecto"/>\n\n  <br>\n\n  <div text-center>\n    <button ion-button round  (click)="photoChooser(objetActuel,\'photocinrecto\',1200,2000,100)">\n      Charger Photo  <ion-icon padding name="camera"></ion-icon>\n    </button>\n  </div>\n\n  <div *ngIf="objetActuel.photocinrecto" text-center>\n    <button ion-button round  (click)="reenvoyerPhoto(\'photocinrecto\')">\n      Réenvoyer  <ion-icon padding name="refresh"></ion-icon>\n    </button>\n  </div>\n\n\n  <ion-item  *ngIf="bddPhoto[\'photocinverso\'] && bddPhoto[\'photocinverso\'][objetActuel.id] &&  bddPhoto[\'photocinverso\'][objetActuel.id][\'sent\'].toString() === \'false\' " padding="0" style="border-bottom: 0px;background-color: #f53d3d">\n    <h1 >Photo CIN Verso:</h1>\n  </ion-item>\n  <ion-item  *ngIf="bddPhoto[\'photocinverso\'] && bddPhoto[\'photocinverso\'][objetActuel.id] &&  bddPhoto[\'photocinverso\'][objetActuel.id][\'sent\'].toString() === \'true\'"  padding="0" style="border-bottom: 0px;background-color: #32db64">\n    <h1 >Photo CIN Verso:</h1>\n  </ion-item>\n  <ion-item *ngIf="!bddPhoto[\'photocinverso\'] || !bddPhoto[\'photocinverso\'][objetActuel.id]" padding="0" style="border-bottom: 0px;">\n    <h1 >Photo CIN Verso :</h1>\n  </ion-item>\n\n  <img style="width: auto;margin: auto;display: block"  [(src)]="objetActuel.photocinverso" *ngIf="objetActuel.photocinverso"/>\n\n  <br>\n\n  <div text-center>\n    <button ion-button round  (click)="photoChooser(objetActuel,\'photocinverso\',1200,2000,100)">\n      Charger Photo  <ion-icon padding name="camera"></ion-icon>\n    </button>\n  </div>\n\n  <div *ngIf="objetActuel.photocinverso" text-center>\n    <button ion-button round  (click)="reenvoyerPhoto(\'photocinverso\')">\n      Réenvoyer  <ion-icon padding name="refresh"></ion-icon>\n    </button>\n  </div>\n\n  <ion-item  *ngIf="bddPhoto[\'photoparcelle\'] && bddPhoto[\'photoparcelle\'][objetActuel.id] &&  bddPhoto[\'photoparcelle\'][objetActuel.id][\'sent\'].toString() === \'false\' " padding="0" style="border-bottom: 0px;background-color: #f53d3d">\n    <h1 >Photo Parcelle:</h1>\n  </ion-item>\n  <ion-item  *ngIf="bddPhoto[\'photoparcelle\'] && bddPhoto[\'photoparcelle\'][objetActuel.id] &&  bddPhoto[\'photoparcelle\'][objetActuel.id][\'sent\'].toString() === \'true\'"  padding="0" style="border-bottom: 0px;background-color: #32db64">\n    <h1 >Photo Parcelle:</h1>\n  </ion-item>\n  <ion-item *ngIf="!bddPhoto[\'photoparcelle\'] || !bddPhoto[\'photoparcelle\'][objetActuel.id]" padding="0" style="border-bottom: 0px;">\n    <h1 >Photo Parcelle:</h1>\n  </ion-item>\n\n\n  <img style="width: auto;margin: auto;display: block"  [(src)]="objetActuel.photoparcelle" *ngIf="objetActuel.photoparcelle"/>\n\n  <br>\n\n  <div text-center>\n    <button ion-button round  (click)="photoChooser(objetActuel,\'photoparcelle\',1200,2000,100)">\n      Charger Photo  <ion-icon padding name="camera"></ion-icon>\n    </button>\n  </div>\n\n  <div *ngIf="objetActuel.photoparcelle" text-center>\n    <button ion-button round  (click)="reenvoyerPhoto(\'photoparcelle\')">\n      Réenvoyer  <ion-icon padding name="refresh"></ion-icon>\n    </button>\n  </div>\n\n  <ion-item  *ngIf="bddPhoto[\'photocroquis\'] && bddPhoto[\'photocroquis\'][objetActuel.id] &&  bddPhoto[\'photocroquis\'][objetActuel.id][\'sent\'].toString() === \'false\' " padding="0" style="border-bottom: 0px;background-color: #f53d3d">\n    <h1 >Photo Croquis:</h1>\n  </ion-item>\n  <ion-item  *ngIf="bddPhoto[\'photocroquis\'] && bddPhoto[\'photocroquis\'][objetActuel.id] &&  bddPhoto[\'photocroquis\'][objetActuel.id][\'sent\'].toString() === \'true\'"  padding="0" style="border-bottom: 0px;background-color: #32db64">\n    <h1 >Photo Croquis:</h1>\n  </ion-item>\n  <ion-item *ngIf="!bddPhoto[\'photocroquis\'] || !bddPhoto[\'photocroquis\'][objetActuel.id]" padding="0" style="border-bottom: 0px;">\n    <h1 >Photo Croquis:</h1>\n  </ion-item>\n\n  <img style="width: auto;margin: auto;display: block"  [(src)]="objetActuel.photocroquis" *ngIf="objetActuel.photocroquis"/>\n\n  <br>\n\n  <div text-center>\n    <button ion-button round  (click)="photoChooser(objetActuel,\'photocroquis\',1200,2000,100)">\n      Charger Photo  <ion-icon padding name="camera"></ion-icon>\n    </button>\n  </div>\n\n  <div *ngIf="objetActuel.photocroquis" text-center>\n    <button ion-button round  (click)="reenvoyerPhoto(\'photocroquis\')">\n      Réenvoyer  <ion-icon padding name="refresh"></ion-icon>\n    </button>\n  </div>\n\n\n\n  <ion-item padding="0" style="border-bottom: 0px;">\n  </ion-item>\n\n\n\n\n\n</ion-content>\n'/*ion-inline-end:"/Users/admin/Downloads/Topomap/TopomapCollector0.1/src/pages/ajouter-parcelle/ajouter-parcelle.html"*/,
+            selector: 'page-ajouter-parcelle',template:/*ion-inline-start:"/Users/admin/Downloads/Topomap/TopomapCollector0.1/src/pages/ajouter-parcelle/ajouter-parcelle.html"*/'<!--\n  Generated template for the AjouterProjetPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n  <ion-navbar>\n\n    <ion-title>Parcelle : {{objetActuel.id}} </ion-title>\n\n    <ion-buttons end>\n\n\n      <div (click)="detailActionMenu()">\n        <ion-icon  style="zoom:1.5; /*background-color: #32db64;*/padding-right: 10px;padding-left: 30px;padding-top: 0px;padding-bottom: 0px;" name="md-more"  item-end></ion-icon>\n\n      </div>\n\n\n    </ion-buttons>\n\n  </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content padding>\n\n  <ion-item padding="0" style="border-bottom: 0px;">\n    <h1 >Informations :</h1>\n  </ion-item>\n\n  <ion-item>\n    <ion-label style="opacity:1; color: #000;font-weight: bold">Parcelle : </ion-label>\n    <ion-input text-center type="text" readonly="true" [(ngModel)]="objetActuel.id"></ion-input>\n  </ion-item>\n\n  <ion-item>\n    <ion-label style="opacity:1; color: #000;font-weight: bold">Consistance:</ion-label>\n    <ion-select (ionChange) = "onConsistanceSelectChange($event)"   multiple="true" name = "Type vehicule" [(ngModel)]="objetActuel.consistanceionselect"  >\n      <ion-option *ngFor="let item of listeChoixConsistance" [value]="item[0]">{{item[0]}}</ion-option>\n    </ion-select>\n  </ion-item>\n\n  <ion-item *ngIf="objetActuel.consistanceionselect || objetActuel.consistance">\n    <ion-input  (ngModelChange)="onConsistanceInuptChange($event)"  text-center type="text" name="adressefournisseur" [(ngModel)]="objetActuel.consistance"  ></ion-input>\n  </ion-item>\n\n  <ion-item>\n    <ion-label style="opacity:1; color: #000;font-weight: bold">Plus Values:</ion-label>\n    <ion-select (ionChange) = "onPlusvaluesSelectChange($event)"   multiple="true" name = "Type vehicule" [(ngModel)]="objetActuel.plusvaluesionselect"  >\n      <ion-option *ngFor="let item of listeChoixPlusvalues" [value]="item[0]">{{item[0]}}</ion-option>\n    </ion-select>\n  </ion-item>\n\n  <ion-item *ngIf="objetActuel.plusvaluesionselect || objetActuel.plusvalues">\n    <ion-input (ngModelChange)="onPlusvaluesInuptChange($event)"  text-center type="text" name="adressefournisseur" [(ngModel)]="objetActuel.plusvalues"  ></ion-input>\n  </ion-item>\n\n\n  <ion-item>\n    <ion-label style="opacity:1; color: #000;font-weight: bold">Constructions: </ion-label>\n    <ion-select (ionChange) = "onConstructionsSelectChange($event)"   multiple="true" name = "Type vehicule" [(ngModel)]="objetActuel.constructionsionselect"  >\n      <ion-option *ngFor="let item of listeChoixConstructions" [value]="item[0]">{{item[0]}}</ion-option>\n    </ion-select>\n  </ion-item>\n\n  <ion-item *ngIf="objetActuel.constructionsionselect || objetActuel.constructions">\n    <ion-input (ngModelChange)="onConstructionsInuptChange($event)"  text-center type="text" name="adressefournisseur" [(ngModel)]="objetActuel.constructions"  ></ion-input>\n  </ion-item>\n\n  <ion-item>\n    <ion-label style="color: #000;font-weight: bold">\n      Adresse :\n    </ion-label>\n    <ion-input text-center type="text" [(ngModel)]="objetActuel.adresse"  ></ion-input>\n  </ion-item>\n\n  <ion-item>\n    <ion-label style="color: #000;font-weight: bold">\n      Coll selon Naïb :\n    </ion-label>\n    <ion-input text-center type="text" [(ngModel)]="objetActuel.coldenaib"  ></ion-input>\n  </ion-item>\n\n\n\n\n\n  <button type="submit" color="tertiary" ion-button (click)="enregistrerInformationsAttributaires()" block >\n    Enregistrer modifications\n  </button>\n\n  <br><br>\n\n  <ion-item  [id]="id"  style="padding:4" >\n\n    <ion-label style="color: #000;">\n      <h1 >Bornes Centroïdes :</h1>\n\n\n\n\n    </ion-label>\n\n\n\n    <ion-icon name="add-circle" (click)="recupererGraphic()" item-end></ion-icon>\n\n\n  </ion-item>\n\n\n\n  <ion-list>\n\n    <div *ngFor="let item of listeCentroides;let index = index;">\n\n      <button   mode="md" ion-item    (click)="itemTapped($event, item)">\n        Borne {{index+1}}\n        <p>X = {{item.xnordmaroc.toFixed(2)}} </p>\n        <p>Y = {{item.ynordmaroc.toFixed(2)}} </p>\n\n        <ion-icon  style="zoom:1; /*background-color: #32db64;*/padding-right: 10px;padding-left: 30px;padding-top: 10px;padding-bottom: 10px;" name="md-more" (click)="detailItemTapped($event, item)" item-end></ion-icon>\n      </button>\n\n    </div>\n\n\n  </ion-list>\n\n\n\n\n  <ion-item  *ngIf="bddPhoto[\'photocinrecto\'] && bddPhoto[\'photocinrecto\'][objetActuel.id] &&  bddPhoto[\'photocinrecto\'][objetActuel.id][\'sent\'].toString() === \'false\' " padding="0" style="border-bottom: 0px;background-color: #f53d3d">\n    <h1 >Photo CIN Recto:</h1>\n  </ion-item>\n  <ion-item  *ngIf="bddPhoto[\'photocinrecto\'] && bddPhoto[\'photocinrecto\'][objetActuel.id] &&  bddPhoto[\'photocinrecto\'][objetActuel.id][\'sent\'].toString() === \'true\'"  padding="0" style="border-bottom: 0px;background-color: #32db64">\n    <h1 >Photo CIN Recto:</h1>\n  </ion-item>\n  <ion-item *ngIf="!bddPhoto[\'photocinrecto\'] || !bddPhoto[\'photocinrecto\'][objetActuel.id]" padding="0" style="border-bottom: 0px;">\n    <h1 >Photo CIN Recto :</h1>\n  </ion-item>\n\n\n  <img style="width: auto;margin: auto;display: block"  [(src)]="objetActuel.photocinrecto" *ngIf="objetActuel.photocinrecto"/>\n\n  <br>\n\n  <div text-center>\n    <button ion-button round  (click)="photoChooser(objetActuel,\'photocinrecto\',1200,2000,100)">\n      Charger Photo  <ion-icon padding name="camera"></ion-icon>\n    </button>\n  </div>\n\n  <div *ngIf="objetActuel.photocinrecto" text-center>\n    <button ion-button round  (click)="reenvoyerPhoto(\'photocinrecto\')">\n      Réenvoyer  <ion-icon padding name="refresh"></ion-icon>\n    </button>\n  </div>\n\n\n  <ion-item  *ngIf="bddPhoto[\'photocinverso\'] && bddPhoto[\'photocinverso\'][objetActuel.id] &&  bddPhoto[\'photocinverso\'][objetActuel.id][\'sent\'].toString() === \'false\' " padding="0" style="border-bottom: 0px;background-color: #f53d3d">\n    <h1 >Photo CIN Verso:</h1>\n  </ion-item>\n  <ion-item  *ngIf="bddPhoto[\'photocinverso\'] && bddPhoto[\'photocinverso\'][objetActuel.id] &&  bddPhoto[\'photocinverso\'][objetActuel.id][\'sent\'].toString() === \'true\'"  padding="0" style="border-bottom: 0px;background-color: #32db64">\n    <h1 >Photo CIN Verso:</h1>\n  </ion-item>\n  <ion-item *ngIf="!bddPhoto[\'photocinverso\'] || !bddPhoto[\'photocinverso\'][objetActuel.id]" padding="0" style="border-bottom: 0px;">\n    <h1 >Photo CIN Verso :</h1>\n  </ion-item>\n\n  <img style="width: auto;margin: auto;display: block"  [(src)]="objetActuel.photocinverso" *ngIf="objetActuel.photocinverso"/>\n\n  <br>\n\n  <div text-center>\n    <button ion-button round  (click)="photoChooser(objetActuel,\'photocinverso\',1200,2000,100)">\n      Charger Photo  <ion-icon padding name="camera"></ion-icon>\n    </button>\n  </div>\n\n  <div *ngIf="objetActuel.photocinverso" text-center>\n    <button ion-button round  (click)="reenvoyerPhoto(\'photocinverso\')">\n      Réenvoyer  <ion-icon padding name="refresh"></ion-icon>\n    </button>\n  </div>\n\n  <ion-item  *ngIf="bddPhoto[\'photoparcelle\'] && bddPhoto[\'photoparcelle\'][objetActuel.id] &&  bddPhoto[\'photoparcelle\'][objetActuel.id][\'sent\'].toString() === \'false\' " padding="0" style="border-bottom: 0px;background-color: #f53d3d">\n    <h1 >Photo Parcelle:</h1>\n  </ion-item>\n  <ion-item  *ngIf="bddPhoto[\'photoparcelle\'] && bddPhoto[\'photoparcelle\'][objetActuel.id] &&  bddPhoto[\'photoparcelle\'][objetActuel.id][\'sent\'].toString() === \'true\'"  padding="0" style="border-bottom: 0px;background-color: #32db64">\n    <h1 >Photo Parcelle:</h1>\n  </ion-item>\n  <ion-item *ngIf="!bddPhoto[\'photoparcelle\'] || !bddPhoto[\'photoparcelle\'][objetActuel.id]" padding="0" style="border-bottom: 0px;">\n    <h1 >Photo Parcelle:</h1>\n  </ion-item>\n\n\n  <img (click)="afficherPhoto(this)" style="width: auto;margin: auto;display: block"  [(src)]="objetActuel.photoparcelle" *ngIf="objetActuel.photoparcelle"/>\n\n  <br>\n\n  <div text-center>\n    <button ion-button round  (click)="photoChooser(objetActuel,\'photoparcelle\',1200,2000,100)">\n      Charger Photo  <ion-icon padding name="camera"></ion-icon>\n    </button>\n  </div>\n\n  <div *ngIf="objetActuel.photoparcelle" text-center>\n    <button ion-button round  (click)="reenvoyerPhoto(\'photoparcelle\')">\n      Réenvoyer  <ion-icon padding name="refresh"></ion-icon>\n    </button>\n  </div>\n\n  <ion-item  *ngIf="bddPhoto[\'photocroquis\'] && bddPhoto[\'photocroquis\'][objetActuel.id] &&  bddPhoto[\'photocroquis\'][objetActuel.id][\'sent\'].toString() === \'false\' " padding="0" style="border-bottom: 0px;background-color: #f53d3d">\n    <h1 >Photo Croquis:</h1>\n  </ion-item>\n  <ion-item  *ngIf="bddPhoto[\'photocroquis\'] && bddPhoto[\'photocroquis\'][objetActuel.id] &&  bddPhoto[\'photocroquis\'][objetActuel.id][\'sent\'].toString() === \'true\'"  padding="0" style="border-bottom: 0px;background-color: #32db64">\n    <h1 >Photo Croquis:</h1>\n  </ion-item>\n  <ion-item *ngIf="!bddPhoto[\'photocroquis\'] || !bddPhoto[\'photocroquis\'][objetActuel.id]" padding="0" style="border-bottom: 0px;">\n    <h1 >Photo Croquis:</h1>\n  </ion-item>\n\n  <img  style="width: auto;margin: auto;display: block"  [(src)]="objetActuel.photocroquis" *ngIf="objetActuel.photocroquis"/>\n\n  <br>\n\n  <div text-center>\n    <button ion-button round  (click)="photoChooser(objetActuel,\'photocroquis\',1200,2000,100)">\n      Charger Photo  <ion-icon padding name="camera"></ion-icon>\n    </button>\n  </div>\n\n  <div *ngIf="objetActuel.photocroquis" text-center>\n    <button ion-button round  (click)="reenvoyerPhoto(\'photocroquis\')">\n      Réenvoyer  <ion-icon padding name="refresh"></ion-icon>\n    </button>\n  </div>\n\n\n\n  <ion-item padding="0" style="border-bottom: 0px;">\n  </ion-item>\n\n\n\n\n\n</ion-content>\n'/*ion-inline-end:"/Users/admin/Downloads/Topomap/TopomapCollector0.1/src/pages/ajouter-parcelle/ajouter-parcelle.html"*/,
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */],
             __WEBPACK_IMPORTED_MODULE_8__ionic_storage__["b" /* Storage */],
@@ -1522,6 +1520,7 @@ var AjouterParcellePage = /** @class */ (function () {
             __WEBPACK_IMPORTED_MODULE_2__angular_common_http__["a" /* HttpClient */],
             __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* ToastController */],
             __WEBPACK_IMPORTED_MODULE_3__providers_camera_camera__["a" /* CameraProvider */],
+            __WEBPACK_IMPORTED_MODULE_10__ionic_native_photo_viewer__["a" /* PhotoViewer */],
             __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* Events */]])
     ], AjouterParcellePage);
     return AjouterParcellePage;
@@ -1531,7 +1530,188 @@ var AjouterParcellePage = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 187:
+/***/ 178:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return PostMappingToolsPage; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(33);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_common_http__ = __webpack_require__(45);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_wellknown__ = __webpack_require__(150);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_wellknown___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_wellknown__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_proj4__ = __webpack_require__(334);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+/**
+ * Generated class for the PostMappingToolsPage page.
+ *
+ * See https://ionicframework.com/docs/components/#navigation for more info on
+ * Ionic pages and navigation.
+ */
+var PostMappingToolsPage = /** @class */ (function () {
+    function PostMappingToolsPage(navCtrl, navParams, httpClient) {
+        var _this = this;
+        this.navCtrl = navCtrl;
+        this.navParams = navParams;
+        this.httpClient = httpClient;
+        this.geojsonTojsmappingobject("MULTIPOLYGON(((-5.135822840350167 33.809652898797836,-5.13589123852563 33.80993469332251,-5.135766864363997 33.8099418257193,-5.1357298093939265 33.80979862265758,-5.135703261834404 33.80964633303581,-5.135822840350167 33.809652898797836,-5.135822840350167 33.809652898797836)))");
+        var formData = new FormData();
+        formData.append("fonction", "loadObjetsOrganisme");
+        formData.append("id_metier", "8");
+        formData.append("offset", "0");
+        formData.append("cat", "DAR-BET");
+        formData.append("geometry", "GEOM_POLYGON");
+        formData.append("categorie_user", "DAR-BET");
+        formData.append("approuve", "");
+        formData.append("province", "");
+        formData.append("filter", "false");
+        formData.append("filterPartage", "0");
+        formData.append("id_organisme", "54");
+        this.httpClient.post("http://mapping-cloud.com/loginregister/darfunctions.php", formData).subscribe(function (data) {
+            console.log(data);
+            var nom;
+            var idmapping;
+            var numordre;
+            for (var i = 0; i < data.length; i++) {
+                nom = data[i][1];
+                idmapping = data[i][0];
+                numordre = data[i][28];
+                //if(1230232 == idmapping){
+                setTimeout(_this.fonctionAuxiliaire(idmapping, numordre, i), 1000);
+                //}
+            }
+        });
+    }
+    PostMappingToolsPage.prototype.ionViewDidLoad = function () {
+        console.log('ionViewDidLoad PostMappingToolsPage');
+    };
+    PostMappingToolsPage.prototype.avancementSociete = function () {
+        var formData = new FormData();
+        formData.append("fonction", "loadObjetsOrganisme");
+        formData.append("id_metier", "8");
+        formData.append("offset", "0");
+        formData.append("cat", "DAR-BET");
+        formData.append("geometry", "GEOM_POLYGON");
+        formData.append("categorie_user", "DAR-BET");
+        formData.append("approuve", "");
+        formData.append("province", "");
+        formData.append("filter", "false");
+        formData.append("filterPartage", "0");
+        for (var i = 0; i < 200; i++) {
+            formData.append("id_organisme", i.toString());
+            this.httpClient.post("http://mapping-cloud.com/loginregister/darfunctions.php", formData).subscribe(function (data) {
+                //console.log(data);
+                var nom;
+                var idmapping;
+                var numordre;
+                if (data && data[0]) {
+                    console.log("nom : " + data[0][9]);
+                    console.log("societe : " + data[0][10]);
+                    console.log("zone : " + data[0][2]);
+                    console.log("nombre de parcelle : " + data.length);
+                    console.log("******************");
+                    console.log("******************");
+                    console.log("******************");
+                    console.log("******************");
+                }
+            });
+        }
+    };
+    PostMappingToolsPage.prototype.geojsonTojsmappingobject = function (geojson) {
+        var stringretour = "";
+        var jsobject = __WEBPACK_IMPORTED_MODULE_3_wellknown__["parse"](geojson).coordinates[0];
+        console.log(jsobject);
+        for (var partie = 0; partie < jsobject.length; partie++) {
+            for (var i = 0; i < jsobject[partie].length; i++) {
+                console.log(jsobject[partie][i]);
+                var pointNordMaroc = __WEBPACK_IMPORTED_MODULE_4_proj4__["default"]("+proj=lcc +lat_1=33.3 +lat_0=33.3 +lon_0=-5.4 +k_0=0.999625769 +x_0=500000 +y_0=300000 +a=6378249.2 +b=6356515 +towgs84=31,146,47,0,0,0,0 +units=m +no_defs ", jsobject[partie][i]);
+                console.log(pointNordMaroc);
+                stringretour = stringretour + "B" + (i + 1).toString();
+                stringretour = stringretour + ";";
+                stringretour = stringretour + pointNordMaroc[0];
+                stringretour = stringretour + ";";
+                stringretour = stringretour + pointNordMaroc[1];
+                stringretour = stringretour + "*";
+            }
+            console.log(stringretour);
+            return stringretour;
+        }
+    };
+    PostMappingToolsPage.prototype.fonctionAuxiliaire = function (idmapping, numordre, i) {
+        var _this = this;
+        this.httpClient.get("http://ec2-35-180-97-251.eu-west-3.compute.amazonaws.com:9091/requestAny/SELECT * FROM public.parcellesuperficie where idparcelle = '" + numordre + "'")
+            .subscribe(function (data0) {
+            var stringretour = "";
+            var jsobject = __WEBPACK_IMPORTED_MODULE_3_wellknown__["parse"](data0["features"][0]["shape"]).coordinates;
+            console.log(jsobject);
+            for (var partie = 0; partie < jsobject.length; partie++) {
+                for (var j = 0; j < jsobject[partie][0].length; j++) {
+                    console.log(jsobject[partie][0][j]);
+                    var pointNordMaroc = __WEBPACK_IMPORTED_MODULE_4_proj4__["default"]("+proj=lcc +lat_1=33.3 +lat_0=33.3 +lon_0=-5.4 +k_0=0.999625769 +x_0=500000 +y_0=300000 +a=6378249.2 +b=6356515 +towgs84=31,146,47,0,0,0,0 +units=m +no_defs ", jsobject[partie][0][j]);
+                    console.log(pointNordMaroc);
+                    stringretour = stringretour + "B" + (j + 1).toString();
+                    stringretour = stringretour + ";";
+                    stringretour = stringretour + pointNordMaroc[0];
+                    stringretour = stringretour + ";";
+                    stringretour = stringretour + pointNordMaroc[1];
+                    stringretour = stringretour + "*";
+                }
+                console.log(stringretour);
+                var formData2 = new FormData();
+                formData2.append("fonction", "updateObjetGeom");
+                formData2.append("id_objet", idmapping.toString());
+                formData2.append("wkt", data0["features"][0]["shape"]);
+                formData2.append("id_organisme", "54");
+                formData2.append("nom_objet", "nom");
+                formData2.append("province", "");
+                formData2.append("region", "FES - MEKNES");
+                _this.fonctionAuxiliaire2(idmapping, stringretour, formData2, partie);
+            }
+        });
+    };
+    PostMappingToolsPage.prototype.fonctionAuxiliaire2 = function (idmapping, stringretour, formData2, partie) {
+        var _this = this;
+        this.httpClient.post("http://mapping-cloud.com/loginregister/darfunctions.php", formData2).subscribe(function (data2) {
+            console.log(data2);
+        }, function (err) {
+            var formData3 = new FormData();
+            formData3.append("id_objet", idmapping.toString());
+            formData3.append("nom", "P" + (partie + 1).toString());
+            formData3.append("chaine", stringretour);
+            formData3.append("id_polygon", "-1");
+            _this.httpClient.post("http://mapping-cloud.com/basic/web/index.php?r=objet/polygonpost", formData3).subscribe(function (data3) {
+                console.log(data3);
+            }, function (err) {
+            });
+        });
+    };
+    PostMappingToolsPage = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
+            selector: 'page-post-mapping-tools',template:/*ion-inline-start:"/Users/admin/Downloads/Topomap/TopomapCollector0.1/src/pages/post-mapping-tools/post-mapping-tools.html"*/'<!--\n  Generated template for the PostMappingToolsPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n\n  <ion-navbar>\n    <ion-title>postMappingTools</ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content padding>\n\n</ion-content>\n'/*ion-inline-end:"/Users/admin/Downloads/Topomap/TopomapCollector0.1/src/pages/post-mapping-tools/post-mapping-tools.html"*/,
+        }),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavParams */], __WEBPACK_IMPORTED_MODULE_2__angular_common_http__["a" /* HttpClient */]])
+    ], PostMappingToolsPage);
+    return PostMappingToolsPage;
+}());
+
+//# sourceMappingURL=post-mapping-tools.js.map
+
+/***/ }),
+
+/***/ 189:
 /***/ (function(module, exports) {
 
 function webpackEmptyAsyncContext(req) {
@@ -1544,24 +1724,28 @@ function webpackEmptyAsyncContext(req) {
 webpackEmptyAsyncContext.keys = function() { return []; };
 webpackEmptyAsyncContext.resolve = webpackEmptyAsyncContext;
 module.exports = webpackEmptyAsyncContext;
-webpackEmptyAsyncContext.id = 187;
+webpackEmptyAsyncContext.id = 189;
 
 /***/ }),
 
-/***/ 231:
+/***/ 233:
 /***/ (function(module, exports, __webpack_require__) {
 
 var map = {
 	"../pages/ajouter-parcelle/ajouter-parcelle.module": [
+		782,
+		3
+	],
+	"../pages/liste-parcelle/liste-parcelle.module": [
 		779,
 		2
 	],
-	"../pages/liste-parcelle/liste-parcelle.module": [
-		777,
+	"../pages/map-location/map-location.module": [
+		781,
 		1
 	],
-	"../pages/map-location/map-location.module": [
-		778,
+	"../pages/post-mapping-tools/post-mapping-tools.module": [
+		780,
 		0
 	]
 };
@@ -1576,12 +1760,12 @@ function webpackAsyncContext(req) {
 webpackAsyncContext.keys = function webpackAsyncContextKeys() {
 	return Object.keys(map);
 };
-webpackAsyncContext.id = 231;
+webpackAsyncContext.id = 233;
 module.exports = webpackAsyncContext;
 
 /***/ }),
 
-/***/ 385:
+/***/ 388:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1589,6 +1773,7 @@ module.exports = webpackAsyncContext;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__liste_parcelle_liste_parcelle__ = __webpack_require__(104);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__map_location_map_location__ = __webpack_require__(105);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__post_mapping_tools_post_mapping_tools__ = __webpack_require__(178);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1601,13 +1786,15 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 var TabsPage = /** @class */ (function () {
     function TabsPage() {
         this.tab1Root = __WEBPACK_IMPORTED_MODULE_1__liste_parcelle_liste_parcelle__["a" /* ListeParcellePage */];
         this.tab2Root = __WEBPACK_IMPORTED_MODULE_2__map_location_map_location__["a" /* MapLocationPage */];
+        this.tab3Root = __WEBPACK_IMPORTED_MODULE_3__post_mapping_tools_post_mapping_tools__["a" /* PostMappingToolsPage */];
     }
     TabsPage = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({template:/*ion-inline-start:"/Users/admin/Downloads/Topomap/TopomapCollector0.1/src/pages/tabs/tabs.html"*/'<ion-tabs>\n\n  <ion-tab [root]="tab1Root" tabTitle="Parcelles" tabIcon="paper"></ion-tab>\n  <ion-tab [root]="tab2Root" tabTitle="Map" tabIcon="map"></ion-tab>\n\n</ion-tabs>\n'/*ion-inline-end:"/Users/admin/Downloads/Topomap/TopomapCollector0.1/src/pages/tabs/tabs.html"*/
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({template:/*ion-inline-start:"/Users/admin/Downloads/Topomap/TopomapCollector0.1/src/pages/tabs/tabs.html"*/'<ion-tabs>\n  <!--<ion-tab [root]="tab3Root" tabTitle="Test" tabIcon="map"></ion-tab>-->\n\n  <ion-tab [root]="tab1Root" tabTitle="Parcelles" tabIcon="paper"></ion-tab>\n  <ion-tab [root]="tab2Root" tabTitle="Map" tabIcon="map"></ion-tab>\n\n</ion-tabs>\n'/*ion-inline-end:"/Users/admin/Downloads/Topomap/TopomapCollector0.1/src/pages/tabs/tabs.html"*/
         }),
         __metadata("design:paramtypes", [])
     ], TabsPage);
@@ -1618,13 +1805,13 @@ var TabsPage = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 386:
+/***/ 389:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__ = __webpack_require__(387);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app_module__ = __webpack_require__(391);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__ = __webpack_require__(390);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app_module__ = __webpack_require__(394);
 
 
 Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* platformBrowserDynamic */])().bootstrapModule(__WEBPACK_IMPORTED_MODULE_1__app_module__["a" /* AppModule */]);
@@ -1632,36 +1819,40 @@ Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* pl
 
 /***/ }),
 
-/***/ 391:
+/***/ 394:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppModule; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_platform_browser__ = __webpack_require__(46);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(39);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__app_component__ = __webpack_require__(774);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__pages_tabs_tabs__ = __webpack_require__(385);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__ionic_native_status_bar__ = __webpack_require__(383);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__ionic_native_splash_screen__ = __webpack_require__(384);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_platform_browser__ = __webpack_require__(47);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(33);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__app_component__ = __webpack_require__(776);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__pages_tabs_tabs__ = __webpack_require__(388);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__ionic_native_status_bar__ = __webpack_require__(386);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__ionic_native_splash_screen__ = __webpack_require__(387);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__providers_stockage_stockage__ = __webpack_require__(81);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__providers_camera_camera__ = __webpack_require__(137);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__ionic_native_file_path_ngx__ = __webpack_require__(238);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__ionic_native_device__ = __webpack_require__(776);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__ionic_native_camera__ = __webpack_require__(234);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__ionic_native_geolocation__ = __webpack_require__(331);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__angular_common_http__ = __webpack_require__(48);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__ionic_native_file_path_ngx__ = __webpack_require__(240);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__ionic_native_device__ = __webpack_require__(778);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__ionic_native_camera__ = __webpack_require__(236);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__ionic_native_geolocation__ = __webpack_require__(333);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__angular_common_http__ = __webpack_require__(45);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__pages_map_location_map_location__ = __webpack_require__(105);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__pages_ajouter_parcelle_ajouter_parcelle__ = __webpack_require__(176);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__pages_ajouter_parcelle_ajouter_parcelle__ = __webpack_require__(177);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__pages_liste_parcelle_liste_parcelle__ = __webpack_require__(104);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__ionic_storage__ = __webpack_require__(82);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__ionic_native_base64_to_gallery__ = __webpack_require__(330);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__ionic_native_base64_to_gallery__ = __webpack_require__(332);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__ionic_native_photo_viewer__ = __webpack_require__(346);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__pages_post_mapping_tools_post_mapping_tools__ = __webpack_require__(178);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
+
 
 
 
@@ -1692,7 +1883,8 @@ var AppModule = /** @class */ (function () {
                 __WEBPACK_IMPORTED_MODULE_4__pages_tabs_tabs__["a" /* TabsPage */],
                 __WEBPACK_IMPORTED_MODULE_16__pages_liste_parcelle_liste_parcelle__["a" /* ListeParcellePage */],
                 __WEBPACK_IMPORTED_MODULE_15__pages_ajouter_parcelle_ajouter_parcelle__["a" /* AjouterParcellePage */],
-                __WEBPACK_IMPORTED_MODULE_14__pages_map_location_map_location__["a" /* MapLocationPage */]
+                __WEBPACK_IMPORTED_MODULE_14__pages_map_location_map_location__["a" /* MapLocationPage */],
+                __WEBPACK_IMPORTED_MODULE_20__pages_post_mapping_tools_post_mapping_tools__["a" /* PostMappingToolsPage */]
             ],
             imports: [
                 __WEBPACK_IMPORTED_MODULE_1__angular_platform_browser__["a" /* BrowserModule */],
@@ -1700,6 +1892,7 @@ var AppModule = /** @class */ (function () {
                 __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["e" /* IonicModule */].forRoot(__WEBPACK_IMPORTED_MODULE_3__app_component__["a" /* MyApp */], {}, {
                     links: [
                         { loadChildren: '../pages/liste-parcelle/liste-parcelle.module#ListeParcellePageModule', name: 'ListeParcellePage', segment: 'liste-parcelle', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/post-mapping-tools/post-mapping-tools.module#PostMappingToolsPageModule', name: 'PostMappingToolsPage', segment: 'post-mapping-tools', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/map-location/map-location.module#MapLocationPageModule', name: 'MapLocationPage', segment: 'map-location', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/ajouter-parcelle/ajouter-parcelle.module#AjouterParcellePageModule', name: 'AjouterParcellePage', segment: 'ajouter-parcelle', priority: 'low', defaultHistory: [] }
                     ]
@@ -1712,7 +1905,8 @@ var AppModule = /** @class */ (function () {
                 __WEBPACK_IMPORTED_MODULE_4__pages_tabs_tabs__["a" /* TabsPage */],
                 __WEBPACK_IMPORTED_MODULE_16__pages_liste_parcelle_liste_parcelle__["a" /* ListeParcellePage */],
                 __WEBPACK_IMPORTED_MODULE_15__pages_ajouter_parcelle_ajouter_parcelle__["a" /* AjouterParcellePage */],
-                __WEBPACK_IMPORTED_MODULE_14__pages_map_location_map_location__["a" /* MapLocationPage */]
+                __WEBPACK_IMPORTED_MODULE_14__pages_map_location_map_location__["a" /* MapLocationPage */],
+                __WEBPACK_IMPORTED_MODULE_20__pages_post_mapping_tools_post_mapping_tools__["a" /* PostMappingToolsPage */]
             ],
             providers: [
                 __WEBPACK_IMPORTED_MODULE_18__ionic_native_base64_to_gallery__["a" /* Base64ToGallery */],
@@ -1724,6 +1918,7 @@ var AppModule = /** @class */ (function () {
                 __WEBPACK_IMPORTED_MODULE_7__providers_stockage_stockage__["a" /* StockageProvider */],
                 __WEBPACK_IMPORTED_MODULE_8__providers_camera_camera__["a" /* CameraProvider */],
                 __WEBPACK_IMPORTED_MODULE_9__ionic_native_file_path_ngx__["a" /* FilePath */],
+                __WEBPACK_IMPORTED_MODULE_19__ionic_native_photo_viewer__["a" /* PhotoViewer */],
                 { provide: __WEBPACK_IMPORTED_MODULE_0__angular_core__["u" /* ErrorHandler */], useClass: __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["d" /* IonicErrorHandler */] }
             ]
         })
@@ -1735,23 +1930,23 @@ var AppModule = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 774:
+/***/ 776:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return MyApp; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(39);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__ = __webpack_require__(383);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__ = __webpack_require__(384);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__pages_tabs_tabs__ = __webpack_require__(385);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__ionic_pro__ = __webpack_require__(775);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(33);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__ = __webpack_require__(386);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__ = __webpack_require__(387);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__pages_tabs_tabs__ = __webpack_require__(388);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__ionic_pro__ = __webpack_require__(777);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__ionic_pro___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__ionic_pro__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__pages_liste_parcelle_liste_parcelle__ = __webpack_require__(104);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_rxjs_operators__ = __webpack_require__(83);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_rxjs_operators___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7_rxjs_operators__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__ionic_storage__ = __webpack_require__(82);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__angular_common_http__ = __webpack_require__(48);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__angular_common_http__ = __webpack_require__(45);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__providers_stockage_stockage__ = __webpack_require__(81);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -1984,7 +2179,7 @@ var MyApp = /** @class */ (function () {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return StockageProvider; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__ionic_storage__ = __webpack_require__(82);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(39);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(33);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -2098,5 +2293,5 @@ var StockageProvider = /** @class */ (function () {
 
 /***/ })
 
-},[386]);
+},[389]);
 //# sourceMappingURL=main.js.map

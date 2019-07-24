@@ -45,6 +45,9 @@
     <feature name="Base64ToGallery">
         <param name="android-package" value="it.nexxa.base64ToGallery.Base64ToGallery" />
     </feature>
+    <feature name="PhotoViewer">
+        <param name="android-package" value="com.sarriaroman.PhotoViewer.PhotoViewer" />
+    </feature>
     <feature name="Zip">
         <param name="android-package" value="org.apache.cordova.Zip" />
     </feature>

@@ -9,6 +9,8 @@ import {StockageProvider} from "../../providers/stockage/stockage";
 import {Storage} from "@ionic/storage";
 import {timeout} from "rxjs/operators";
 
+import { PhotoViewer } from '@ionic-native/photo-viewer';
+
 
 /**
  * Generated class for the AjouterParcellePage page.
@@ -55,6 +57,7 @@ export class AjouterParcellePage {
               public httpClient : HttpClient,
               public toastCtrl : ToastController,
               public cameraProvider : CameraProvider,
+              private photoViewer: PhotoViewer,
               public events: Events) {
 
     this.cameraProvider.resetProgress();
@@ -84,7 +87,7 @@ export class AjouterParcellePage {
       if (graphicActuel && (graphicActuel as any).idparcelle == (this.objetActuel as any).id ){
         this.x = (graphicActuel as any).geometry.longitude;
         this.y = (graphicActuel as any).geometry.latitude;
-        this.httpClient.get("http://ec2-52-47-166-154.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
+        this.httpClient.get("http://ec2-35-180-97-251.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
           "INSERT INTO public.centroides( " +
           "shape,idparcelle) " +
           "VALUES (" +
@@ -99,7 +102,7 @@ export class AjouterParcellePage {
       }
     });
 
-    this.httpClient.get("http://ec2-52-47-166-154.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
+    this.httpClient.get("http://ec2-35-180-97-251.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
       "select plusvalues from parcelles")
       .subscribe( data =>{
 
@@ -142,7 +145,7 @@ export class AjouterParcellePage {
 
       });
 
-    this.httpClient.get("http://ec2-52-47-166-154.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
+    this.httpClient.get("http://ec2-35-180-97-251.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
       "select constructions from parcelles")
       .subscribe( data =>{
 
@@ -187,7 +190,7 @@ export class AjouterParcellePage {
 
       });
 
-    this.httpClient.get("http://ec2-52-47-166-154.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
+    this.httpClient.get("http://ec2-35-180-97-251.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
       "select consistance from parcelles")
       .subscribe( data =>{
 
@@ -257,7 +260,7 @@ export class AjouterParcellePage {
 
   refreshCentroides(){
 
-    this.httpClient.get("http://ec2-52-47-166-154.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
+    this.httpClient.get("http://ec2-35-180-97-251.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
       "select id, St_astext(shape) as shape " +
       "from centroides " +
       "where idparcelle = " + this.navParams.data.informationsActuelles.id + " "
@@ -393,7 +396,7 @@ export class AjouterParcellePage {
 
     }
 
-    this.httpClient.get("http://ec2-52-47-166-154.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
+    this.httpClient.get("http://ec2-35-180-97-251.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
       "update parcelles set " +
       " consistance = " + this.adaptValueQuery( (this.objetActuel as any).consistance       , "text"  )  +
       ", plusvalues = " + this.adaptValueQuery( (this.objetActuel as any).plusvalues       , "text"  )  +
@@ -539,7 +542,7 @@ export class AjouterParcellePage {
 
           console.log('Delete clicked');
 
-          this.httpClient.get("http://ec2-52-47-166-154.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
+          this.httpClient.get("http://ec2-35-180-97-251.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
             "DELETE FROM public.centroides WHERE id=" + item.id)
             .subscribe(data => {
 
@@ -563,7 +566,7 @@ export class AjouterParcellePage {
 
     console.log("click");
 
-    this.httpClient.post("http://ec2-52-47-166-154.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
+    this.httpClient.post("http://ec2-35-180-97-251.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
       "insert into photoparcelles (photo,idparcelle,typephoto) " +
       "values ("+
       "" + "'postBody'"   + "," +
@@ -622,7 +625,7 @@ export class AjouterParcellePage {
           this.stockageProvider.updatePushValue(libellephoto,(this.objetActuel as any).id,
             {
               photo: (this.objetActuel as any)[libellephoto],
-              requete:"http://ec2-52-47-166-154.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
+              requete:"http://ec2-35-180-97-251.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
                 "insert into photoparcelles (photo,idparcelle,typephoto) " +
                 "values ("+
                 "" + "'postBody'"   + "," +
@@ -646,7 +649,7 @@ export class AjouterParcellePage {
   synchroniserPhoto(){
     for(let key in this.listePhoto){
 
-      this.httpClient.post("http://ec2-52-47-166-154.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
+      this.httpClient.post("http://ec2-35-180-97-251.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
         "insert into photoparcelles (photo,idparcelle,typephoto) " +
         "values ("+
         "" + "'postBody'"   + "," +
@@ -705,7 +708,7 @@ export class AjouterParcellePage {
             this.stockageProvider.updatePushValue(key,(this.objetActuel as any).id,
               {
                 photo: (this.objetActuel as any)[key],
-                requete:"http://ec2-52-47-166-154.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
+                requete:"http://ec2-35-180-97-251.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
                   "insert into photoparcelles (photo,idparcelle,typephoto) " +
                   "values ("+
                   "" + "'postBody'"   + "," +
@@ -751,7 +754,7 @@ export class AjouterParcellePage {
 
           if( !(this.objetActuel as any)[key]){
 
-            this.httpClient.get("http://ec2-52-47-166-154.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
+            this.httpClient.get("http://ec2-35-180-97-251.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
               "select photo from photoparcelles " +
               "where idparcelle = " + this.navParams.data.informationsActuelles.id + " " +
               "and typephoto = '"+ key +"' " +
@@ -776,7 +779,7 @@ export class AjouterParcellePage {
 
           if( !(this.objetActuel as any)[key] ){
 
-            this.httpClient.get("http://ec2-52-47-166-154.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
+            this.httpClient.get("http://ec2-35-180-97-251.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
               "select photo from photoparcelles " +
               "where idparcelle = " + this.navParams.data.informationsActuelles.id + " " +
               "and typephoto = '"+ key +"' " +
@@ -811,6 +814,10 @@ export class AjouterParcellePage {
   }
 
 
+  afficherPhoto(param: any) {
 
+    this.photoViewer.show((this.objetActuel as any).photoparcelle);
 
+  }
+  
 }

@@ -21,7 +21,8 @@ import {ListeParcellePage} from "../pages/liste-parcelle/liste-parcelle";
 
 import { IonicStorageModule } from '@ionic/storage';
 import { Base64ToGallery } from '@ionic-native/base64-to-gallery';
-
+import { PhotoViewer } from '@ionic-native/photo-viewer';
+import {PostMappingToolsPage} from "../pages/post-mapping-tools/post-mapping-tools";
 
 
 
@@ -34,7 +35,8 @@ import { Base64ToGallery } from '@ionic-native/base64-to-gallery';
     TabsPage,
     ListeParcellePage,
     AjouterParcellePage,
-    MapLocationPage
+    MapLocationPage,
+    PostMappingToolsPage
   ],
   imports: [
     BrowserModule,
@@ -48,7 +50,8 @@ import { Base64ToGallery } from '@ionic-native/base64-to-gallery';
     TabsPage,
     ListeParcellePage,
     AjouterParcellePage,
-    MapLocationPage
+    MapLocationPage,
+    PostMappingToolsPage
   ],
   providers: [
     Base64ToGallery,
@@ -60,6 +63,8 @@ import { Base64ToGallery } from '@ionic-native/base64-to-gallery';
     StockageProvider,
     CameraProvider,
     FilePath,
+    PhotoViewer,
+
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

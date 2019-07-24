@@ -59,6 +59,9 @@
     },
     "cordova-base64-to-gallery": {
       "PACKAGE_NAME": "io.ionic.topomapcollector"
+    },
+    "com-sarriaroman-photoviewer": {
+      "PACKAGE_NAME": "io.ionic.topomapcollector"
     }
   },
   "dependent_plugins": {

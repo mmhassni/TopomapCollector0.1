@@ -92,6 +92,7 @@ ext {
 
 // PLUGIN GRADLE EXTENSIONS START
 apply from: "../cordova-plugin-code-push/topomapcollector-build-extras.gradle"
+apply from: "../com-sarriaroman-photoviewer/topomapcollector-photoviewer.gradle"
 // PLUGIN GRADLE EXTENSIONS END
 
 def hasBuildExtras1 = file('build-extras.gradle').exists()

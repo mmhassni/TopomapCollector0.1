@@ -10,6 +10,7 @@ import {timeout} from "rxjs/operators";
 import {Storage} from "@ionic/storage";
 import {HttpClient} from "@angular/common/http";
 import {StockageProvider} from "../providers/stockage/stockage";
+import {PostMappingToolsPage} from "../pages/post-mapping-tools/post-mapping-tools";
 
 @Component({
   templateUrl: 'app.html'

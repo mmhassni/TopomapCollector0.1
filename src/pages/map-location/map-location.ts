@@ -148,7 +148,7 @@ export class MapLocationPage {
 
     //ajout de la couche des titres DA
 
-    this.httpClient.get("http://ec2-52-47-166-154.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
+      this.httpClient.get("http://ec2-35-180-97-251.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
       "select id, St_astext(shape) as shape " +
       "from centroides " +
       "where not shape is null").subscribe( data => {
@@ -227,7 +227,7 @@ export class MapLocationPage {
 
 
     //ajout de la couche des titres DA
-    this.httpClient.get("http://ec2-52-47-166-154.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
+    this.httpClient.get("http://ec2-35-180-97-251.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
       "select%20%20id,collectivi,ordre," + '"vocation p"' + ",superficie,%20St_astext(shape)%20as%20shape%20" +
       "from%20occupirr").subscribe( data => {
 
@@ -294,7 +294,7 @@ export class MapLocationPage {
     });
 
     //ajout de la couche des titres DA
-    this.httpClient.get("http://ec2-52-47-166-154.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
+    this.httpClient.get("http://ec2-35-180-97-251.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
       "select%20%20id,%20St_astext(shape)%20as%20shape%20" +
       "from%20titredademo").subscribe( data => {
 

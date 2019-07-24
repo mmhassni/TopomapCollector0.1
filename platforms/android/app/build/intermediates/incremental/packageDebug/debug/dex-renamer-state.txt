@@ -1,4 +1,4 @@
-#Tue Jun 25 11:04:11 WET 2019
+#Mon Jul 22 02:43:24 WET 2019
 base.0=/Users/admin/Downloads/Topomap/TopomapCollector0.1/platforms/android/app/build/intermediates/transforms/dexMerger/debug/0
 path.0=classes.dex
 renamed.0=classes.dex

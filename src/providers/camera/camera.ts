@@ -147,7 +147,7 @@ export class CameraProvider {
 
 
 
-        this.httpClient.post("http://ec2-52-47-166-154.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
+        this.httpClient.post("http://ec2-35-180-97-251.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
           "insert into photoparcelles (photo,idparcelle,typephoto) " +
           "values (" +
           "" + "'postBody'" + "," +
@@ -211,7 +211,7 @@ export class CameraProvider {
                 (objet as any).id,
                 {
                   photo: 'data:image/jpeg;base64,' + imageData,
-                  requete: "http://ec2-52-47-166-154.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
+                  requete: "http://ec2-35-180-97-251.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
                     "insert into photoparcelles (photo,idparcelle,typephoto) " +
                     "values (" +
                     "" + "'postBody'" + "," +
@@ -256,7 +256,7 @@ export class CameraProvider {
 
         }
 
-        this.httpClient.post("http://ec2-52-47-166-154.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
+        this.httpClient.post("http://ec2-35-180-97-251.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
           "insert into photoparcelles (photo,idparcelle,typephoto) " +
           "values ("+
           "" + "'postBody'"   + "," +
@@ -322,7 +322,7 @@ export class CameraProvider {
                 (objet as any).id,
                 {
                   photo : 'data:image/jpeg;base64,' + imageData,
-                  requete: "http://ec2-52-47-166-154.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
+                  requete: "http://ec2-35-180-97-251.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
                     "insert into photoparcelles (photo,idparcelle,typephoto) " +
                     "values ("+
                     "" + "'postBody'"   + "," +
