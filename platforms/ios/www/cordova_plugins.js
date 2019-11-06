@@ -9,6 +9,27 @@ module.exports = [
     ]
   },
   {
+    "id": "com-sarriaroman-photoviewer.PhotoViewer",
+    "file": "plugins/com-sarriaroman-photoviewer/www/PhotoViewer.js",
+    "pluginId": "com-sarriaroman-photoviewer",
+    "clobbers": [
+      "PhotoViewer"
+    ]
+  },
+  {
+    "id": "cordova-base64-to-gallery.object.assign-polyfill",
+    "file": "plugins/cordova-base64-to-gallery/www/object.assign-polyfill.js",
+    "pluginId": "cordova-base64-to-gallery"
+  },
+  {
+    "id": "cordova-base64-to-gallery.base64ToGallery",
+    "file": "plugins/cordova-base64-to-gallery/www/base64ToGallery.js",
+    "pluginId": "cordova-base64-to-gallery",
+    "clobbers": [
+      "cordova.base64ToGallery"
+    ]
+  },
+  {
     "id": "cordova-plugin-file.DirectoryEntry",
     "file": "plugins/cordova-plugin-file/www/DirectoryEntry.js",
     "pluginId": "cordova-plugin-file",
@@ -480,33 +501,14 @@ module.exports = [
     "clobbers": [
       "SQLitePlugin"
     ]
-  },
-  {
-    "id": "cordova-base64-to-gallery.object.assign-polyfill",
-    "file": "plugins/cordova-base64-to-gallery/www/object.assign-polyfill.js",
-    "pluginId": "cordova-base64-to-gallery"
-  },
-  {
-    "id": "cordova-base64-to-gallery.base64ToGallery",
-    "file": "plugins/cordova-base64-to-gallery/www/base64ToGallery.js",
-    "pluginId": "cordova-base64-to-gallery",
-    "clobbers": [
-      "cordova.base64ToGallery"
-    ]
-  },
-  {
-    "id": "com-sarriaroman-photoviewer.PhotoViewer",
-    "file": "plugins/com-sarriaroman-photoviewer/www/PhotoViewer.js",
-    "pluginId": "com-sarriaroman-photoviewer",
-    "clobbers": [
-      "PhotoViewer"
-    ]
   }
 ];
 module.exports.metadata = 
 // TOP OF METADATA
 {
   "code-push": "2.0.6",
+  "com-sarriaroman-photoviewer": "1.2.2",
+  "cordova-base64-to-gallery": "4.1.3",
   "cordova-plugin-file": "6.0.1",
   "cordova-plugin-advanced-http": "2.0.9",
   "cordova-plugin-camera": "4.0.3",
@@ -523,9 +525,7 @@ module.exports.metadata =
   "cordova-plugin-statusbar": "2.4.2",
   "cordova-plugin-whitelist": "1.3.3",
   "cordova-plugin-zip": "3.1.0",
-  "cordova-sqlite-storage": "3.2.0",
-  "cordova-base64-to-gallery": "4.1.3",
-  "com-sarriaroman-photoviewer": "1.2.2"
+  "cordova-sqlite-storage": "3.2.0"
 };
 // BOTTOM OF METADATA
 });

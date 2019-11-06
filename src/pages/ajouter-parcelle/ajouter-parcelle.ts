@@ -10,6 +10,7 @@ import {Storage} from "@ionic/storage";
 import {timeout} from "rxjs/operators";
 
 import { PhotoViewer } from '@ionic-native/photo-viewer';
+import {SaisieManuelleCoordonneesPage} from "../saisie-manuelle-coordonnees/saisie-manuelle-coordonnees";
 
 
 /**
@@ -299,6 +300,12 @@ export class AjouterParcellePage {
     console.log('ionViewDidLoad ListeParcellePage');
     this.refreshCentroides();
 
+
+  }
+
+  ionViewDidEnter() {
+    this.refreshCentroides();
+
   }
 
   onConstructionsSelectChange($event) {
@@ -482,11 +489,41 @@ export class AjouterParcellePage {
 
   recupererGraphic() {
 
-    this.navCtrl.push(MapLocationPage,{
-      action: "getLocation",
-      idparcelle: (this.objetActuel as any).id,
-      x: (this.objetActuel as any).x,
-      y: (this.objetActuel as any).y});
+    // @ts-ignore
+    const actionSheet = this.actionSheetCtrl.create({
+      title: 'Actions',
+      buttons: [
+        {
+          text: "Carte",
+          role: 'destructive',
+          icon: 'locate',
+          handler: () => {
+            this.navCtrl.push(MapLocationPage,{
+              action: "getLocation",
+              idparcelle: (this.objetActuel as any).id,
+              x: (this.objetActuel as any).x,
+              y: (this.objetActuel as any).y});
+          }
+        },
+        {
+          text: "Manuelle",
+          role: 'destructive',
+          icon: 'brush',
+          handler: () => {
+
+            this.navCtrl.push(SaisieManuelleCoordonneesPage,{
+              idparcelle: (this.objetActuel as any).id
+            });
+
+          }
+        }
+
+
+      ]
+    });
+    actionSheet.present();
+
+
   }
 
 

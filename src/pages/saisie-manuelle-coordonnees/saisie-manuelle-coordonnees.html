@@ -1,0 +1,57 @@
+<!--
+  Generated template for the SaisieManuelleCoordonneesPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+
+    <ion-title>Parcelle : {{idparcelle}} </ion-title>
+
+    <ion-buttons end>
+
+
+      <div (click)="detailActionMenu()">
+        <ion-icon  style="zoom:1.5; /*background-color: #32db64;*/padding-right: 10px;padding-left: 30px;padding-top: 0px;padding-bottom: 0px;" name="md-more"  item-end></ion-icon>
+
+      </div>
+
+
+    </ion-buttons>
+
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+
+  <br>
+  <br>
+  <br>
+
+  <ion-item>
+    <ion-label style="color: #000;font-weight: bold">
+      X :
+    </ion-label>
+    <ion-input text-center type="tel" [(ngModel)]="objetActuel['X']"  ></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label style="color: #000;font-weight: bold">
+      Y :
+    </ion-label>
+    <ion-input text-center type="tel" [(ngModel)]="objetActuel['Y']"  ></ion-input>
+  </ion-item>
+
+  <br>
+
+  <button type="submit" color="tertiary" ion-button (click)="ajouterCentroide()" block >
+    Ajouter Centroide
+  </button>
+
+
+
+</ion-content>

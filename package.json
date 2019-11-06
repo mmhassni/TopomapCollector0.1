@@ -10,6 +10,9 @@
     "build": "ionic-app-scripts build",
     "lint": "ionic-app-scripts lint"
   },
+  "browser": {
+    "child_process": false
+  },
   "dependencies": {
     "@angular/animations": "5.2.11",
     "@angular/common": "5.2.11",
@@ -34,6 +37,7 @@
     "@ionic-native/uid": "^4.20.0",
     "@ionic/pro": "^2.0.4",
     "@ionic/storage": "^2.2.0",
+    "child_process": "^1.0.2",
     "code-push": "^2.0.6",
     "com-sarriaroman-photoviewer": "1.2.2",
     "cordova-android": "7.1.4",

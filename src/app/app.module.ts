@@ -23,6 +23,8 @@ import { IonicStorageModule } from '@ionic/storage';
 import { Base64ToGallery } from '@ionic-native/base64-to-gallery';
 import { PhotoViewer } from '@ionic-native/photo-viewer';
 import {PostMappingToolsPage} from "../pages/post-mapping-tools/post-mapping-tools";
+import {SaisieManuelleCoordonneesPage} from "../pages/saisie-manuelle-coordonnees/saisie-manuelle-coordonnees";
+
 
 
 
@@ -36,7 +38,9 @@ import {PostMappingToolsPage} from "../pages/post-mapping-tools/post-mapping-too
     ListeParcellePage,
     AjouterParcellePage,
     MapLocationPage,
-    PostMappingToolsPage
+    PostMappingToolsPage,
+    SaisieManuelleCoordonneesPage
+    //PostgisScriptPage
   ],
   imports: [
     BrowserModule,
@@ -51,7 +55,8 @@ import {PostMappingToolsPage} from "../pages/post-mapping-tools/post-mapping-too
     ListeParcellePage,
     AjouterParcellePage,
     MapLocationPage,
-    PostMappingToolsPage
+    PostMappingToolsPage,
+    SaisieManuelleCoordonneesPage
   ],
   providers: [
     Base64ToGallery,

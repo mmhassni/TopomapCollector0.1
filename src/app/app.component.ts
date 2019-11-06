@@ -45,6 +45,8 @@ export class MyApp {
       statusBar.styleDefault();
       splashScreen.hide();
 
+      /*
+
       try{
 
         Pro.deploy.configure({channel: 'Production',updateMethod:"auto"}).then( onsucces => {
@@ -61,6 +63,7 @@ export class MyApp {
       catch (err) {
         console.log(err);
       }
+      */
 
       for(let key in this.listePhoto){
 
