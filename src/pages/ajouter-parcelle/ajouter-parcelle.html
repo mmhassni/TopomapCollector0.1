@@ -59,6 +59,46 @@
     <ion-input (ngModelChange)="onPlusvaluesInuptChange($event)"  text-center type="text" name="adressefournisseur" [(ngModel)]="objetActuel.plusvalues"  ></ion-input>
   </ion-item>
 
+  <ion-item>
+    <ion-label style="opacity:1; color: #000;font-weight: bold">Douar:</ion-label>
+    <ion-select (ionChange) = "onDouarSelectChange($event)"   multiple="true" name = "Type vehicule" [(ngModel)]="objetActuel.douarionselect"  >
+      <ion-option *ngFor="let item of listeChoixDouar" [value]="item[0]">{{item[0]}}</ion-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-item *ngIf="objetActuel.nom_douarionselect || objetActuel.nom_douar">
+    <ion-input (ngModelChange)="onDouarInuptChange($event)"  text-center type="text" name="adressefournisseur" [(ngModel)]="objetActuel.nom_douar"  ></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label style="opacity:1; color: #000;font-weight: bold">Naiib:</ion-label>
+    <ion-select (ionChange) = "onNaiibSelectChange($event)"   multiple="true" name = "Type vehicule" [(ngModel)]="objetActuel.naiibionselect"  >
+      <ion-option *ngFor="let item of listeChoixNaiib" [value]="item[0]">{{item[0]}}</ion-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-item *ngIf="objetActuel.naiibionselect || objetActuel.naiib">
+    <ion-input (ngModelChange)="onNaiibInuptChange($event)"  text-center type="text" name="adressefournisseur" [(ngModel)]="objetActuel.naiib"  ></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label style="opacity:1; color: #000;font-weight: bold">Moqadem:</ion-label>
+    <ion-select (ionChange) = "onMokademSelectChange($event)"   multiple="false" name = "Type vehicule" [(ngModel)]="objetActuel.mokademionselect"  >
+      <ion-option *ngFor="let item of listeChoixMokadem" [value]="item[0]">{{item[0]}}</ion-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-item *ngIf="objetActuel.mokademionselect || objetActuel.mokadem">
+    <ion-input (ngModelChange)="onMokademInuptChange($event)"  text-center type="text" name="adressefournisseur" [(ngModel)]="objetActuel.mokadem"  ></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label style="opacity:1; color: #000;font-weight: bold">Qualité: </ion-label>
+    <ion-select (ionChange) = "onQualiteSelectChange($event)"   multiple="false" [(ngModel)]="objetActuel.qualite"  >
+      <ion-option *ngFor="let item of ['Ayant Droit','Tiers']" [value]="item">{{item}}</ion-option>
+    </ion-select>
+  </ion-item>
+
 
   <ion-item>
     <ion-label style="opacity:1; color: #000;font-weight: bold">Constructions: </ion-label>
@@ -71,6 +111,8 @@
     <ion-input (ngModelChange)="onConstructionsInuptChange($event)"  text-center type="text" name="adressefournisseur" [(ngModel)]="objetActuel.constructions"  ></ion-input>
   </ion-item>
 
+
+
   <ion-item>
     <ion-label style="color: #000;font-weight: bold">
       Adresse :
@@ -80,10 +122,17 @@
 
   <ion-item>
     <ion-label style="color: #000;font-weight: bold">
+      Nom :
+    </ion-label>
+    <ion-input text-center type="text" [(ngModel)]="objetActuel.nom_provisoire"  ></ion-input>
+  </ion-item>
+
+  <!--ion-item>
+    <ion-label style="color: #000;font-weight: bold">
       Coll selon Naïb :
     </ion-label>
     <ion-input text-center type="text" [(ngModel)]="objetActuel.coldenaib"  ></ion-input>
-  </ion-item>
+  </ion-item-->
 
 
 
@@ -145,7 +194,7 @@
   </ion-item>
 
 
-  <img style="width: auto;margin: auto;display: block"  [(src)]="objetActuel.photocinrecto" *ngIf="objetActuel.photocinrecto"/>
+  <img (click)="afficherPhotoCinRecto()" style="width: auto;margin: auto;display: block"  [(src)]="objetActuel.photocinrecto" *ngIf="objetActuel.photocinrecto"/>
 
   <br>
 
@@ -172,7 +221,7 @@
     <h1 >Photo CIN Verso :</h1>
   </ion-item>
 
-  <img style="width: auto;margin: auto;display: block"  [(src)]="objetActuel.photocinverso" *ngIf="objetActuel.photocinverso"/>
+  <img (click)="afficherPhotoCinVerso()" style="width: auto;margin: auto;display: block"  [(src)]="objetActuel.photocinverso" *ngIf="objetActuel.photocinverso"/>
 
   <br>
 
@@ -199,7 +248,7 @@
   </ion-item>
 
 
-  <img (click)="afficherPhoto(this)" style="width: auto;margin: auto;display: block"  [(src)]="objetActuel.photoparcelle" *ngIf="objetActuel.photoparcelle"/>
+  <img (click)="afficherPhotoParcelle()" style="width: auto;margin: auto;display: block"  [(src)]="objetActuel.photoparcelle" *ngIf="objetActuel.photoparcelle"/>
 
   <br>
 
@@ -225,7 +274,7 @@
     <h1 >Photo Croquis:</h1>
   </ion-item>
 
-  <img  style="width: auto;margin: auto;display: block"  [(src)]="objetActuel.photocroquis" *ngIf="objetActuel.photocroquis"/>
+  <img  (click)="afficherPhotoCroquis()"  style="width: auto;margin: auto;display: block"  [(src)]="objetActuel.photocroquis" *ngIf="objetActuel.photocroquis"/>
 
   <br>
 

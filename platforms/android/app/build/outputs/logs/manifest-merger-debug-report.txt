@@ -11,10 +11,10 @@ INJECTED from /Users/admin/Downloads/Topomap/TopomapCollector0.1/platforms/andro
 	android:name
 		ADDED from /Users/admin/Downloads/Topomap/TopomapCollector0.1/platforms/android/app/src/main/AndroidManifest.xml:12:127-180
 manifest
-ADDED from /Users/admin/Downloads/Topomap/TopomapCollector0.1/platforms/android/app/src/main/AndroidManifest.xml:2:1-24:12
-INJECTED from /Users/admin/Downloads/Topomap/TopomapCollector0.1/platforms/android/app/src/main/AndroidManifest.xml:2:1-24:12
-INJECTED from /Users/admin/Downloads/Topomap/TopomapCollector0.1/platforms/android/app/src/main/AndroidManifest.xml:2:1-24:12
-INJECTED from /Users/admin/Downloads/Topomap/TopomapCollector0.1/platforms/android/app/src/main/AndroidManifest.xml:2:1-24:12
+ADDED from /Users/admin/Downloads/Topomap/TopomapCollector0.1/platforms/android/app/src/main/AndroidManifest.xml:2:1-26:12
+INJECTED from /Users/admin/Downloads/Topomap/TopomapCollector0.1/platforms/android/app/src/main/AndroidManifest.xml:2:1-26:12
+INJECTED from /Users/admin/Downloads/Topomap/TopomapCollector0.1/platforms/android/app/src/main/AndroidManifest.xml:2:1-26:12
+INJECTED from /Users/admin/Downloads/Topomap/TopomapCollector0.1/platforms/android/app/src/main/AndroidManifest.xml:2:1-26:12
 MERGED from [com.commit451:PhotoView:1.2.4] /Users/admin/.gradle/caches/transforms-1/files-1.1/PhotoView-1.2.4.aar/3ec2300365ca477234822fd5bc6f8c2a/AndroidManifest.xml:2:1-12:12
 MERGED from [com.android.support:appcompat-v7:25.4.0] /Users/admin/.gradle/caches/transforms-1/files-1.1/appcompat-v7-25.4.0.aar/998275666dedd2f065f965162ce3ca11/AndroidManifest.xml:17:1-31:12
 MERGED from [com.android.support:support-v4:25.4.0] /Users/admin/.gradle/caches/transforms-1/files-1.1/support-v4-25.4.0.aar/e9f87f4da87f6ff398592e3d1a5d4717/AndroidManifest.xml:17:1-31:12
@@ -26,9 +26,9 @@ MERGED from [com.android.support:support-media-compat:25.4.0] /Users/admin/.grad
 MERGED from [com.android.support:support-core-utils:25.4.0] /Users/admin/.gradle/caches/transforms-1/files-1.1/support-core-utils-25.4.0.aar/4a4aab3665107eb91012f0100ec255fc/AndroidManifest.xml:17:1-31:12
 MERGED from [com.android.support:support-compat:25.4.0] /Users/admin/.gradle/caches/transforms-1/files-1.1/support-compat-25.4.0.aar/fac4af0b29f331bfb0a60ebeeb4befd6/AndroidManifest.xml:17:1-31:12
 MERGED from [:CordovaLib] /Users/admin/Downloads/Topomap/TopomapCollector0.1/platforms/android/CordovaLib/build/intermediates/manifests/full/debug/AndroidManifest.xml:20:1-27:12
-INJECTED from /Users/admin/Downloads/Topomap/TopomapCollector0.1/platforms/android/app/src/main/AndroidManifest.xml:2:1-24:12
-INJECTED from /Users/admin/Downloads/Topomap/TopomapCollector0.1/platforms/android/app/src/main/AndroidManifest.xml:2:1-24:12
-INJECTED from /Users/admin/Downloads/Topomap/TopomapCollector0.1/platforms/android/app/src/main/AndroidManifest.xml:2:1-24:12
+INJECTED from /Users/admin/Downloads/Topomap/TopomapCollector0.1/platforms/android/app/src/main/AndroidManifest.xml:2:1-26:12
+INJECTED from /Users/admin/Downloads/Topomap/TopomapCollector0.1/platforms/android/app/src/main/AndroidManifest.xml:2:1-26:12
+INJECTED from /Users/admin/Downloads/Topomap/TopomapCollector0.1/platforms/android/app/src/main/AndroidManifest.xml:2:1-26:12
 	package
 		ADDED from /Users/admin/Downloads/Topomap/TopomapCollector0.1/platforms/android/app/src/main/AndroidManifest.xml:2:98-133
 		INJECTED from /Users/admin/Downloads/Topomap/TopomapCollector0.1/platforms/android/app/src/main/AndroidManifest.xml
@@ -183,6 +183,14 @@ uses-permission#android.permission.ACCESS_NETWORK_STATE
 ADDED from /Users/admin/Downloads/Topomap/TopomapCollector0.1/platforms/android/app/src/main/AndroidManifest.xml:23:5-79
 	android:name
 		ADDED from /Users/admin/Downloads/Topomap/TopomapCollector0.1/platforms/android/app/src/main/AndroidManifest.xml:23:22-76
+uses-permission#android.permission.READ_PHONE_STATE
+ADDED from /Users/admin/Downloads/Topomap/TopomapCollector0.1/platforms/android/app/src/main/AndroidManifest.xml:24:5-75
+	android:name
+		ADDED from /Users/admin/Downloads/Topomap/TopomapCollector0.1/platforms/android/app/src/main/AndroidManifest.xml:24:22-72
+uses-permission#android.permission.ACCESS_WIFI_STATE
+ADDED from /Users/admin/Downloads/Topomap/TopomapCollector0.1/platforms/android/app/src/main/AndroidManifest.xml:25:5-76
+	android:name
+		ADDED from /Users/admin/Downloads/Topomap/TopomapCollector0.1/platforms/android/app/src/main/AndroidManifest.xml:25:22-73
 meta-data#android.support.FILE_PROVIDER_PATHS
 ADDED from /Users/admin/Downloads/Topomap/TopomapCollector0.1/platforms/android/app/src/main/AndroidManifest.xml:13:13-123
 	android:resource

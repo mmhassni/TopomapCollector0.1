@@ -22,11 +22,9 @@ import {ListeParcellePage} from "../pages/liste-parcelle/liste-parcelle";
 import { IonicStorageModule } from '@ionic/storage';
 import { Base64ToGallery } from '@ionic-native/base64-to-gallery';
 import { PhotoViewer } from '@ionic-native/photo-viewer';
-import {PostMappingToolsPage} from "../pages/post-mapping-tools/post-mapping-tools";
+//import {PostMappingToolsPage} from "../pages/post-mapping-tools/post-mapping-tools";
 import {SaisieManuelleCoordonneesPage} from "../pages/saisie-manuelle-coordonnees/saisie-manuelle-coordonnees";
-
-
-
+import { AjouterAppareilPage } from '../pages/ajouter-appareil/ajouter-appareil';
 
 
 
@@ -38,8 +36,9 @@ import {SaisieManuelleCoordonneesPage} from "../pages/saisie-manuelle-coordonnee
     ListeParcellePage,
     AjouterParcellePage,
     MapLocationPage,
-    PostMappingToolsPage,
-    SaisieManuelleCoordonneesPage
+    //PostMappingToolsPage,
+    SaisieManuelleCoordonneesPage,
+    AjouterAppareilPage
     //PostgisScriptPage
   ],
   imports: [
@@ -55,8 +54,9 @@ import {SaisieManuelleCoordonneesPage} from "../pages/saisie-manuelle-coordonnee
     ListeParcellePage,
     AjouterParcellePage,
     MapLocationPage,
-    PostMappingToolsPage,
-    SaisieManuelleCoordonneesPage
+    //PostMappingToolsPage,
+    SaisieManuelleCoordonneesPage,
+    AjouterAppareilPage
   ],
   providers: [
     Base64ToGallery,
@@ -69,6 +69,7 @@ import {SaisieManuelleCoordonneesPage} from "../pages/saisie-manuelle-coordonnee
     CameraProvider,
     FilePath,
     PhotoViewer,
+    
 
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>ApplicationProperties</key>
+	<dict>
+		<key>ApplicationPath</key>
+		<string>Applications/TopomapCollector.app</string>
+		<key>CFBundleIdentifier</key>
+		<string>io.ionic.topomapcollector</string>
+		<key>CFBundleShortVersionString</key>
+		<string>0.0.1</string>
+		<key>CFBundleVersion</key>
+		<string>0.0.1</string>
+		<key>SigningIdentity</key>
+		<string>Apple Development: mhassni.mohammed@gmail.com (XD2HV5Y926)</string>
+		<key>Team</key>
+		<string>547WRFLTTD</string>
+	</dict>
+	<key>ArchiveVersion</key>
+	<integer>2</integer>
+	<key>CreationDate</key>
+	<date>2020-03-02T03:07:14Z</date>
+	<key>Name</key>
+	<string>TopomapCollector</string>
+	<key>SchemeName</key>
+	<string>TopomapCollector</string>
+</dict>
+</plist>

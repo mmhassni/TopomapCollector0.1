@@ -76,7 +76,18 @@ export class MapLocationPage {
 
 
     // Load the ArcGIS API for JavaScript modules
-    const [ Point, Color, geometryJsonUtils, Map, MapView,Locate, Graphic,SimpleFillSymbol,SimpleLineSymbol
+    const [ Point, 
+      Color, 
+      geometryJsonUtils, 
+      Map, 
+      MapView,
+      Locate, 
+      Graphic,
+      SimpleFillSymbol,
+      SimpleLineSymbol,
+      WMSLayer,
+      WMTSLayer
+
     ]:any = await loadModules([
       "esri/geometry/Point",
       'esri/Color',
@@ -87,16 +98,66 @@ export class MapLocationPage {
       "esri/Graphic",
 
       "esri/symbols/SimpleFillSymbol",
-      "esri/symbols/SimpleLineSymbol"
+      "esri/symbols/SimpleLineSymbol",
+      "esri/layers/WMSLayer",
+      "esri/layers/WMTSLayer"
+      
     ])
       .catch(err => {
         console.error("ArcGIS: ", err);
       });
 
+      /*
+      var layerInfo = new WMSLayerInfo({name:"GBR_BGS_625k_BLS",title:"GBR BGS 1:625k Bedrock Lithology"});  
+  
+      var resourceInfo = {  
+          //extent: new Extent(-8.64846,49.8638,1.76767,60.8612,{wkid: 4326}),  
+          layerInfos: [layerInfo]  
+      };  
+      var wmsLayer = new WMSLayer("http://ogc.bgs.ac.uk/cgi-bin/BGS_Bedrock_and_Superficial_Geology/wms",  
+              {  
+                  resourceInfo: resourceInfo,  
+                  visibleLayers: ["GBR_BGS_625k_BLS"]  
+              }  
+      );  
 
-    let map = new Map({
+     wmsLayer.spatialReferences[0] = 3857;  
+
+    */
+
+     let map = new Map({
       basemap: 'hybrid'
+      
     });
+
+     //map.layers.add(wmsLayer);  
+
+  
+    let layerWMS = new WMSLayer({
+      url: "http://ec2-35-180-205-141.eu-west-3.compute.amazonaws.com:8080/geoserver/ows",
+      sublayers: [
+        { 
+
+          //title:"premerge1-low-quality",
+          name: "cite:premerge12-low-quality"
+        }
+      ],
+      imageTransparency:true,
+      //spatialReferences:4326,
+
+      imageFormat:"image/jpeg",
+      imageMaxHeight:256,
+      imageMaxWidth:256,
+      minScale:20000
+      
+    });
+
+
+    map.layers.add(layerWMS);
+
+
+
+
 
 
     let symbol = {
@@ -148,10 +209,10 @@ export class MapLocationPage {
 
     //ajout de la couche des titres DA
 
-      this.httpClient.get("http://ec2-35-180-97-251.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
+      this.httpClient.get("http://ec2-35-180-89-99.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
       "select id, St_astext(shape) as shape " +
       "from centroides " +
-      "where not shape is null").subscribe( data => {
+      "where not shape is null and idparcelle >= 3000").subscribe( data => {
 
       let coucheActuel = (data as any).features;
 
@@ -165,6 +226,8 @@ export class MapLocationPage {
           width: 0
         }
       };
+
+
 
       for(let i = 0; i< coucheActuel.length;i++){
 
@@ -227,9 +290,9 @@ export class MapLocationPage {
 
 
     //ajout de la couche des titres DA
-    this.httpClient.get("http://ec2-35-180-97-251.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
+    this.httpClient.get("http://ec2-35-180-89-99.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
       "select%20%20id,collectivi,ordre," + '"vocation p"' + ",superficie,%20St_astext(shape)%20as%20shape%20" +
-      "from%20occupirr").subscribe( data => {
+      "from%20occupirr  where id >= 1000").subscribe( data => {
 
         let coucheActuel = (data as any).features;
 
@@ -294,7 +357,7 @@ export class MapLocationPage {
     });
 
     //ajout de la couche des titres DA
-    this.httpClient.get("http://ec2-35-180-97-251.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
+    this.httpClient.get("http://ec2-35-180-89-99.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
       "select%20%20id,%20St_astext(shape)%20as%20shape%20" +
       "from%20titredademo").subscribe( data => {
 
@@ -317,8 +380,6 @@ export class MapLocationPage {
           geometry: geometryJsonUtils.fromJSON( {"rings":jsontext} ),
           symbol: symobologiePolygon
 
-
-
         });
 
         mapView.graphics.add( pointGraphic );
@@ -329,7 +390,7 @@ export class MapLocationPage {
 
 
 
-
+    
 
 
 

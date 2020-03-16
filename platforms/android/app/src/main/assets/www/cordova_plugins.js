@@ -491,6 +491,30 @@ module.exports = [
     "clobbers": [
       "PhotoViewer"
     ]
+  },
+  {
+    "id": "cordova-plugin-uniquedeviceid.UniqueDeviceID",
+    "file": "plugins/cordova-plugin-uniquedeviceid/www/uniqueid.js",
+    "pluginId": "cordova-plugin-uniquedeviceid",
+    "merges": [
+      "window.plugins.uniqueDeviceID"
+    ]
+  },
+  {
+    "id": "cordova-plugin-android-permissions.Permissions",
+    "file": "plugins/cordova-plugin-android-permissions/www/permissions.js",
+    "pluginId": "cordova-plugin-android-permissions",
+    "clobbers": [
+      "cordova.plugins.permissions"
+    ]
+  },
+  {
+    "id": "cordova-plugin-dreamover-uid.uid",
+    "file": "plugins/cordova-plugin-dreamover-uid/www/uid.js",
+    "pluginId": "cordova-plugin-dreamover-uid",
+    "clobbers": [
+      "cordova.plugins.uid"
+    ]
   }
 ];
 module.exports.metadata = 
@@ -515,7 +539,10 @@ module.exports.metadata =
   "cordova-plugin-zip": "3.1.0",
   "cordova-sqlite-storage": "3.2.0",
   "cordova-base64-to-gallery": "4.1.3",
-  "com-sarriaroman-photoviewer": "1.2.2"
+  "com-sarriaroman-photoviewer": "1.2.2",
+  "cordova-plugin-uniquedeviceid": "1.3.2",
+  "cordova-plugin-android-permissions": "1.0.2",
+  "cordova-plugin-dreamover-uid": "1.3.0"
 };
 // BOTTOM OF METADATA
 });

@@ -9,6 +9,7 @@ import {StockageProvider} from "../../providers/stockage/stockage";
 import {Storage} from "@ionic/storage";
 import {timeout} from "rxjs/operators";
 
+
 import { PhotoViewer } from '@ionic-native/photo-viewer';
 import {SaisieManuelleCoordonneesPage} from "../saisie-manuelle-coordonnees/saisie-manuelle-coordonnees";
 
@@ -32,6 +33,9 @@ export class AjouterParcellePage {
   public listeChoixPlusvalues = [];
   public listeChoixConstructions = [];
   public listeChoixConsistance = [];
+  public listeChoixDouar = [];
+  public listeChoixNaiib = [];
+  public listeChoixMokadem = [];
 
   public listeCentroides = [];
   public x ;
@@ -88,7 +92,7 @@ export class AjouterParcellePage {
       if (graphicActuel && (graphicActuel as any).idparcelle == (this.objetActuel as any).id ){
         this.x = (graphicActuel as any).geometry.longitude;
         this.y = (graphicActuel as any).geometry.latitude;
-        this.httpClient.get("http://ec2-35-180-97-251.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
+        this.httpClient.get("http://ec2-35-180-89-99.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
           "INSERT INTO public.centroides( " +
           "shape,idparcelle) " +
           "VALUES (" +
@@ -103,7 +107,7 @@ export class AjouterParcellePage {
       }
     });
 
-    this.httpClient.get("http://ec2-35-180-97-251.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
+    this.httpClient.get("http://ec2-35-180-89-99.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
       "select plusvalues from parcelles")
       .subscribe( data =>{
 
@@ -146,7 +150,7 @@ export class AjouterParcellePage {
 
       });
 
-    this.httpClient.get("http://ec2-35-180-97-251.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
+    this.httpClient.get("http://ec2-35-180-89-99.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
       "select constructions from parcelles")
       .subscribe( data =>{
 
@@ -191,7 +195,7 @@ export class AjouterParcellePage {
 
       });
 
-    this.httpClient.get("http://ec2-35-180-97-251.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
+    this.httpClient.get("http://ec2-35-180-89-99.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
       "select consistance from parcelles")
       .subscribe( data =>{
 
@@ -236,6 +240,131 @@ export class AjouterParcellePage {
       });
 
 
+      //remplir douar
+      this.httpClient.get("http://ec2-35-180-89-99.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
+      "select max(date),nom_douar from parcelles where not nom_douar is null and id>=3000 group by nom_douar order by max(date) desc")
+      .subscribe( data =>{
+
+        /*
+
+        this.listeChoixDouar = [];
+
+
+        data = (data as any).features;
+        for(let i=0; i < (data as any).length ; i++){
+
+          if((data as any)[i]["nom_douar"]){this.listeChoixDouar.push( [(data as any)[i]["nom_douar"]] );} 
+
+        }
+
+        console.log(this.listeChoixDouar);
+        */
+
+
+
+       let tableStatistiques = {};
+       data = (data as any).features;
+       for(let i=0; i < (data as any).length ; i++){
+
+         try{
+           let itemTemp = (data as any)[i]["nom_douar"].split("+");
+
+           for(let j=0; j < itemTemp.length ; j++){
+             if(tableStatistiques[itemTemp[j]] == undefined){
+               tableStatistiques[itemTemp[j]] = 1;
+             }else{
+               tableStatistiques[itemTemp[j]] = tableStatistiques[itemTemp[j]]+1;
+
+             }
+           }
+         }
+         catch(e){
+         }
+
+       }
+
+       delete tableStatistiques[""];
+
+       let tableIndexStatSorted = [];
+       for(let pp in tableStatistiques) {
+         tableIndexStatSorted.push([pp,tableStatistiques[pp]]);
+       }
+
+       tableIndexStatSorted.sort(function(a,b){
+         return -a[1] + b[1];
+       });
+
+       this.listeChoixDouar = tableIndexStatSorted;
+
+       console.log(tableIndexStatSorted);
+
+
+      });
+
+      //remplir douar
+      this.httpClient.get("http://ec2-35-180-89-99.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
+      "select max(date),naiib from parcelles where not naiib is null and id>=3000 group by naiib order by max(date) desc")
+      .subscribe( data =>{
+      
+        let tableStatistiques = {};
+        data = (data as any).features;
+        for(let i=0; i < (data as any).length ; i++){
+ 
+          try{
+            let itemTemp = (data as any)[i]["naiib"].split("+");
+ 
+            for(let j=0; j < itemTemp.length ; j++){
+              if(tableStatistiques[itemTemp[j]] == undefined){
+                tableStatistiques[itemTemp[j]] = 1;
+              }else{
+                tableStatistiques[itemTemp[j]] = tableStatistiques[itemTemp[j]]+1;
+ 
+              }
+            }
+          }
+          catch(e){
+          }
+ 
+        }
+ 
+        delete tableStatistiques[""];
+ 
+        let tableIndexStatSorted = [];
+        for(let pp in tableStatistiques) {
+          tableIndexStatSorted.push([pp,tableStatistiques[pp]]);
+        }
+ 
+        tableIndexStatSorted.sort(function(a,b){
+          return -a[1] + b[1];
+        });
+ 
+        this.listeChoixNaiib = tableIndexStatSorted;
+ 
+        console.log(tableIndexStatSorted);
+      
+      });
+
+      //remplir douar
+      this.httpClient.get("http://ec2-35-180-89-99.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
+      "select max(date),mokadem from parcelles where not mokadem is null and id>=3000 group by mokadem order by max(date) desc")
+      .subscribe( data =>{
+
+
+        this.listeChoixMokadem = [];
+
+        data = (data as any).features;
+        for(let i=0; i < (data as any).length ; i++){
+
+          if((data as any)[i]["mokadem"]){this.listeChoixMokadem.push( [(data as any)[i]["mokadem"]] );} 
+
+        }
+
+        console.log(this.listeChoixMokadem);
+
+      });
+
+
+
 
 
 
@@ -261,7 +390,7 @@ export class AjouterParcellePage {
 
   refreshCentroides(){
 
-    this.httpClient.get("http://ec2-35-180-97-251.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
+    this.httpClient.get("http://ec2-35-180-89-99.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
       "select id, St_astext(shape) as shape " +
       "from centroides " +
       "where idparcelle = " + this.navParams.data.informationsActuelles.id + " "
@@ -306,6 +435,12 @@ export class AjouterParcellePage {
   ionViewDidEnter() {
     this.refreshCentroides();
 
+  }
+
+  onQualiteSelectChange($event) {
+
+    console.log($event);
+    this.objetActuel["qualite"] = $event;
   }
 
   onConstructionsSelectChange($event) {
@@ -354,10 +489,6 @@ export class AjouterParcellePage {
 
       this.objetActuel["plusvalues"] = value;
     }
-
-
-
-
   }
 
   onPlusvaluesInuptChange($event) {
@@ -365,6 +496,93 @@ export class AjouterParcellePage {
     this.objetActuel["plusvaluesionselect"] = "";
 
   }
+
+  onDouarSelectChange($event) {
+
+      if($event) {
+        let value = "";
+        if (typeof $event == "object") {
+          for (let i = 0; i < $event.length; i++) {
+            if (i == 0) {
+              value = value + $event[i];
+            } else {
+              value = value + "+" + $event[i];
+            }
+          }
+        } else {
+          value = $event;
+        }
+  
+        this.objetActuel["nom_douar"] = value;
+      }
+    
+
+  }
+
+  onDouarInuptChange($event) {
+
+    this.objetActuel["nom_douarionselect"] = "";
+
+  }
+
+  onNaiibSelectChange($event) {
+
+    if($event) {
+      let value = "";
+      if (typeof $event == "object") {
+        for (let i = 0; i < $event.length; i++) {
+          if (i == 0) {
+            value = value + $event[i];
+          } else {
+            value = value + "+" + $event[i];
+          }
+        }
+      } else {
+        value = $event;
+      }
+
+      this.objetActuel["naiib"] = value;
+    }
+  
+
+}
+
+onNaiibInuptChange($event) {
+
+  this.objetActuel["naiibionselect"] = "";
+
+}
+
+onMokademSelectChange($event) {
+
+  if($event) {
+    let value = "";
+    if (typeof $event == "object") {
+      for (let i = 0; i < $event.length; i++) {
+        if (i == 0) {
+          value = value + $event[i];
+        } else {
+          value = value + "+" + $event[i];
+        }
+      }
+    } else {
+      value = $event;
+    }
+
+    this.objetActuel["mokadem"] = value;
+  }
+
+
+}
+
+onMokademInuptChange($event) {
+
+this.objetActuel["mokademionselect"] = "";
+
+}
+
+
+
 
   onConsistanceSelectChange($event) {
 
@@ -403,12 +621,18 @@ export class AjouterParcellePage {
 
     }
 
-    this.httpClient.get("http://ec2-35-180-97-251.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
+    this.httpClient.get("http://ec2-35-180-89-99.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
       "update parcelles set " +
       " consistance = " + this.adaptValueQuery( (this.objetActuel as any).consistance       , "text"  )  +
       ", plusvalues = " + this.adaptValueQuery( (this.objetActuel as any).plusvalues       , "text"  )  +
       ", constructions = " + this.adaptValueQuery( (this.objetActuel as any).constructions          , "text"  )   +
       ", adresse = " + this.adaptValueQuery( (this.objetActuel as any).adresse          , "text"  )   +
+      ", uid = " + this.adaptValueQuery( (this.objetActuel as any).uid          , "text"  )   +
+      ", nom_douar = " + this.adaptValueQuery( (this.objetActuel as any).nom_douar          , "text"  )   +
+      ", mokadem = " + this.adaptValueQuery( (this.objetActuel as any).mokadem          , "text"  )   +
+      ", naiib = " + this.adaptValueQuery( (this.objetActuel as any).naiib          , "text"  )   +      
+      ", nom_provisoire = " + this.adaptValueQuery( (this.objetActuel as any).nom_provisoire          , "text"  )   +      
+      ", adtiers = " + this.adaptValueQuery( (this.objetActuel as any).qualite          , "text"  )   +
       ", coldenaib =  " + this.adaptValueQuery( (this.objetActuel as any).coldenaib        , "text"  )   +
       " where id = " + (this.objetActuel as any).id
     )
@@ -579,7 +803,7 @@ export class AjouterParcellePage {
 
           console.log('Delete clicked');
 
-          this.httpClient.get("http://ec2-35-180-97-251.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
+          this.httpClient.get("http://ec2-35-180-89-99.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
             "DELETE FROM public.centroides WHERE id=" + item.id)
             .subscribe(data => {
 
@@ -603,7 +827,7 @@ export class AjouterParcellePage {
 
     console.log("click");
 
-    this.httpClient.post("http://ec2-35-180-97-251.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
+    this.httpClient.post("http://ec2-35-180-89-99.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
       "insert into photoparcelles (photo,idparcelle,typephoto) " +
       "values ("+
       "" + "'postBody'"   + "," +
@@ -662,7 +886,7 @@ export class AjouterParcellePage {
           this.stockageProvider.updatePushValue(libellephoto,(this.objetActuel as any).id,
             {
               photo: (this.objetActuel as any)[libellephoto],
-              requete:"http://ec2-35-180-97-251.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
+              requete:"http://ec2-35-180-89-99.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
                 "insert into photoparcelles (photo,idparcelle,typephoto) " +
                 "values ("+
                 "" + "'postBody'"   + "," +
@@ -686,7 +910,7 @@ export class AjouterParcellePage {
   synchroniserPhoto(){
     for(let key in this.listePhoto){
 
-      this.httpClient.post("http://ec2-35-180-97-251.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
+      this.httpClient.post("http://ec2-35-180-89-99.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
         "insert into photoparcelles (photo,idparcelle,typephoto) " +
         "values ("+
         "" + "'postBody'"   + "," +
@@ -745,7 +969,7 @@ export class AjouterParcellePage {
             this.stockageProvider.updatePushValue(key,(this.objetActuel as any).id,
               {
                 photo: (this.objetActuel as any)[key],
-                requete:"http://ec2-35-180-97-251.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
+                requete:"http://ec2-35-180-89-99.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
                   "insert into photoparcelles (photo,idparcelle,typephoto) " +
                   "values ("+
                   "" + "'postBody'"   + "," +
@@ -791,7 +1015,7 @@ export class AjouterParcellePage {
 
           if( !(this.objetActuel as any)[key]){
 
-            this.httpClient.get("http://ec2-35-180-97-251.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
+            this.httpClient.get("http://ec2-35-180-89-99.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
               "select photo from photoparcelles " +
               "where idparcelle = " + this.navParams.data.informationsActuelles.id + " " +
               "and typephoto = '"+ key +"' " +
@@ -816,7 +1040,7 @@ export class AjouterParcellePage {
 
           if( !(this.objetActuel as any)[key] ){
 
-            this.httpClient.get("http://ec2-35-180-97-251.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
+            this.httpClient.get("http://ec2-35-180-89-99.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
               "select photo from photoparcelles " +
               "where idparcelle = " + this.navParams.data.informationsActuelles.id + " " +
               "and typephoto = '"+ key +"' " +
@@ -851,9 +1075,24 @@ export class AjouterParcellePage {
   }
 
 
-  afficherPhoto(param: any) {
+  public afficherPhotoCinRecto() {
+
+    this.photoViewer.show((this.objetActuel as any).photocinrecto);
+
+  }
+  public afficherPhotoCinVerso() {
+
+    this.photoViewer.show((this.objetActuel as any).photocinverso);
+
+  }
+  public afficherPhotoParcelle() {
 
     this.photoViewer.show((this.objetActuel as any).photoparcelle);
+
+  }
+  public afficherPhotoCroquis() {
+
+    this.photoViewer.show((this.objetActuel as any).photocroquis);
 
   }
   

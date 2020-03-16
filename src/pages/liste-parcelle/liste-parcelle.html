@@ -12,7 +12,7 @@
       <ion-icon name="menu"></ion-icon>
     </button>
     <ion-title>
-      Total : {{total(listeObjetActuelleFiltre)}}
+      Total {{uid}} : {{total(listeObjetActuelleFiltre)}}
       <br>
       <span *ngIf="chargement" style="color:red">Chargement ... </span>
     </ion-title>
@@ -41,11 +41,17 @@
   <ion-list >
     <button mode="md" ion-item *ngFor="let item of listeObjetActuelleFiltre"   (click)="itemTapped($event, item)">
       Parcelle P{{item?.id}}
+      <p>Utilisateur : {{item?.uid}}</p>
+      <p>Douar : {{item?.nom_douar}}</p>
+      <p>Naib : {{item?.naiib}}</p>
+      <p>Moqadem : {{item?.mokadem}}</p>
       <p>Plus values : {{item?.plusvalues}}</p>
+      <p>Qualité : {{item?.qualite}}</p>
       <p>Constructions : {{item?.constructions}}</p>
-      <p>Adresse : {{item?.adresse}}</p>
+      <!--p>Adresse : {{item?.adresse}}</p-->
       <p>Consistance : {{item?.consistance}}</p>
-      <p>Col Naïb : {{item?.coldenaib}}</p>
+      <p>Nom : {{item?.nom_provisoire}}</p>
+      <!--p>Col Naïb : {{item?.coldenaib}}</p-->
 
       <p *ngIf="item?.presencephotocin" style="font-weight: bold;color:green">Photo CIN Enregistrée </p>
       <p *ngIf="!item?.presencephotocin" style="font-weight: bold;color:red">Photo CIN Manquante</p>
@@ -53,9 +59,13 @@
       <p *ngIf="item?.presencephotoparcelle" style="font-weight: bold;color:green">Photo Parcelle Enregistrée </p>
       <p *ngIf="!item?.presencephotoparcelle" style="font-weight: bold;color:red">Photo Parcelle Manquante</p>
 
+      <p *ngIf="item?.presencephotocroquis" style="font-weight: bold;color:green">Photo Croquis Enregistrée </p>
+      <p *ngIf="!item?.presencephotocroquis" style="font-weight: bold;color:red">Photo Croquis Manquante</p>
+
       <p *ngIf="item?.presenceshape" style="font-weight: bold;color:green">Centroide Enregistré </p>
       <p *ngIf="!item?.presenceshape" style="font-weight: bold;color:red">Centroide Manquant</p>
 
+      
       <ion-icon  style="zoom:1; /*background-color: #32db64;*/padding-right: 10px;padding-left: 30px;padding-top: 10px;padding-bottom: 10px;" name="md-more" (click)="detailItemTapped($event, item)" item-end></ion-icon>
 
     </button>

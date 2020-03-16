@@ -10,7 +10,8 @@ import {timeout} from "rxjs/operators";
 import {Storage} from "@ionic/storage";
 import {HttpClient} from "@angular/common/http";
 import {StockageProvider} from "../providers/stockage/stockage";
-import {PostMappingToolsPage} from "../pages/post-mapping-tools/post-mapping-tools";
+import { AjouterAppareilPage } from '../pages/ajouter-appareil/ajouter-appareil';
+//import {PostMappingToolsPage} from "../pages/post-mapping-tools/post-mapping-tools";
 
 @Component({
   templateUrl: 'app.html'
@@ -29,7 +30,7 @@ export class MyApp {
     "photocroquis":"photocroquis"
   };
 
-  constructor(platform: Platform,
+  constructor(public platform: Platform,
               statusBar: StatusBar,
               public storage: Storage,
               public httpClient : HttpClient,
@@ -39,11 +40,15 @@ export class MyApp {
 
               splashScreen: SplashScreen) {
 
+    
+                
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       statusBar.styleDefault();
       splashScreen.hide();
+
+      this.openPage();
 
       /*
 
@@ -210,13 +215,50 @@ export class MyApp {
 
   }
 
-  openPage(page) {
+  openPage() {
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario
+    /*
     if(page == "enquetePoi"){
       this.nav.setRoot(ListeParcellePage);
 
     }
+    */
+   this.storage.get("appareilId").then( (val) => {
+
+    console.log(this.platform);
+    if((this.platform as any)._platforms[0] && (this.platform as any)._platforms[0] == "core"){
+      
+      if(!val){
+        this.nav.setRoot(AjouterAppareilPage);
+      }
+      else{
+        
+        this.nav.setRoot(TabsPage);
+      }
+      console.log(val);
+    }
+    if(this.platform.is("ios") || this.platform.is("android") ){
+
+      if(!val){
+        this.nav.setRoot(AjouterAppareilPage);
+      }
+      else{
+        
+        this.nav.setRoot(TabsPage);
+      }
+      console.log(val);
+  
+
+    }
+
+ 
+
+   }, (reason => {
+    console.log(reason);
+  }));
+
+
 
   }
 

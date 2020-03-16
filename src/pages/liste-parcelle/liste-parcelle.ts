@@ -3,6 +3,7 @@ import {ActionSheetController, IonicPage, NavController, NavParams, ToastControl
 import {HttpClient} from "@angular/common/http";
 import {CameraProvider} from "../../providers/camera/camera";
 import {AjouterParcellePage} from "../ajouter-parcelle/ajouter-parcelle";
+import {Storage} from "@ionic/storage";
 
 /**
  * Generated class for the ListeParcellePage page.
@@ -22,45 +23,75 @@ export class ListeParcellePage {
 
   public listeObjetActuelle = [];
   private listeObjetActuelleFiltre: any[];
-  public listeValeurFiltre = ["douar","id","adresse","nom_douar"];
+  public listeValeurFiltre = ["id","nom_douar","naiib","mokadem","nom_provisoire","uid"];
   private chargement = false;
 
+  //public uid = "";
 
 
 
-  constructor(public navCtrl: NavController, public actionSheetCtrl: ActionSheetController, public navParams: NavParams, public httpClient : HttpClient,public toastCtrl : ToastController,  public cameraProvider : CameraProvider) {
 
-    this.refresh();
+  constructor(public navCtrl: NavController, public actionSheetCtrl: ActionSheetController, public navParams: NavParams, public httpClient : HttpClient,public toastCtrl : ToastController
+    ,   public storage: Storage
+    ) {
+
+      this.storage.get("appareilId").then( (val) => {
+
+        
+        this.objetActuel["uid"] = val;
+     
+    
+       }, (reason => {
+        console.log(reason);
+      }));
+      
+     
+
+    }
 
 
-  }
 
   refresh(){
 
 
     this.chargement = true;
-    this.httpClient.get("http://ec2-35-180-97-251.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
+    this.httpClient.get("http://ec2-35-180-89-99.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
       "select parcelles.id  , " +
+      "parcelles.nom_douar  , " +
       "parcelles.consistance  , " +
+      "parcelles.naiib  , " +
+      "parcelles.mokadem  , " +
+      "parcelles.uid  , " +
+      "parcelles.nom_provisoire  , " +
       "parcelles.plusvalues  , " +
       "parcelles.constructions  , " +
       "parcelles.adresse  , " +
       "parcelles.coldenaib  , " +
+      "parcelles.adtiers as qualite  , " +
       "substring(photocinrecto.photo for 2) as presencephotocin, " +
+      "substring(photocroquis.photo for 2) as presencephotocroquis," +
       "substring(photoparcelle.photo for 2) as presencephotoparcelle," +
+
       "centroide.shape as presenceshape " +
       "" +
       "from parcelles " +
       "left join (select *, photo as photocinrecto " +
       "   from photoparcelles as PP1 " +
-      "   where typephoto = 'photocinrecto' " +
+      "   where typephoto = 'photocinrecto'  and idparcelle >= 3000 " +
       "   and id = (select max(id) from photoparcelles " +
       "   where idparcelle = PP1.idparcelle and typephoto = 'photocinrecto' ) " +
       "  )" +
       "as photocinrecto on photocinrecto.idparcelle = parcelles.id " +
+      "left join (select *, photo as photocroquis " +
+      "   from photoparcelles as PP3 " +
+      "   where typephoto = 'photocroquis'  and idparcelle >= 3000 " +
+      "   and id = (select max(id) from photoparcelles " +
+      "   where idparcelle = PP3.idparcelle and typephoto = 'photocroquis' ) " +
+      "  )" +
+      "as photocroquis on photocroquis.idparcelle = parcelles.id " +
       "left join (select *, photo as photoparcelle " +
       "   from photoparcelles as PP2 " +
-      "   where typephoto = 'photoparcelle' " +
+      "   where typephoto = 'photoparcelle' and idparcelle >= 3000 " +
       "   and id = (select max(id) from photoparcelles " +
       "   where idparcelle = PP2.idparcelle and typephoto = 'photoparcelle' ) " +
       "  ) " +
@@ -68,19 +99,21 @@ export class ListeParcellePage {
       "left join (select * " +
       "   from centroides as CO " +
       "   where id = (select max(id) from centroides " +
-      "   where idparcelle = CO.idparcelle ) " +
+      "   where idparcelle = CO.idparcelle )  and idparcelle >= 3000 " +
       "  )" +
       "as centroide on centroide.idparcelle = parcelles.id " +
+      "where parcelles.id >= 3000 " +
       "order by id desc " +
       "" +
       "")
       .subscribe( data =>{
 
-
         this.listeObjetActuelle = (data as any).features;
         this.listeObjetActuelleFiltre = this.listeObjetActuelle;
 
         this.chargement = false;
+
+        console.log(data);
 
 
 
@@ -161,13 +194,18 @@ export class ListeParcellePage {
 
   ajouterItem() {
 
-    this.httpClient.get("http://ec2-35-180-97-251.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
-      "insert into parcelles(consistance,plusvalues,constructions,adresse,coldenaib) " +
+    this.httpClient.get("http://ec2-35-180-89-99.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
+      "insert into parcelles(consistance,plusvalues,constructions,adresse,uid,nom_douar,naiib,mokadem,coldenaib) " +
       "values ("+
       "" + this.adaptValueQuery( null    , "text"  )   + "," +
       "" + this.adaptValueQuery( null    , "text"  )  + "," +
       "" + this.adaptValueQuery( null    , "text"  )    + "," +
       "" + this.adaptValueQuery( null    , "text"  )   + "," +
+      //"" + this.adaptValueQuery( "Ayant Droit"    , "text"  )   + "," +
+      "" + this.adaptValueQuery( this.objetActuel["uid"]     , "text"  )   + "," +
+      "" + "(select nom_douar from parcelles where uid = '" + this.objetActuel["uid"] + "' order by id desc limit 1)"  + "," +
+      "" + "(select naiib from parcelles where uid = '" + this.objetActuel["uid"] + "' order by id desc limit 1)"   + "," +
+      "" + "(select mokadem from parcelles where uid = '" + this.objetActuel["uid"] + "' order by id desc limit 1)"   + "," +
       "" + this.adaptValueQuery( null    , "text"  )   + "" +
       ")"
     )
@@ -247,13 +285,13 @@ export class ListeParcellePage {
 
           console.log('Delete clicked');
 
-          this.httpClient.get("http://ec2-35-180-97-251.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
+          this.httpClient.get("http://ec2-35-180-89-99.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
             "DELETE FROM public.parcelles WHERE id = " + item.id)
             .subscribe(data => {
 
             },error1 => {
 
-              this.httpClient.get("http://ec2-35-180-97-251.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
+              this.httpClient.get("http://ec2-35-180-89-99.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
                 "DELETE FROM public.centroides WHERE idparcelle = " + item.id)
                 .subscribe(data => {
 

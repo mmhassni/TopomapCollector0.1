@@ -62,6 +62,15 @@
     },
     "com-sarriaroman-photoviewer": {
       "PACKAGE_NAME": "io.ionic.topomapcollector"
+    },
+    "cordova-plugin-uniquedeviceid": {
+      "PACKAGE_NAME": "io.ionic.topomapcollector"
+    },
+    "cordova-plugin-android-permissions": {
+      "PACKAGE_NAME": "io.ionic.topomapcollector"
+    },
+    "cordova-plugin-dreamover-uid": {
+      "PACKAGE_NAME": "io.ionic.topomapcollector"
     }
   },
   "dependent_plugins": {

@@ -22,6 +22,7 @@ export class SaisieManuelleCoordonneesPage {
   constructor(public navCtrl: NavController, public navParams: NavParams, public httpClient:HttpClient) {
 
 
+
     this.idparcelle = this.navParams.data.idparcelle;
     console.log(navParams);
 
@@ -35,7 +36,7 @@ export class SaisieManuelleCoordonneesPage {
 
   ajouterCentroide() {
 
-    this.httpClient.get("http://ec2-35-180-97-251.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
+    this.httpClient.get("http://ec2-35-180-89-99.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
       "INSERT INTO public.centroides( " +
       "shape,idparcelle) " +
       "VALUES (" +
