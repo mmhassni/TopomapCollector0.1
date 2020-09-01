@@ -54,6 +54,7 @@ export class ListeParcellePage {
   refresh(){
 
 
+    let startId = 3700;
     this.chargement = true;
     this.httpClient.get("http://ec2-35-180-89-99.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
       "select parcelles.id  , " +
@@ -77,21 +78,21 @@ export class ListeParcellePage {
       "from parcelles " +
       "left join (select *, photo as photocinrecto " +
       "   from photoparcelles as PP1 " +
-      "   where typephoto = 'photocinrecto'  and idparcelle >= 3000 " +
+      "   where typephoto = 'photocinrecto'  and idparcelle >= " + startId +
       "   and id = (select max(id) from photoparcelles " +
       "   where idparcelle = PP1.idparcelle and typephoto = 'photocinrecto' ) " +
       "  )" +
       "as photocinrecto on photocinrecto.idparcelle = parcelles.id " +
       "left join (select *, photo as photocroquis " +
       "   from photoparcelles as PP3 " +
-      "   where typephoto = 'photocroquis'  and idparcelle >= 3000 " +
+      "   where typephoto = 'photocroquis'  and idparcelle >=  " + startId +
       "   and id = (select max(id) from photoparcelles " +
       "   where idparcelle = PP3.idparcelle and typephoto = 'photocroquis' ) " +
       "  )" +
       "as photocroquis on photocroquis.idparcelle = parcelles.id " +
       "left join (select *, photo as photoparcelle " +
       "   from photoparcelles as PP2 " +
-      "   where typephoto = 'photoparcelle' and idparcelle >= 3000 " +
+      "   where typephoto = 'photoparcelle' and idparcelle >= " + startId +
       "   and id = (select max(id) from photoparcelles " +
       "   where idparcelle = PP2.idparcelle and typephoto = 'photoparcelle' ) " +
       "  ) " +
@@ -99,10 +100,10 @@ export class ListeParcellePage {
       "left join (select * " +
       "   from centroides as CO " +
       "   where id = (select max(id) from centroides " +
-      "   where idparcelle = CO.idparcelle )  and idparcelle >= 3000 " +
+      "   where idparcelle = CO.idparcelle )  and idparcelle >= " + startId +
       "  )" +
       "as centroide on centroide.idparcelle = parcelles.id " +
-      "where parcelles.id >= 3000 " +
+      "where parcelles.id >= " + startId +
       "order by id desc " +
       "" +
       "")

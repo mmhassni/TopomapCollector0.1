@@ -134,7 +134,7 @@ export class MapLocationPage {
 
   
     let layerWMS = new WMSLayer({
-      url: "http://ec2-35-180-205-141.eu-west-3.compute.amazonaws.com:8080/geoserver/ows",
+      url: "http://15.188.8.84:8080/geoserver/ows",
       sublayers: [
         { 
 

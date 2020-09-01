@@ -139,7 +139,7 @@ var MapLocationPage = /** @class */ (function () {
                             basemap: 'hybrid'
                         });
                         layerWMS = new WMSLayer({
-                            url: "http://ec2-35-180-205-141.eu-west-3.compute.amazonaws.com:8080/geoserver/ows",
+                            url: "http://15.188.8.84:8080/geoserver/ows",
                             sublayers: [
                                 {
                                     //title:"premerge1-low-quality",
@@ -510,6 +510,7 @@ var ListeParcellePage = /** @class */ (function () {
     }
     ListeParcellePage.prototype.refresh = function () {
         var _this = this;
+        var startId = 3700;
         this.chargement = true;
         this.httpClient.get("http://ec2-35-180-89-99.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
             "select parcelles.id  , " +
@@ -532,21 +533,21 @@ var ListeParcellePage = /** @class */ (function () {
             "from parcelles " +
             "left join (select *, photo as photocinrecto " +
             "   from photoparcelles as PP1 " +
-            "   where typephoto = 'photocinrecto'  and idparcelle >= 3000 " +
+            "   where typephoto = 'photocinrecto'  and idparcelle >= " + startId +
             "   and id = (select max(id) from photoparcelles " +
             "   where idparcelle = PP1.idparcelle and typephoto = 'photocinrecto' ) " +
             "  )" +
             "as photocinrecto on photocinrecto.idparcelle = parcelles.id " +
             "left join (select *, photo as photocroquis " +
             "   from photoparcelles as PP3 " +
-            "   where typephoto = 'photocroquis'  and idparcelle >= 3000 " +
+            "   where typephoto = 'photocroquis'  and idparcelle >=  " + startId +
             "   and id = (select max(id) from photoparcelles " +
             "   where idparcelle = PP3.idparcelle and typephoto = 'photocroquis' ) " +
             "  )" +
             "as photocroquis on photocroquis.idparcelle = parcelles.id " +
             "left join (select *, photo as photoparcelle " +
             "   from photoparcelles as PP2 " +
-            "   where typephoto = 'photoparcelle' and idparcelle >= 3000 " +
+            "   where typephoto = 'photoparcelle' and idparcelle >= " + startId +
             "   and id = (select max(id) from photoparcelles " +
             "   where idparcelle = PP2.idparcelle and typephoto = 'photoparcelle' ) " +
             "  ) " +
@@ -554,10 +555,10 @@ var ListeParcellePage = /** @class */ (function () {
             "left join (select * " +
             "   from centroides as CO " +
             "   where id = (select max(id) from centroides " +
-            "   where idparcelle = CO.idparcelle )  and idparcelle >= 3000 " +
+            "   where idparcelle = CO.idparcelle )  and idparcelle >= " + startId +
             "  )" +
             "as centroide on centroide.idparcelle = parcelles.id " +
-            "where parcelles.id >= 3000 " +
+            "where parcelles.id >= " + startId +
             "order by id desc " +
             "" +
             "")
@@ -1692,7 +1693,7 @@ var map = {
 		5
 	],
 	"../pages/ajouter-parcelle/ajouter-parcelle.module": [
-		785,
+		782,
 		4
 	],
 	"../pages/liste-parcelle/liste-parcelle.module": [
@@ -1704,11 +1705,11 @@ var map = {
 		2
 	],
 	"../pages/post-mapping-tools/post-mapping-tools.module": [
-		786,
+		785,
 		1
 	],
 	"../pages/saisie-manuelle-coordonnees/saisie-manuelle-coordonnees.module": [
-		782,
+		786,
 		0
 	]
 };
@@ -2473,11 +2474,11 @@ var AppModule = /** @class */ (function () {
                 __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["e" /* IonicModule */].forRoot(__WEBPACK_IMPORTED_MODULE_3__app_component__["a" /* MyApp */], {}, {
                     links: [
                         { loadChildren: '../pages/ajouter-appareil/ajouter-appareil.module#AjouterAppareilPageModule', name: 'AjouterAppareilPage', segment: 'ajouter-appareil', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/saisie-manuelle-coordonnees/saisie-manuelle-coordonnees.module#SaisieManuelleCoordonneesPageModule', name: 'SaisieManuelleCoordonneesPage', segment: 'saisie-manuelle-coordonnees', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/ajouter-parcelle/ajouter-parcelle.module#AjouterParcellePageModule', name: 'AjouterParcellePage', segment: 'ajouter-parcelle', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/liste-parcelle/liste-parcelle.module#ListeParcellePageModule', name: 'ListeParcellePage', segment: 'liste-parcelle', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/map-location/map-location.module#MapLocationPageModule', name: 'MapLocationPage', segment: 'map-location', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/ajouter-parcelle/ajouter-parcelle.module#AjouterParcellePageModule', name: 'AjouterParcellePage', segment: 'ajouter-parcelle', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/post-mapping-tools/post-mapping-tools.module#PostMappingToolsPageModule', name: 'PostMappingToolsPage', segment: 'post-mapping-tools', priority: 'low', defaultHistory: [] }
+                        { loadChildren: '../pages/post-mapping-tools/post-mapping-tools.module#PostMappingToolsPageModule', name: 'PostMappingToolsPage', segment: 'post-mapping-tools', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/saisie-manuelle-coordonnees/saisie-manuelle-coordonnees.module#SaisieManuelleCoordonneesPageModule', name: 'SaisieManuelleCoordonneesPage', segment: 'saisie-manuelle-coordonnees', priority: 'low', defaultHistory: [] }
                     ]
                 }),
                 __WEBPACK_IMPORTED_MODULE_17__ionic_storage__["a" /* IonicStorageModule */].forRoot()
