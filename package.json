@@ -63,7 +63,7 @@
     "esri-loader": "^2.9.1",
     "ionic-angular": "3.9.2",
     "ionicons": "3.0.0",
-    "node-sass": "^4.12.0",
+    "node-sass": "^4.13.1",
     "proj4": "^2.5.0",
     "rxjs": "5.5.11",
     "rxjs-compat": "6.5.2",
