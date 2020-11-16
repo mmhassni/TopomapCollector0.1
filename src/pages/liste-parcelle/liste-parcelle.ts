@@ -54,7 +54,7 @@ export class ListeParcellePage {
   refresh(){
 
 
-    let startId = 3700;
+    let startId = 3000;
     this.chargement = true;
     this.httpClient.get("http://ec2-35-180-89-99.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
       "select parcelles.id  , " +

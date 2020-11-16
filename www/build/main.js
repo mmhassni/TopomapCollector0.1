@@ -510,7 +510,7 @@ var ListeParcellePage = /** @class */ (function () {
     }
     ListeParcellePage.prototype.refresh = function () {
         var _this = this;
-        var startId = 3700;
+        var startId = 3000;
         this.chargement = true;
         this.httpClient.get("http://ec2-35-180-89-99.eu-west-3.compute.amazonaws.com:9091/requestAny/" +
             "select parcelles.id  , " +
